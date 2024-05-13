@@ -130,11 +130,11 @@ namespace TestWpfProj
 
             switch (sortType)
             {
-                case "По возрастанию (А-Z)":
-                    _memes = _memes.OrderBy(m => m.Title).ToList();
+                case "По возрастанию (А-Я)":
+                    _memes = _memes.OrderBy(m => m.Title, StringComparer.CurrentCulture).ToList();
                     break;
-                case "По убыванию (Z-A)":
-                    _memes = _memes.OrderByDescending(m => m.Title).ToList();
+                case "По убыванию (Я-А)":
+                    _memes = _memes.OrderByDescending(m => m.Title, StringComparer.CurrentCulture).ToList();
                     break;
                 case "По возрастанию цены":
                     _memes = _memes.OrderBy(m => m.Price).ToList();
