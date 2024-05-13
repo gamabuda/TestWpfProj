@@ -43,10 +43,10 @@ namespace TestWpfProj
             LstView.Items.Refresh();
         }
 
-        private void EditMI_Click(object sender, RoutedEventArgs e)
+        private void ViewMI_Click(object sender, RoutedEventArgs e)
         {
             Meme selectedMeme = (Meme)LstView.SelectedItem;
-            MessageBox.Show($"Id:{selectedMeme.Id} \nTitle: {selectedMeme.Title}", "Soon!");
+            MessageBox.Show($"Id:{selectedMeme.Id} \nTitle: {selectedMeme.Title}\nType: {selectedMeme.MemeType.Title}\nPrice: {selectedMeme.Price}$", "Soon!");
         }
 
         private void RefreshBtn_Click(object sender, RoutedEventArgs e)
@@ -66,6 +66,34 @@ namespace TestWpfProj
 
             LstView.ItemsSource = tempLst;
             LstView.Items.Refresh();
+        }
+
+        private void FilterCB_SelectionChanged(object sender, SelectionChangedEventArgs e)
+        {
+            var filter = _memes;
+
+            var type = (MemeType)FilterCB.SelectedItem;
+
+            if (type == null)
+                return;
+
+            filter = filter.Where(x => x.MemeType.Id == type.Id).ToList();
+            LstView.ItemsSource = filter;
+            LstView.Items.Refresh();
+        }
+
+        private void FilterCB_DropDownClosed(object sender, EventArgs e)
+        {
+            //var filter = _memes;
+
+            //var type = (MemeType)FilterCB.SelectedItem;
+
+            ////if (type == null)
+            ////    return;
+
+            //filter = filter.Where(x => x.MemeType.Id == type.Id).ToList();
+            //LstView.ItemsSource = filter;
+            //LstView.Items.Refresh();
         }
     }
 }

@@ -25,7 +25,7 @@
             </WrapPanel>
             <WrapPanel Grid.Column="1" Margin="6" HorizontalAlignment="Center">
                 <Label Content="Filter:"/>
-                <ComboBox Width="125" x:Name="FilterCB" DisplayMemberPath="Title"></ComboBox>
+                <ComboBox Width="125" x:Name="FilterCB" DropDownClosed="FilterCB_DropDownClosed" SelectionChanged="FilterCB_SelectionChanged" DisplayMemberPath="Title"></ComboBox>
             </WrapPanel>
             <WrapPanel Grid.Column="2" Margin="6" HorizontalAlignment="Center">
                 <Label Content="Sort:"/>
@@ -38,11 +38,12 @@
                 <GridView>
                     <GridViewColumn DisplayMemberBinding="{Binding Path=Id}">Id</GridViewColumn>
                     <GridViewColumn DisplayMemberBinding="{Binding Path=Title}" Width="100">Title</GridViewColumn>
+                    <GridViewColumn DisplayMemberBinding="{Binding Path=MemeType.Title}" Width="100">Type</GridViewColumn>
                 </GridView>
             </ListView.View>
             <ListView.ContextMenu>
                 <ContextMenu>
-                    <MenuItem Header="View" Click="EditMI_Click"/>
+                    <MenuItem Header="View" Click="ViewMI_Click"/>
                     <MenuItem Header="Delete" Click="DeleteMI_Click"/>
                 </ContextMenu>
             </ListView.ContextMenu>
