@@ -29,16 +29,22 @@
             </WrapPanel>
             <WrapPanel Grid.Column="2" Margin="6" HorizontalAlignment="Center">
                 <Label Content="Sort:"/>
-                <ComboBox Width="125" ></ComboBox>
+                <ComboBox Width="125" x:Name="SortCB" SelectionChanged="SortCB_SelectionChanged">
+                    <ComboBoxItem Content="Sort A-Я"/>
+                    <ComboBoxItem Content="Sort Я-А"/>
+                    <ComboBoxItem Content="Sort Price Asc"/>
+                    <ComboBoxItem Content="Sort Price Desc"/>
+                </ComboBox>
             </WrapPanel>
         </Grid>
-        
+
         <ListView Name="LstView" Grid.Row="1">
             <ListView.View>
                 <GridView>
                     <GridViewColumn DisplayMemberBinding="{Binding Path=Id}">Id</GridViewColumn>
                     <GridViewColumn DisplayMemberBinding="{Binding Path=Title}" Width="100">Title</GridViewColumn>
                     <GridViewColumn DisplayMemberBinding="{Binding Path=MemeType.Title}" Width="100">Type</GridViewColumn>
+                    <GridViewColumn DisplayMemberBinding="{Binding Path=Price}" Width="100">Price</GridViewColumn>
                 </GridView>
             </ListView.View>
             <ListView.ContextMenu>
