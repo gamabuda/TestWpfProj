@@ -27,11 +27,17 @@
                 <Label Content="Filter:"/>
                 <ComboBox Width="125" x:Name="FilterCB" DropDownClosed="FilterCB_DropDownClosed" SelectionChanged="FilterCB_SelectionChanged" DisplayMemberPath="Title"></ComboBox>
             </WrapPanel>
-            <WrapPanel Grid.Column="2" Margin="6" HorizontalAlignment="Center">
-                <Label Content="Sort:"/>
-                <ComboBox Width="125" ></ComboBox>
-            </WrapPanel>
-        </Grid>
+			<WrapPanel Grid.Column="3" Margin="6" HorizontalAlignment="Center">
+				<Label Content="Sort:"/>
+				<ComboBox Width="125" x:Name="SortCB" SelectionChanged="SortCB_SelectionChanged">
+					<ComboBoxItem Content="По возрастанию (А-Я)"/>
+					<ComboBoxItem Content="По убыванию (Я-А)"/>
+					<ComboBoxItem Content="По возрастанию цены"/>
+					<ComboBoxItem Content="По убыванию цены"/>
+				</ComboBox>
+			</WrapPanel>
+
+		</Grid>
         
         <ListView Name="LstView" Grid.Row="1">
             <ListView.View>

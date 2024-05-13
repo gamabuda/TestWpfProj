@@ -95,5 +95,30 @@ namespace TestWpfProj
             //LstView.ItemsSource = filter;
             //LstView.Items.Refresh();
         }
+        private void SortCB_SelectionChanged(object sender, SelectionChangedEventArgs e)
+        {
+            var sortType = ((ComboBoxItem)SortCB.SelectedItem).Content.ToString();
+
+            switch (sortType)
+            {
+                case "По возрастанию (А-Я)":
+                    _memes = _memes.OrderBy(m => m.Title).ToList();
+                    break;
+                case "По убыванию (Я-А)":
+                    _memes = _memes.OrderByDescending(m => m.Title).ToList();
+                    break;
+                case "По возрастанию цены":
+                    _memes = _memes.OrderBy(m => m.Price).ToList();
+                    break;
+                case "По убыванию цены":
+                    _memes = _memes.OrderByDescending(m => m.Price).ToList();
+                    break;
+                default:
+                    break;
+            }
+
+            LstView.ItemsSource = _memes;
+        }
+
     }
 }
