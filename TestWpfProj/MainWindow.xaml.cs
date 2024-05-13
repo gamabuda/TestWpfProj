@@ -116,9 +116,6 @@ namespace TestWpfProj
             // Сбросить фильтрацию
             FilterCB.SelectedIndex = -1;
 
-            // Сбросить сортировку
-            SortCB.SelectedIndex = -1;
-
             // Вернуть полный список
             LstView.ItemsSource = _memes;
         }
@@ -133,10 +130,10 @@ namespace TestWpfProj
 
             switch (sortType)
             {
-                case "По возрастанию (А-Я)":
+                case "По возрастанию (А-Z)":
                     _memes = _memes.OrderBy(m => m.Title).ToList();
                     break;
-                case "По убыванию (Я-А)":
+                case "По убыванию (Z-A)":
                     _memes = _memes.OrderByDescending(m => m.Title).ToList();
                     break;
                 case "По возрастанию цены":
