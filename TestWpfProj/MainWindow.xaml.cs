@@ -84,19 +84,51 @@ namespace TestWpfProj
 
         private void FilterCB_DropDownClosed(object sender, EventArgs e)
         {
-            //var filter = _memes;
+            var filter = _memes;
 
-            //var type = (MemeType)FilterCB.SelectedItem;
+            var type = (MemeType)FilterCB.SelectedItem;
 
-            ////if (type == null)
-            ////    return;
+            if (type == null)
+                return;
 
-            //filter = filter.Where(x => x.MemeType.Id == type.Id).ToList();
-            //LstView.ItemsSource = filter;
-            //LstView.Items.Refresh();
+            filter = filter.Where(x => x.MemeType.Id == type.Id).ToList();
+            LstView.ItemsSource = filter;
+            LstView.Items.Refresh();
+        }
+        private void ResetButton_Click(object sender, RoutedEventArgs e)
+        {
+            ResetFiltersAndSorting();
+        }
+        private void ResetSortingButton_Click(object sender, RoutedEventArgs e)
+        {
+            ResetSorting();
+        }
+        private void ResetSorting()
+        {
+            // Сбросить сортировку
+            SortCB.SelectedIndex = -1;
+
+            // Вернуть полный список
+            LstView.ItemsSource = _memes;
+        }
+        private void ResetFiltersAndSorting()
+        {
+            // Сбросить фильтрацию
+            FilterCB.SelectedIndex = -1;
+
+            // Сбросить сортировку
+            SortCB.SelectedIndex = -1;
+
+            // Вернуть полный список
+            LstView.ItemsSource = _memes;
         }
         private void SortCB_SelectionChanged(object sender, SelectionChangedEventArgs e)
         {
+            if (SortCB.SelectedItem == null)
+            {
+                return; // Ничего не делать, если ничего не выбрано
+            }
+
             var sortType = ((ComboBoxItem)SortCB.SelectedItem).Content.ToString();
 
             switch (sortType)

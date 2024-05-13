@@ -26,6 +26,7 @@
             <WrapPanel Grid.Column="1" Margin="6" HorizontalAlignment="Center">
                 <Label Content="Filter:"/>
                 <ComboBox Width="125" x:Name="FilterCB" DropDownClosed="FilterCB_DropDownClosed" SelectionChanged="FilterCB_SelectionChanged" DisplayMemberPath="Title"></ComboBox>
+				<Button Content="Сбросить" Click="ResetButton_Click"/>
             </WrapPanel>
 			<WrapPanel Grid.Column="3" Margin="6" HorizontalAlignment="Center">
 				<Label Content="Sort:"/>
@@ -35,24 +36,26 @@
 					<ComboBoxItem Content="По возрастанию цены"/>
 					<ComboBoxItem Content="По убыванию цены"/>
 				</ComboBox>
+				<Button Content="Сбросить" Click="ResetSortingButton_Click"/>
 			</WrapPanel>
 
 		</Grid>
-        
-        <ListView Name="LstView" Grid.Row="1">
-            <ListView.View>
-                <GridView>
-                    <GridViewColumn DisplayMemberBinding="{Binding Path=Id}">Id</GridViewColumn>
-                    <GridViewColumn DisplayMemberBinding="{Binding Path=Title}" Width="100">Title</GridViewColumn>
-                    <GridViewColumn DisplayMemberBinding="{Binding Path=MemeType.Title}" Width="100">Type</GridViewColumn>
-                </GridView>
-            </ListView.View>
-            <ListView.ContextMenu>
-                <ContextMenu>
-                    <MenuItem Header="View" Click="ViewMI_Click"/>
-                    <MenuItem Header="Delete" Click="DeleteMI_Click"/>
-                </ContextMenu>
-            </ListView.ContextMenu>
-        </ListView>
-    </Grid>
+
+		<ListView Name="LstView" Grid.Row="1">
+			<ListView.View>
+				<GridView>
+					<GridViewColumn DisplayMemberBinding="{Binding Path=Id}" Header="Id" />
+					<GridViewColumn DisplayMemberBinding="{Binding Path=Title}" Header="Title" Width="100" />
+					<GridViewColumn DisplayMemberBinding="{Binding Path=MemeType.Title}" Header="Type" Width="100" />
+					<GridViewColumn DisplayMemberBinding="{Binding Path=Price}" Header="Price" Width="100" />
+				</GridView>
+			</ListView.View>
+			<ListView.ContextMenu>
+				<ContextMenu>
+					<MenuItem Header="View" Click="ViewMI_Click"/>
+					<MenuItem Header="Delete" Click="DeleteMI_Click"/>
+				</ContextMenu>
+			</ListView.ContextMenu>
+		</ListView>
+	</Grid>
 </Window>
