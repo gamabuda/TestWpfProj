@@ -59,40 +59,51 @@ namespace TestWpfProj
 
         private void SerchTB_TextChanged(object sender, TextChangedEventArgs e)
         {
-            var tempLst = (List<Meme>)LstView.ItemsSource;
-
-            if(!String.IsNullOrEmpty(SerchTB.Text))
-            {
-                tempLst = _memes.Where(x => x.Title.Contains(SerchTB.Text)).ToList();
-            }
-
-            LstView.ItemsSource = tempLst;
+            Filter();
+            var lst = (List<Meme>)LstView.ItemsSource;
+            lst = Search(lst);
+            LstView.ItemsSource = lst;
             LstView.Items.Refresh();
         }
 
+        private List<Meme> Search(List<Meme> source)
+        {
+            if (!String.IsNullOrEmpty(SerchTB.Text))
+            {
+                source = source.Where(x => x.Title.ToLower().Contains(SerchTB.Text.ToLower())).ToList();
+            }
+            return source;
+        }
+
         private void FilterCB_DropDownClosed(object sender, EventArgs e)
+        {
+            Filter();
+        }
+        private void Filter()
         {
             var filter = _memes;
 
             var type = (MemeType)FilterCB.SelectedItem;
 
-            if (type == null)
+            if (type == null) 
+            { 
+                filter = Search(filter);
+                LstView.ItemsSource = filter;
                 return;
-
+            }
             filter = filter.Where(x => x.MemeType.Id == type.Id).ToList();
 
             var sort = (Sort)SortCB.SelectedItem;
             filter = sort.Action(filter);
-
+            if (SerchTB.Text != "")
+                filter = Search(filter);
             LstView.ItemsSource = filter;
             LstView.Items.Refresh();
         }
-
         private void Button_Click(object sender, RoutedEventArgs e)
         {
             FilterCB.SelectedValue = null;
-            LstView.ItemsSource = _memes;
-            LstView.Items.Refresh();
+            Filter();
         }
 
         private void SortCB_DropDownClosed(object sender, EventArgs e)
