@@ -5,7 +5,7 @@
         xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
         xmlns:local="clr-namespace:TestWpfProj"
         mc:Ignorable="d"
-        Title="MainWindow" Height="450" Width="800">
+        Title="Детский дом" Height="600" Width="1700" WindowStartupLocation="CenterScreen">
     <Grid Background="Lavender">
         <Grid.RowDefinitions>
             <RowDefinition Height="auto"/>
@@ -13,38 +13,68 @@
             <RowDefinition Height="auto"/>
         </Grid.RowDefinitions>
 
-        <Grid Grid.Row="0" VerticalAlignment="Center" HorizontalAlignment="Center">
+        <Grid Grid.Row="0" VerticalAlignment="Center" HorizontalAlignment="Left">
             <Grid.ColumnDefinitions>
                 <ColumnDefinition Width="auto"/>
                 <ColumnDefinition Width="auto"/>
                 <ColumnDefinition Width="auto"/>
+                <ColumnDefinition Width="auto"/>
+                <ColumnDefinition Width="auto"/>
+                <ColumnDefinition Width="auto"/>
+                <ColumnDefinition Width="auto"/>
+                <ColumnDefinition Width="auto"/>
+                <ColumnDefinition Width="auto"/>
+                <ColumnDefinition Width="auto"/>
+                <ColumnDefinition Width="auto"/>
+                <ColumnDefinition Width="auto"/>
             </Grid.ColumnDefinitions>
-            <WrapPanel Grid.Column="0" Margin="6" HorizontalAlignment="Center">
-                <Label Content="Search:"/>
-                <TextBox x:Name="SerchTB" Width="175" TextChanged="SerchTB_TextChanged"></TextBox>
+
+            <WrapPanel Grid.Column="1" Margin="125,6,6,6" HorizontalAlignment="Left">
+                <Button x:Name="ClearBtn" Content="Снять фильтры" Background="#FFCE2828" BorderBrush="{x:Null}" Foreground="White" Click="ClearBtn_Click" Padding="10,1,10,1" Grid.IsSharedSizeScope="True" Margin="0,0,23,0"/>
+                <ComboBox Width="144" x:Name="SurnameFilter" DropDownClosed="SurnameFilter_DropDownClosed"/>
             </WrapPanel>
-            <WrapPanel Grid.Column="1" Margin="6" HorizontalAlignment="Center">
-                <Label Content="Filter:"/>
-                <ComboBox Width="125" x:Name="FilterCB" DropDownClosed="FilterCB_DropDownClosed" SelectionChanged="FilterCB_SelectionChanged" DisplayMemberPath="Title"></ComboBox>
+            <WrapPanel Grid.Column="2" Margin="0,6,6,6" HorizontalAlignment="Left">
+                <ComboBox Width="144" x:Name="NameFilter" DropDownClosed="NameFilter_DropDownClosed"></ComboBox>
             </WrapPanel>
-            <WrapPanel Grid.Column="2" Margin="6" HorizontalAlignment="Center">
-                <Label Content="Sort:"/>
-                <ComboBox Width="125" ></ComboBox>
+            <WrapPanel Grid.Column="3" Margin="0,6,6,6" HorizontalAlignment="Left">
+                <ComboBox Width="144" x:Name="PatronymicFilter" DropDownClosed="PatronymicFilter_DropDownClosed"></ComboBox>
+            </WrapPanel>
+            <WrapPanel Grid.Column="4" Margin="0,6,6,6" HorizontalAlignment="Left">
+                <ComboBox Width="144" x:Name="GenderFilter" DropDownClosed="GenderFilter_DropDownClosed"></ComboBox>
+            </WrapPanel>
+            <WrapPanel Grid.Column="5" Margin="0,6,6,6" HorizontalAlignment="Left">
+                <ComboBox Width="144" x:Name="AgeFilter" DropDownClosed="AgeFilter_DropDownClosed"></ComboBox>
+            </WrapPanel>
+            <WrapPanel Grid.Column="6" Margin="0,6,6,6" HorizontalAlignment="Left">
+                <ComboBox Width="144" x:Name="RoomNumberFilter" DropDownClosed="RoomNumberFilter_DropDownClosed"></ComboBox>
+            </WrapPanel>
+            <WrapPanel Grid.Column="7" Margin="0,6,10,6" HorizontalAlignment="Left">
+                <ComboBox Width="144" x:Name="MoveInDateFilter" DropDownClosed="MoveInDateFilter_DropDownClosed"></ComboBox>
+            </WrapPanel>
+
+            <WrapPanel Grid.Column="9" Margin="6" HorizontalAlignment="Left">
+                <Label Content="Поиск:" Margin="60,0,0,0"/>
+                <TextBox x:Name="SerchTB" Width="250" TextChanged="SerchTB_TextChanged"></TextBox>
             </WrapPanel>
         </Grid>
-        
+
         <ListView Name="LstView" Grid.Row="1">
             <ListView.View>
                 <GridView>
-                    <GridViewColumn DisplayMemberBinding="{Binding Path=Id}">Id</GridViewColumn>
-                    <GridViewColumn DisplayMemberBinding="{Binding Path=Title}" Width="100">Title</GridViewColumn>
-                    <GridViewColumn DisplayMemberBinding="{Binding Path=MemeType.Title}" Width="100">Type</GridViewColumn>
+                    <GridViewColumn DisplayMemberBinding="{Binding Path=Id}" Width="250">ID</GridViewColumn>
+                    <GridViewColumn DisplayMemberBinding="{Binding Path=Surname}" Width="150">Фамилия</GridViewColumn>
+                    <GridViewColumn DisplayMemberBinding="{Binding Path=Name}" Width="150">Имя</GridViewColumn>
+                    <GridViewColumn DisplayMemberBinding="{Binding Path=Patronymic}" Width="150">Отчество</GridViewColumn>
+                    <GridViewColumn DisplayMemberBinding="{Binding Path=Gender}" Width="150">Пол</GridViewColumn>
+                    <GridViewColumn DisplayMemberBinding="{Binding Path=Age}" Width="150">Возраст</GridViewColumn>
+                    <GridViewColumn DisplayMemberBinding="{Binding Path=RoomNumber}" Width="150">Комната</GridViewColumn>
+                    <GridViewColumn DisplayMemberBinding="{Binding Path=MoveInDate}" Width="150">Дата заселения</GridViewColumn>
                 </GridView>
             </ListView.View>
             <ListView.ContextMenu>
                 <ContextMenu>
-                    <MenuItem Header="View" Click="ViewMI_Click"/>
-                    <MenuItem Header="Delete" Click="DeleteMI_Click"/>
+                    <MenuItem Header="Инфо" Click="ViewPerson_Click"/>
+                    <MenuItem Header="Удалить" Click="DeletePerson_Click"/>
                 </ContextMenu>
             </ListView.ContextMenu>
         </ListView>
