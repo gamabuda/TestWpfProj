@@ -84,16 +84,28 @@ namespace TestWpfProj
 
         private void FilterCB_DropDownClosed(object sender, EventArgs e)
         {
-            //var filter = _memes;
+            var filter = _memes;
 
-            //var type = (MemeType)FilterCB.SelectedItem;
+            var type = (MemeType)FilterCB.SelectedItem;
 
-            ////if (type == null)
-            ////    return;
+            //if (type == null)
+            //    return;
 
-            //filter = filter.Where(x => x.MemeType.Id == type.Id).ToList();
-            //LstView.ItemsSource = filter;
-            //LstView.Items.Refresh();
+            filter = filter.Where(x => x.MemeType.Id == type.Id).ToList();
+            LstView.ItemsSource = filter;
+            LstView.Items.Refresh();
+        }
+
+        private void Button_Click(object sender, RoutedEventArgs e)
+        {
+            FilterCB.SelectedValue = null;
+            LstView.ItemsSource = _memes;
+            LstView.Items.Refresh();
+        }
+
+        private void ComboBox_DropDownClosed(object sender, EventArgs e)
+        {
+
         }
     }
 }
