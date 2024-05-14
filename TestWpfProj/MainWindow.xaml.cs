@@ -1,4 +1,5 @@
 ﻿using System;
+using System.Collections;
 using System.Collections.Generic;
 using System.Linq;
 using System.Text;
@@ -23,6 +24,7 @@ namespace TestWpfProj
     {
         private List<Meme> _memes;
         private List<MemeType> _memeTypes;
+        
         public MainWindow()
         {
             InitializeComponent();
@@ -57,29 +59,12 @@ namespace TestWpfProj
 
         private void SerchTB_TextChanged(object sender, TextChangedEventArgs e)
         {
-            var tempLst = _memes;
-
-            if(!String.IsNullOrEmpty(SerchTB.Text))
-            {
-                tempLst = _memes.Where(x => x.Title.Contains(SerchTB.Text)).ToList();
-            }
-
-            LstView.ItemsSource = tempLst;
-            LstView.Items.Refresh();
+            AnyChanged();
         }
 
         private void FilterCB_SelectionChanged(object sender, SelectionChangedEventArgs e)
         {
-            var filter = _memes;
-
-            var type = (MemeType)FilterCB.SelectedItem;
-
-            if (type == null)
-                return;
-
-            filter = filter.Where(x => x.MemeType.Id == type.Id).ToList();
-            LstView.ItemsSource = filter;
-            LstView.Items.Refresh();
+            AnyChanged();
         }
 
         private void FilterCB_DropDownClosed(object sender, EventArgs e)
@@ -94,6 +79,61 @@ namespace TestWpfProj
             //filter = filter.Where(x => x.MemeType.Id == type.Id).ToList();
             //LstView.ItemsSource = filter;
             //LstView.Items.Refresh();
+        }
+
+        private void SortCB_SelectionChanged(object sender, SelectionChangedEventArgs e)
+        {
+            AnyChanged();
+        }
+
+        private void AnyChanged()
+        {
+            var tempLst = _memes;
+
+            if (!String.IsNullOrEmpty(SerchTB.Text))
+            {
+                string searchText = SerchTB.Text.ToUpper();
+                tempLst = tempLst.Where(x => x.Title.Split(' ').Any(word => word.StartsWith(searchText))).ToList();
+            }
+
+            var type = (MemeType)FilterCB.SelectedItem;
+            if (type != null)
+            {
+                tempLst = tempLst.Where(x => x.MemeType.Id == type.Id).ToList();
+            }
+
+            var sortType = (ComboBoxItem)SortCB.SelectedItem;
+            if (sortType != null)
+            {
+                switch (sortType.Content.ToString())
+                {
+                    case "По умолчанию":
+                        break;
+                    case "A-z":
+                        tempLst = tempLst.OrderBy(x => x.Title).ToList();
+                        break;
+                    case "Z-a":
+                        tempLst = tempLst.OrderByDescending(x => x.Title).ToList();
+                        break;
+                    case "По возрастанию цены":
+                        tempLst = tempLst.OrderBy(x => x.Price).ToList();
+                        break;
+                    case "По убыванию цены":
+                        tempLst = tempLst.OrderByDescending(x => x.Price).ToList();
+                        break;
+                }
+            }
+
+            LstView.ItemsSource = tempLst;
+            LstView.Items.Refresh();
+        }
+        private void ResetBtn_Click(object sender, RoutedEventArgs e)
+        {
+            SerchTB.Text = "";
+            FilterCB.SelectedItem = null;
+            SortCB.SelectedItem = null;
+            LstView.ItemsSource = _memes;
+            LstView.Items.Refresh();
         }
     }
 }
