@@ -1,18 +1,25 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
+﻿using System.Collections.Generic;
 
 namespace TestWpfProj.Data
 {
     public static class DataContext
     {
+        public static List<SortType> SortTypes = new List<SortType>()
+        {
+            new SortType("По умолчанию"),
+            new SortType("От A до Z"),
+            new SortType("От Z до A"),
+            new SortType("По возрастанию цены"),
+            new SortType("По убыванию цены"),
+        };
+
         public static List<MemeType> MemeTypes = new List<MemeType>()
         {
             new MemeType("Animals memes"),
             new MemeType("Tit-tok memes"),
-            new MemeType("Skufs memes")
+            new MemeType("Skufs memes"),
+
+            new MemeType("Отображение по умолчанию"),
         };
 
         public static List<Meme> Memes = new List<Meme>()

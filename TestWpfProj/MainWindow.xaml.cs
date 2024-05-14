@@ -23,15 +23,19 @@ namespace TestWpfProj
     {
         private List<Meme> _memes;
         private List<MemeType> _memeTypes;
+        private List<SortType> _sortTypes;
+
         public MainWindow()
         {
             InitializeComponent();
 
             _memes = Data.DataContext.Memes;
             _memeTypes = Data.DataContext.MemeTypes;
+            _sortTypes = Data.DataContext.SortTypes;
 
             LstView.ItemsSource = _memes;
             FilterCB.ItemsSource = _memeTypes;
+            SortCB.ItemsSource = _sortTypes;
         }
 
         private void DeleteMI_Click(object sender, RoutedEventArgs e)
@@ -55,13 +59,13 @@ namespace TestWpfProj
             LstView.Items.Refresh();
         }
 
-        private void SerchTB_TextChanged(object sender, TextChangedEventArgs e)
+        private void SearchTB_TextChanged(object sender, TextChangedEventArgs e)
         {
             var tempLst = _memes;
 
-            if(!String.IsNullOrEmpty(SerchTB.Text))
+            if(!String.IsNullOrEmpty(SearchTB.Text))
             {
-                tempLst = _memes.Where(x => x.Title.Contains(SerchTB.Text)).ToList();
+                tempLst = _memes.Where(x => x.Title.Contains(SearchTB.Text)).ToList();
             }
 
             LstView.ItemsSource = tempLst;
@@ -77,7 +81,16 @@ namespace TestWpfProj
             if (type == null)
                 return;
 
-            filter = filter.Where(x => x.MemeType.Id == type.Id).ToList();
+            if (type.Title != "Отображение по умолчанию")
+            {
+                filter = filter.Where(x => x.MemeType.Id == type.Id).ToList();
+            } 
+            else
+            {
+                filter = _memes;
+            }
+
+
             LstView.ItemsSource = filter;
             LstView.Items.Refresh();
         }
@@ -92,8 +105,42 @@ namespace TestWpfProj
             ////    return;
 
             //filter = filter.Where(x => x.MemeType.Id == type.Id).ToList();
-            //LstView.ItemsSource = filter;
+            //LstView.ItemsSource = filter;               
             //LstView.Items.Refresh();
+
+        }
+
+        private void SortCB_SelectionChanged(object sender, SelectionChangedEventArgs e)
+        {
+            var sortList = new List<Meme>();
+
+            var type = (SortType)SortCB.SelectedItem;
+
+            if (type == null) return;
+
+            if (type.SortTitle == "По умолчанию")
+            {
+                sortList = _memes;
+            }
+            else if (type.SortTitle == "От A до Z")
+            {
+                sortList = _memes.OrderBy(x => x.Title).ToList();
+            }
+            else if (type.SortTitle == "От Z до A")
+            {
+                sortList = _memes.OrderByDescending(x => x.Title).ToList();
+            }
+            else if (type.SortTitle == "По возрастанию цены")
+            {
+                sortList = _memes.OrderBy(x => x.Price).ToList();
+            }
+            else if (type.SortTitle == "По убыванию цены")
+            {
+                sortList = _memes.OrderByDescending(x => x.Price).ToList();
+            }
+
+            LstView.ItemsSource = sortList;
+            LstView.Items.Refresh();
         }
     }
 }

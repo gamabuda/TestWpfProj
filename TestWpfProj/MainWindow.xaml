@@ -21,15 +21,15 @@
             </Grid.ColumnDefinitions>
             <WrapPanel Grid.Column="0" Margin="6" HorizontalAlignment="Center">
                 <Label Content="Search:"/>
-                <TextBox x:Name="SerchTB" Width="175" TextChanged="SerchTB_TextChanged"></TextBox>
+                <TextBox x:Name="SearchTB" Width="175" TextChanged="SearchTB_TextChanged"></TextBox>
             </WrapPanel>
             <WrapPanel Grid.Column="1" Margin="6" HorizontalAlignment="Center">
                 <Label Content="Filter:"/>
-                <ComboBox Width="125" x:Name="FilterCB" DropDownClosed="FilterCB_DropDownClosed" SelectionChanged="FilterCB_SelectionChanged" DisplayMemberPath="Title"></ComboBox>
+                <ComboBox Width="125" x:Name="FilterCB" DropDownClosed="FilterCB_DropDownClosed" SelectionChanged="FilterCB_SelectionChanged" DisplayMemberPath="Title" Cursor="Hand"></ComboBox>
             </WrapPanel>
             <WrapPanel Grid.Column="2" Margin="6" HorizontalAlignment="Center">
                 <Label Content="Sort:"/>
-                <ComboBox Width="125" ></ComboBox>
+                <ComboBox Width="125" x:Name="SortCB" Cursor="Hand" SelectionChanged="SortCB_SelectionChanged" DisplayMemberPath="SortTitle" ></ComboBox>
             </WrapPanel>
         </Grid>
         
@@ -38,6 +38,7 @@
                 <GridView>
                     <GridViewColumn DisplayMemberBinding="{Binding Path=Id}">Id</GridViewColumn>
                     <GridViewColumn DisplayMemberBinding="{Binding Path=Title}" Width="100">Title</GridViewColumn>
+                    <GridViewColumn DisplayMemberBinding="{Binding Path=Price}" Width="100">Price</GridViewColumn>
                     <GridViewColumn DisplayMemberBinding="{Binding Path=MemeType.Title}" Width="100">Type</GridViewColumn>
                 </GridView>
             </ListView.View>
