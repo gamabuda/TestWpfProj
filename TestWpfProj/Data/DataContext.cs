@@ -23,5 +23,7 @@ namespace TestWpfProj.Data
             new Meme("MalishkaHochetSdatPraktiku", MemeTypes[0], 69),
             new Meme("Sigma", MemeTypes[1], 119)
         };
+
+        
     }
 }

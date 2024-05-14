@@ -32,6 +32,8 @@ namespace TestWpfProj
 
             LstView.ItemsSource = _memes;
             FilterCB.ItemsSource = _memeTypes;
+            SortCB.ItemsSource = Sorts.SortList;
+            SortCB.SelectedItem = Sorts.SortList[0];
         }
 
         private void DeleteMI_Click(object sender, RoutedEventArgs e)
@@ -57,7 +59,7 @@ namespace TestWpfProj
 
         private void SerchTB_TextChanged(object sender, TextChangedEventArgs e)
         {
-            var tempLst = _memes;
+            var tempLst = (List<Meme>)LstView.ItemsSource;
 
             if(!String.IsNullOrEmpty(SerchTB.Text))
             {
@@ -68,7 +70,7 @@ namespace TestWpfProj
             LstView.Items.Refresh();
         }
 
-        private void FilterCB_SelectionChanged(object sender, SelectionChangedEventArgs e)
+        private void FilterCB_DropDownClosed(object sender, EventArgs e)
         {
             var filter = _memes;
 
@@ -78,20 +80,10 @@ namespace TestWpfProj
                 return;
 
             filter = filter.Where(x => x.MemeType.Id == type.Id).ToList();
-            LstView.ItemsSource = filter;
-            LstView.Items.Refresh();
-        }
 
-        private void FilterCB_DropDownClosed(object sender, EventArgs e)
-        {
-            var filter = _memes;
+            var sort = (Sort)SortCB.SelectedItem;
+            filter = sort.Action(filter);
 
-            var type = (MemeType)FilterCB.SelectedItem;
-
-            //if (type == null)
-            //    return;
-
-            filter = filter.Where(x => x.MemeType.Id == type.Id).ToList();
             LstView.ItemsSource = filter;
             LstView.Items.Refresh();
         }
@@ -103,9 +95,15 @@ namespace TestWpfProj
             LstView.Items.Refresh();
         }
 
-        private void ComboBox_DropDownClosed(object sender, EventArgs e)
+        private void SortCB_DropDownClosed(object sender, EventArgs e)
         {
+            var list = (List<Meme>)LstView.ItemsSource;
 
+            var sort = (Sort)SortCB.SelectedItem;
+
+            list = sort.Action.Invoke(list);
+            LstView.ItemsSource = list;
+            LstView.Items.Refresh();
         }
     }
 }

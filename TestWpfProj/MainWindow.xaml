@@ -25,12 +25,12 @@
             </WrapPanel>
             <WrapPanel Grid.Column="1" Margin="6" HorizontalAlignment="Center">
                 <Label Content="Filter:"/>
-                <ComboBox Width="125" x:Name="FilterCB" DropDownClosed="FilterCB_DropDownClosed" SelectionChanged="FilterCB_SelectionChanged" DisplayMemberPath="Title"></ComboBox>
+                <ComboBox Width="125" x:Name="FilterCB" DropDownClosed="FilterCB_DropDownClosed" DisplayMemberPath="Title"></ComboBox>
                 <Button Click="Button_Click">×</Button>
             </WrapPanel>
             <WrapPanel Grid.Column="2" Margin="6" HorizontalAlignment="Center">
                 <Label Content="Sort:"/>
-                <ComboBox Width="125" x:Name="SortCB" DropDownClosed="ComboBox_DropDownClosed" ></ComboBox>
+                <ComboBox Width="125" x:Name="SortCB" DropDownClosed="SortCB_DropDownClosed" DisplayMemberPath="Name"></ComboBox>
             </WrapPanel>
         </Grid>
         
@@ -40,6 +40,7 @@
                     <GridViewColumn DisplayMemberBinding="{Binding Path=Id}">Id</GridViewColumn>
                     <GridViewColumn DisplayMemberBinding="{Binding Path=Title}" Width="100">Title</GridViewColumn>
                     <GridViewColumn DisplayMemberBinding="{Binding Path=MemeType.Title}" Width="100">Type</GridViewColumn>
+                    <GridViewColumn DisplayMemberBinding="{Binding Path=Price}" Width="100">Price</GridViewColumn>
                 </GridView>
             </ListView.View>
             <ListView.ContextMenu>
