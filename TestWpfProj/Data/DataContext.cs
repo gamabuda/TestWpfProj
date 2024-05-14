@@ -23,5 +23,13 @@ namespace TestWpfProj.Data
             new Meme("MalishkaHochetSdatPraktiku", MemeTypes[0], 69),
             new Meme("Sigma", MemeTypes[1], 119)
         };
+
+        public static List<SortType> SortTypes = new List<SortType>()
+        {
+            new SortType("A-z"),
+            new SortType("Z-a"),
+            new SortType("Ascending"),
+            new SortType("Descending"),
+        };
     }
 }
