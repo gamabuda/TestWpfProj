@@ -24,7 +24,7 @@ namespace TestWpfProj
         private List<Film> _films;
         private List<FilmGanr> _filmGanres;
         private List<Film> _listView;
-        private List<string> _sortItems = new List<string>() { "От А до Я", "От Я до А", "По возрастанию", "По убыванию" };
+        private List<string> _sortItems = new List<string>() { "From A to Z", "From Z to A", "↑ Otsenka", "↓ Otsenka" };
         public MainWindow()
         {
             InitializeComponent();
@@ -45,21 +45,19 @@ namespace TestWpfProj
             if (type == null)
                 return;
 
-            if (type == "От А до Я")
+            if (type == "From A to Z")
                 _listView = _listView.OrderBy(x => x.Title).ToList();
-            else if (type == "От Я до А")
+            else if (type == "From Z to A")
                 _listView = _listView.OrderByDescending(x => x.Title).ToList();
-            else if (type == "По возрастанию")
+            else if (type == "↑ Otsenka")
                 _listView = _listView.OrderBy(x => x.Otsenka).ToList();
-            else if (type == "По убыванию")
+            else if (type == "↓ Otsenka")
                 _listView = _listView.OrderByDescending(x => x.Otsenka).ToList();
 
             Sort.SelectedItem = null;
             LstView.ItemsSource = _listView;
             LstView.Items.Refresh();
         }
-
-
 
         private void DeleteMI_Click(object sender, RoutedEventArgs e)
         {
@@ -113,30 +111,5 @@ namespace TestWpfProj
         {
 
         }
-
-        
-
-        //private void SortCB_SelectionChanged()
-        //{
-        //    //var sortA = FilmSortList.OrderBy(p => p.Title); //От А до Я
-        //    //Console.WriteLine("");
-        //    //foreach (var t in sortA)
-        //    //    Console.WriteLine(t.Title);
-
-        //    //var sortY = FilmSortList.OrderByDescending(p => p.Title); //От Я до А
-        //    //Console.WriteLine("");
-        //    //foreach (var t in sortY)
-        //    //    Console.WriteLine(t.Title);
-
-        //    //var sort1 = FilmSortList.OrderBy(p => p.Otsenka); //По возрастанию оценки
-        //    //Console.WriteLine("");
-        //    //foreach (var t in sort1)
-        //    //    Console.WriteLine($"{t.Title} is Otsenka = {t.Otsenka}");
-
-        //    //var sort9 = FilmSortList.OrderByDescending(p => p.Otsenka); //По убыванию оценки
-        //    //Console.WriteLine("");
-        //    //foreach (var t in sort9)
-        //    //    Console.WriteLine($"{t.Title} is Otsenka = {t.Otsenka}");
-        //}
     }
 }
