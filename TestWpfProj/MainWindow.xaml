@@ -6,7 +6,7 @@
         xmlns:local="clr-namespace:TestWpfProj"
         mc:Ignorable="d"
         Title="MainWindow" Height="450" Width="800">
-    <Grid Background="Lavender">
+    <Grid Background="LightPink">
         <Grid.RowDefinitions>
             <RowDefinition Height="auto"/>
             <RowDefinition Height="1*"/>
@@ -29,16 +29,19 @@
             </WrapPanel>
             <WrapPanel Grid.Column="2" Margin="6" HorizontalAlignment="Center">
                 <Label Content="Sort:"/>
-                <ComboBox Width="125" ></ComboBox>
+                <ComboBox Width="125" x:Name="SortCB" SelectionChanged="SortCB_SelectionChanged"></ComboBox>
             </WrapPanel>
         </Grid>
-        
+
         <ListView Name="LstView" Grid.Row="1">
             <ListView.View>
                 <GridView>
                     <GridViewColumn DisplayMemberBinding="{Binding Path=Id}">Id</GridViewColumn>
-                    <GridViewColumn DisplayMemberBinding="{Binding Path=Title}" Width="100">Title</GridViewColumn>
-                    <GridViewColumn DisplayMemberBinding="{Binding Path=MemeType.Title}" Width="100">Type</GridViewColumn>
+                    <GridViewColumn DisplayMemberBinding="{Binding Path=Title}" Width="120">Title</GridViewColumn>
+                    <GridViewColumn DisplayMemberBinding="{Binding Path=FilmGanr.Title}" Width="120">Ganr</GridViewColumn>
+                    <GridViewColumn DisplayMemberBinding="{Binding Path=Data}" Width="100">Data</GridViewColumn>
+                    <GridViewColumn DisplayMemberBinding="{Binding Path=Otsenka}" Width="70">Otsenka</GridViewColumn>
+                    <GridViewColumn DisplayMemberBinding="{Binding Path=Picture}" Width="100">Picture</GridViewColumn>
                 </GridView>
             </ListView.View>
             <ListView.ContextMenu>

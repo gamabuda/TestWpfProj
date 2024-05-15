@@ -21,47 +21,47 @@ namespace TestWpfProj
     /// </summary>
     public partial class MainWindow : Window
     {
-        private List<Meme> _memes;
-        private List<MemeType> _memeTypes;
+        private List<Film> _films;
+        private List<FilmGanr> _filmGanres;
         public MainWindow()
         {
             InitializeComponent();
 
-            _memes = Data.DataContext.Memes;
-            _memeTypes = Data.DataContext.MemeTypes;
+            _films = Data.DataContext.Films;
+            _filmGanres = Data.DataContext.FilmGanres;
 
-            LstView.ItemsSource = _memes;
-            FilterCB.ItemsSource = _memeTypes;
+            LstView.ItemsSource = _films;
+            FilterCB.ItemsSource = _filmGanres;
         }
 
         private void DeleteMI_Click(object sender, RoutedEventArgs e)
         {
-            Meme selectedMeme = (Meme)LstView.SelectedItem;
-            _memes.Remove(selectedMeme);
+            Film selectedMeme = (Film)LstView.SelectedItem;
+            _films.Remove(selectedMeme);
 
-            LstView.ItemsSource = _memes;
+            LstView.ItemsSource = _films;
             LstView.Items.Refresh();
         }
 
         private void ViewMI_Click(object sender, RoutedEventArgs e)
         {
-            Meme selectedMeme = (Meme)LstView.SelectedItem;
-            MessageBox.Show($"Id:{selectedMeme.Id} \nTitle: {selectedMeme.Title}\nType: {selectedMeme.MemeType.Title}\nPrice: {selectedMeme.Price}$", "Soon!");
+            Film selectedFilm = (Film)LstView.SelectedItem;
+            MessageBox.Show($"Id: {selectedFilm.Id} \nTitle: {selectedFilm.Title} \nGanr: {selectedFilm.FilmGanr.Title} \nData: {selectedFilm.Data} \nOtsenka: {selectedFilm.Otsenka} \nPicture: {selectedFilm.Picture}", "Soon!");
         }
 
         private void RefreshBtn_Click(object sender, RoutedEventArgs e)
         {
-            LstView.ItemsSource = _memes;
+            LstView.ItemsSource = _films;
             LstView.Items.Refresh();
         }
 
         private void SerchTB_TextChanged(object sender, TextChangedEventArgs e)
         {
-            var tempLst = _memes;
+            var tempLst = _films;
 
-            if(!String.IsNullOrEmpty(SerchTB.Text))
+            if (!String.IsNullOrEmpty(SerchTB.Text))
             {
-                tempLst = _memes.Where(x => x.Title.Contains(SerchTB.Text)).ToList();
+                tempLst = _films.Where(x => x.Title.Contains(SerchTB.Text)).ToList();
             }
 
             LstView.ItemsSource = tempLst;
@@ -70,30 +70,44 @@ namespace TestWpfProj
 
         private void FilterCB_SelectionChanged(object sender, SelectionChangedEventArgs e)
         {
-            var filter = _memes;
+            var filter = _films;
 
-            var type = (MemeType)FilterCB.SelectedItem;
+            var type = (FilmGanr)FilterCB.SelectedItem;
 
             if (type == null)
                 return;
 
-            filter = filter.Where(x => x.MemeType.Id == type.Id).ToList();
+            filter = filter.Where(x => x.FilmGanr.Id == type.Id).ToList();
             LstView.ItemsSource = filter;
             LstView.Items.Refresh();
         }
 
         private void FilterCB_DropDownClosed(object sender, EventArgs e)
         {
-            //var filter = _memes;
 
-            //var type = (MemeType)FilterCB.SelectedItem;
+        }
 
-            ////if (type == null)
-            ////    return;
+        private void SortCB_SelectionChanged()
+        {
+            //var sortA = FilmSortList.OrderBy(p => p.Title); //От А до Я
+            //Console.WriteLine("");
+            //foreach (var t in sortA)
+            //    Console.WriteLine(t.Title);
 
-            //filter = filter.Where(x => x.MemeType.Id == type.Id).ToList();
-            //LstView.ItemsSource = filter;
-            //LstView.Items.Refresh();
+            //var sortY = FilmSortList.OrderByDescending(p => p.Title); //От Я до А
+            //Console.WriteLine("");
+            //foreach (var t in sortY)
+            //    Console.WriteLine(t.Title);
+
+            //var sort1 = FilmSortList.OrderBy(p => p.Otsenka); //По возрастанию оценки
+            //Console.WriteLine("");
+            //foreach (var t in sort1)
+            //    Console.WriteLine($"{t.Title} is Otsenka = {t.Otsenka}");
+
+            //var sort9 = FilmSortList.OrderByDescending(p => p.Otsenka); //По убыванию оценки
+            //Console.WriteLine("");
+            //foreach (var t in sort9)
+            //    Console.WriteLine($"{t.Title} is Otsenka = {t.Otsenka}");
         }
     }
 }
