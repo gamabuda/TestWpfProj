@@ -59,6 +59,24 @@ namespace TestWpfProj
             LstView.Items.Refresh();
         }
 
+        private void ClearFiltrBtn_Click(object sender, RoutedEventArgs e)
+        {
+            Sort.SelectedItem = null;
+
+            _listView = _films;
+            LstView.ItemsSource = _listView;
+            LstView.Items.Refresh();
+        }
+
+        private void ClearSortBtn_Click(object sender, RoutedEventArgs e)
+        {
+            Sort.SelectedItem = null;
+
+            _listView = _films;
+            LstView.ItemsSource = _listView;
+            LstView.Items.Refresh();
+        }
+
         private void DeleteMI_Click(object sender, RoutedEventArgs e)
         {
             Film selectedMeme = (Film)LstView.SelectedItem;

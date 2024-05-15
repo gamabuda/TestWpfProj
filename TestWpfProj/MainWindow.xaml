@@ -19,6 +19,7 @@
                 <ColumnDefinition Width="auto"/>
                 <ColumnDefinition Width="auto"/>
             </Grid.ColumnDefinitions>
+
             <WrapPanel Grid.Column="0" Margin="6" HorizontalAlignment="Center">
                 <Label Content="Search:"/>
                 <TextBox x:Name="SerchTB" Width="175" TextChanged="SerchTB_TextChanged"></TextBox>
@@ -26,10 +27,12 @@
             <WrapPanel Grid.Column="1" Margin="6" HorizontalAlignment="Center">
                 <Label Content="Filter:"/>
                 <ComboBox Width="125" x:Name="FilterCB" DropDownClosed="FilterCB_DropDownClosed" SelectionChanged="FilterCB_SelectionChanged" DisplayMemberPath="Title"></ComboBox>
+                <Button x:Name="ClearBtn1" Content="Х"  BorderBrush="{x:Null}" Foreground="Red" Click="ClearFiltrBtn_Click" Padding="10,1,10,1" Grid.IsSharedSizeScope="True" Width="30" Height="30"/>
             </WrapPanel>
             <WrapPanel Grid.Column="2" Margin="6" HorizontalAlignment="Center">
                 <Label Content="Sort:"/>
                 <ComboBox Width="125" x:Name="Sort" SelectionChanged="Sort_DropDownClosed"></ComboBox>
+                <Button x:Name="ClearBtn2" Content="Х"  BorderBrush="{x:Null}" Foreground="Red" Click="ClearSortBtn_Click" Padding="10,1,10,1" Grid.IsSharedSizeScope="True" Width="30" Height="30"/>
             </WrapPanel>
         </Grid>
 
