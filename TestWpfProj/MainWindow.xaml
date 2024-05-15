@@ -39,11 +39,13 @@
                     <GridViewColumn DisplayMemberBinding="{Binding Path=Id}">Id</GridViewColumn>
                     <GridViewColumn DisplayMemberBinding="{Binding Path=Title}" Width="100">Title</GridViewColumn>
                     <GridViewColumn DisplayMemberBinding="{Binding Path=MemeType.Title}" Width="100">Type</GridViewColumn>
+                    <GridViewColumn DisplayMemberBinding="{Binding Path=Price}" Width="100">Price</GridViewColumn>
                 </GridView>
             </ListView.View>
             <ListView.ContextMenu>
                 <ContextMenu>
                     <MenuItem Header="View" Click="ViewMI_Click"/>
+                    <MenuItem Header="Edit" Click="EditMI_Click"/>
                     <MenuItem Header="Delete" Click="DeleteMI_Click"/>
                 </ContextMenu>
             </ListView.ContextMenu>

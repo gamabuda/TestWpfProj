@@ -13,6 +13,7 @@ using System.Windows.Media.Imaging;
 using System.Windows.Navigation;
 using System.Windows.Shapes;
 using TestWpfProj.Data;
+using TestWpfProj.Windows;
 
 namespace TestWpfProj
 {
@@ -46,7 +47,13 @@ namespace TestWpfProj
         private void ViewMI_Click(object sender, RoutedEventArgs e)
         {
             Meme selectedMeme = (Meme)LstView.SelectedItem;
-            MessageBox.Show($"Id:{selectedMeme.Id} \nTitle: {selectedMeme.Title}\nType: {selectedMeme.MemeType.Title}\nPrice: {selectedMeme.Price}$", "Soon!");
+            new ViewItemWindow(selectedMeme).ShowDialog();
+        }
+
+        private void EditMI_Click(object sender, RoutedEventArgs e)
+        {
+            Meme selectedMeme = (Meme)LstView.SelectedItem;
+            new EditItemWindow(selectedMeme).ShowDialog();
         }
 
         private void RefreshBtn_Click(object sender, RoutedEventArgs e)
