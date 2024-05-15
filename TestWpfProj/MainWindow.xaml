@@ -54,7 +54,7 @@
 
             <WrapPanel Grid.Column="9" Margin="6" HorizontalAlignment="Left">
                 <Label Content="Поиск:" Margin="60,0,0,0"/>
-                <TextBox x:Name="SerchTB" Width="250" TextChanged="SerchTB_TextChanged"></TextBox>
+                <TextBox x:Name="SearchTB" Width="250" TextChanged="SearchTB_TextChanged"></TextBox>
             </WrapPanel>
         </Grid>
 

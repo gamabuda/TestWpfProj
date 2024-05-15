@@ -20,6 +20,7 @@ namespace TestWpfProj
     {
         private List<Child> _people;
         private List<Child> _listView;
+        private List<Child> _searchList = new List<Child>();
         private List<string> _genders;
         private List<string> _sortLetters = new List<string>() { "От А до Я", "От Я до А" };
         private List<string> _sortNumbers = new List<string>() { "По возрастанию", "По убыванию" };
@@ -45,7 +46,7 @@ namespace TestWpfProj
         {
             Child selectedPerson = (Child)LstView.SelectedItem;
             _people.Remove(selectedPerson);
-            SerchTB.Text = "";
+            SearchTB.Text = "";
             LstView.ItemsSource = _people;
             LstView.Items.Refresh();
         }
@@ -63,12 +64,25 @@ namespace TestWpfProj
                 $"Дата заселения: {selectedPerson.MoveInDate}\n");
         }
 
-        private void SerchTB_TextChanged(object sender, TextChangedEventArgs e)
+        private void SearchTB_TextChanged(object sender, TextChangedEventArgs e)
         {
-            if (!String.IsNullOrEmpty(SerchTB.Text))
-                _listView = _people.Where(x => x.Surname.ToLower().StartsWith(SerchTB.Text) || x.Name.ToLower().StartsWith(SerchTB.Text) || x.Patronymic.ToLower().StartsWith(SerchTB.Text)).ToList();
+            if (!String.IsNullOrEmpty(SearchTB.Text))
+                _searchList = _people.Where(x => x.Surname.ToLower().StartsWith(SearchTB.Text) || x.Name.ToLower().StartsWith(SearchTB.Text) || x.Patronymic.ToLower().StartsWith(SearchTB.Text)).ToList();
             else
+                _searchList.Clear();
+
+            if (_searchList.Count > 0)
+                _listView = _searchList;
+            else if (SearchTB.Text.Length == 0)
                 _listView = _people;
+
+            NameFilter_DropDownClosed(sender, e);
+            SurnameFilter_DropDownClosed(sender, e);
+            PatronymicFilter_DropDownClosed(sender, e);
+            GenderFilter_DropDownClosed(sender, e);
+            AgeFilter_DropDownClosed(sender, e);
+            RoomNumberFilter_DropDownClosed(sender, e);
+            MoveInDateFilter_DropDownClosed(sender, e);
 
             LstView.ItemsSource = _listView;
             LstView.Items.Refresh();
@@ -91,6 +105,7 @@ namespace TestWpfProj
             AgeFilter.SelectedItem = null;
             RoomNumberFilter.SelectedItem = null;
             MoveInDateFilter.SelectedItem = null;
+
             LstView.ItemsSource = _listView;
             LstView.Items.Refresh();
         }
@@ -144,7 +159,11 @@ namespace TestWpfProj
             if (type == null)
                 return;
 
-            _listView = _people.Where(_people => _people.Gender == type).ToList();
+            if (_searchList.Count > 0)
+                _listView = _searchList.Where(_people => _people.Gender == type).ToList();
+            else
+                _listView = _people.Where(_people => _people.Gender == type).ToList();
+
             NameFilter_DropDownClosed(sender, e);
             SurnameFilter_DropDownClosed(sender, e);
             PatronymicFilter_DropDownClosed(sender, e);
@@ -229,7 +248,18 @@ namespace TestWpfProj
             RoomNumberFilter.SelectedItem = null;
             MoveInDateFilter.SelectedItem = null;
 
-            _listView = _people;
+            if (_searchList.Count > 0)
+                _listView = _searchList;
+            else
+                _listView = _people;
+
+            NameFilter_DropDownClosed(sender, e);
+            SurnameFilter_DropDownClosed(sender, e);
+            PatronymicFilter_DropDownClosed(sender, e);
+            GenderFilter_DropDownClosed(sender, e);
+            AgeFilter_DropDownClosed(sender, e);
+            RoomNumberFilter_DropDownClosed(sender, e);
+            MoveInDateFilter_DropDownClosed(sender, e);
             LstView.ItemsSource = _listView;
             LstView.Items.Refresh();
         }
