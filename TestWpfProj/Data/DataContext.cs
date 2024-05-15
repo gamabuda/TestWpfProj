@@ -24,12 +24,12 @@ namespace TestWpfProj.Data
             new Film("4 Zakon", FilmGanres[1], new DateTime(1875,2,4), 4.4,"")
         };
 
-        public static List<FilmSortList> FilmSortListes = new List<FilmSortList>()
-        {
-            new FilmSortList("От А до Я"),
-            new FilmSortList("От Я до А"),
-            new FilmSortList("По возрастанию оценки"),
-            new FilmSortList("По убыванию оценки")
-        };
+        //public static List<FilmSortList> FilmSortListes = new List<FilmSortList>()
+        //{
+        //    new FilmSortList("От А до Я"),
+        //    new FilmSortList("От Я до А"),
+        //    new FilmSortList("По возрастанию оценки"),
+        //    new FilmSortList("По убыванию оценки")
+        //};
     }
 }

@@ -29,7 +29,7 @@
             </WrapPanel>
             <WrapPanel Grid.Column="2" Margin="6" HorizontalAlignment="Center">
                 <Label Content="Sort:"/>
-                <ComboBox Width="125" x:Name="SortCB" SelectionChanged="SortCB_SelectionChanged"></ComboBox>
+                <ComboBox Width="125" x:Name="Sort" SelectionChanged="Sort_DropDownClosed"></ComboBox>
             </WrapPanel>
         </Grid>
 

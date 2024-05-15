@@ -3,36 +3,39 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
+using System.Windows.Controls;
 
 namespace TestWpfProj.Data
 {
-    public class Meme
+    public class Film
     {
-        public Meme(string title)
+        public Film(string title, FilmGanr ganr)
         {
             Id = Guid.NewGuid().ToString();
             Title = title;
+            FilmGanr = ganr;
+            //Ganr = ganr;
+            //Data = data;
+            //Otsenka = otsenka;
+            //Picture = picture;
         }
 
-        public Meme(string title, MemeType type)
+        public Film(string title, FilmGanr ganr, DateTime data, double otsenka, string picture)
         {
             Id = Guid.NewGuid().ToString();
             Title = title;
-            MemeType = type;
-        }
-
-        public Meme(string title, MemeType type, decimal price)
-        {
-            Id = Guid.NewGuid().ToString();
-            Title = title;
-            MemeType = type;
-            Price = price;
+            FilmGanr = ganr;
+            Data = data;
+            Otsenka = otsenka;
+            Picture = picture;
         }
 
         public string Id { get; set; }
         public string Title { get; set; }
-        public MemeType? MemeType { get; set; }
-
-        public decimal Price { get; set; } = 0;
+        public string Ganr { get; set; }
+        public DateTime Data { get; set; }
+        public double Otsenka { get; set; }
+        public string Picture { get; set; }
+        public FilmGanr? FilmGanr { get; set; }
     }
 }
