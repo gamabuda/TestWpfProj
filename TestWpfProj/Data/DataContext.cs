@@ -140,6 +140,8 @@ namespace TestWpfProj.Data
             new Cat("Фея", CatTypes[2], new DateTime(2019, 4, 30), "Кошка"),
             new Cat("Флора", CatTypes[2], new DateTime(2019, 5, 30), "Кошка"),
             new Cat("Флафи", CatTypes[2], new DateTime(2019, 5, 30), "Кошка"),
+            new Cat("Бетти", CatTypes[2], new DateTime(2021, 3, 10), "Кошка"),
+            new Cat("Мяу", CatTypes[2], new DateTime(2023, 7, 30), "Кот"),
         };
 
         

@@ -41,6 +41,7 @@
                     <GridViewColumn DisplayMemberBinding="{Binding Path=Name}" Width="100">Name</GridViewColumn>
                     <GridViewColumn DisplayMemberBinding="{Binding Path=CatType.Title}" Width="100">Порода</GridViewColumn>
                     <GridViewColumn DisplayMemberBinding="{Binding Path=Birthday.BirthdayString}" Width="100">День рождения</GridViewColumn>
+                    <GridViewColumn DisplayMemberBinding="{Binding Path=Gender}">Gender</GridViewColumn>
                 </GridView>
             </ListView.View>
             <ListView.ContextMenu>
