@@ -5,7 +5,7 @@
         xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
         xmlns:local="clr-namespace:TestWpfProj"
         mc:Ignorable="d"
-        Title="Edit meme" Height="160px" Width="300px"
+        Title="Edit Cat" Height="170px" Width="300px"
         ShowInTaskbar="False"
         ResizeMode="NoResize"
         WindowStartupLocation="CenterOwner">
@@ -22,14 +22,19 @@
             <ColumnDefinition Width="*"/>
         </Grid.ColumnDefinitions>
 
-        <Label Content="Title:" Grid.Row="0" Grid.Column="0" VerticalAlignment="Center"/>
-        <TextBox x:Name="TitleField" Grid.Row="0" Grid.Column="1" Margin="5"/>
+        <Label Content="Name:" Grid.Row="0" Grid.Column="0" VerticalAlignment="Center"/>
+        <TextBox x:Name="NameField" Grid.Row="0" Grid.Column="1" Margin="5"/>
 
-        <Label Content="MemeType:" Grid.Row="1" Grid.Column="0" VerticalAlignment="Center"/>
-        <ComboBox x:Name="MemeTypeField" Grid.Row="1" Grid.Column="1" Margin="5" DisplayMemberPath="Title"/>
+        <Label Content="CatType:" Grid.Row="1" Grid.Column="0" VerticalAlignment="Center"/>
+        <ComboBox x:Name="CatTypeField" Grid.Row="1" Grid.Column="1" Margin="5" DisplayMemberPath="Title"/>
 
-        <Label Content="Price:" Grid.Row="2" Grid.Column="0" VerticalAlignment="Center"/>
-        <TextBox x:Name="PriceField" Grid.Row="2" Grid.Column="1" Margin="5" PreviewTextInput="NumberValidationTextBox"/>
+        <Label Content="Birthday:" Grid.Row="2" Grid.Column="0" VerticalAlignment="Center"/>
+        <TextBlock x:Name="BirthdayField" Grid.Row="2" Grid.Column="1" Margin="5" VerticalAlignment="Center"/>
+        <StackPanel Grid.Row="2" Grid.Column="1" Orientation="Horizontal" HorizontalAlignment="Right" Margin="5">
+            <Button Content="+" Height="auto" Width="19.96" Margin="5" Click="PlusButton_Click"/>
+            <Button Content="-" Height="auto" Width="19.96" Margin="5" Click="MinusButton_Click"/>
+        </StackPanel>
+        
 
         <StackPanel Grid.Row="4" Grid.Column="0" Grid.ColumnSpan="2" Orientation="Horizontal" HorizontalAlignment="Right" Margin="5">
             <Button Content="Confirm" Width="75" Margin="5" Click="Confirm_Click"/>

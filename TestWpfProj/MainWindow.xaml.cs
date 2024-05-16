@@ -21,63 +21,63 @@ namespace TestWpfProj
     /// </summary>
     public partial class MainWindow : Window
     {
-        private List<Meme> _memes;
-        private List<MemeType> _memeTypes;
+        private List<Cat> _Cats;
+        private List<CatType> _CatTypes;
         public MainWindow()
         {
             InitializeComponent();
 
-            _memes = Data.DataContext.Memes;
-            _memeTypes = Data.DataContext.MemeTypes;
+            _Cats = Data.DataContext.Cats;
+            _CatTypes = Data.DataContext.CatTypes;
 
-            LstView.ItemsSource = _memes;
-            FilterCB.ItemsSource = _memeTypes;
+            LstView.ItemsSource = _Cats;
+            FilterCB.ItemsSource = _CatTypes;
             SortCB.ItemsSource = Sorts.SortList;
             SortCB.SelectedItem = Sorts.SortList[0];
         }
 
         private void DeleteMI_Click(object sender, RoutedEventArgs e)
         {
-            Meme selectedMeme = (Meme)LstView.SelectedItem;
-            if (selectedMeme == null) return;
-            DeleteWindow deleteWindow = new DeleteWindow(selectedMeme);
+            Cat selectedCat = (Cat)LstView.SelectedItem;
+            if (selectedCat == null) return;
+            DeleteWindow deleteWindow = new DeleteWindow(selectedCat);
             deleteWindow.ShowDialog();
             if(deleteWindow.DialogResult == true)
             {
-                _memes.Remove(selectedMeme);
+                _Cats.Remove(selectedCat);
 
-                LstView.ItemsSource = _memes;
+                LstView.ItemsSource = _Cats;
                 LstView.Items.Refresh();
             }
         }
 
         private void ViewMI_Click(object sender, RoutedEventArgs e)
         {
-            Meme selectedMeme = (Meme)LstView.SelectedItem;
-            if (selectedMeme == null) return;
-            MessageBox.Show($"Id:{selectedMeme.Id} \nTitle: {selectedMeme.Title}\nType: {selectedMeme.MemeType.Title}\nPrice: {selectedMeme.Price}$", "Soon!");
+            Cat selectedCat = (Cat)LstView.SelectedItem;
+            if (selectedCat == null) return;
+            MessageBox.Show($"Id:{selectedCat.Id} \nName: {selectedCat.Name}\nType: {selectedCat.CatType.Title}\nBirthday: {selectedCat.Birthday.BirthdayString}");
         }
 
         private void RefreshBtn_Click(object sender, RoutedEventArgs e)
         {
-            LstView.ItemsSource = _memes;
+            LstView.ItemsSource = _Cats;
             LstView.Items.Refresh();
         }
 
         private void SerchTB_TextChanged(object sender, TextChangedEventArgs e)
         {
             Filter();
-            var lst = (List<Meme>)LstView.ItemsSource;
+            var lst = (List<Cat>)LstView.ItemsSource;
             lst = Search(lst);
             LstView.ItemsSource = lst;
             LstView.Items.Refresh();
         }
 
-        private List<Meme> Search(List<Meme> source)
+        private List<Cat> Search(List<Cat> source)
         {
             if (!String.IsNullOrEmpty(SerchTB.Text))
             {
-                source = source.Where(x => x.Title.ToLower().Contains(SerchTB.Text.ToLower())).ToList();
+                source = source.Where(x => x.Name.ToLower().Contains(SerchTB.Text.ToLower())).ToList();
             }
             return source;
         }
@@ -88,9 +88,9 @@ namespace TestWpfProj
         }
         private void Filter()
         {
-            var filter = _memes;
+            var filter = _Cats;
 
-            var type = (MemeType)FilterCB.SelectedItem;
+            var type = (CatType)FilterCB.SelectedItem;
 
             if (type == null) 
             { 
@@ -98,7 +98,7 @@ namespace TestWpfProj
                 LstView.ItemsSource = filter;
                 return;
             }
-            filter = filter.Where(x => x.MemeType.Id == type.Id).ToList();
+            filter = filter.Where(x => x.CatType.Id == type.Id).ToList();
 
             var sort = (Sort)SortCB.SelectedItem;
             filter = sort.Action(filter);
@@ -115,7 +115,7 @@ namespace TestWpfProj
 
         private void SortCB_DropDownClosed(object sender, EventArgs e)
         {
-            var list = (List<Meme>)LstView.ItemsSource;
+            var list = (List<Cat>)LstView.ItemsSource;
 
             var sort = (Sort)SortCB.SelectedItem;
 
@@ -131,15 +131,15 @@ namespace TestWpfProj
 
         private void EditMI_Click(object sender, RoutedEventArgs e)
         {
-            Meme selectedMeme = (Meme)LstView.SelectedItem;
-            if (selectedMeme == null) return;
-            EditWindow editWindow = new EditWindow(selectedMeme.Title, selectedMeme.Price, selectedMeme.MemeType);
+            Cat selectedCat = (Cat)LstView.SelectedItem;
+            if (selectedCat == null) return;
+            EditWindow editWindow = new EditWindow(selectedCat.Name, selectedCat.Birthday, selectedCat.CatType);
             editWindow.ShowDialog();
             if(editWindow.DialogResult == true)
             {
-                selectedMeme.Title = editWindow.Title;
-                selectedMeme.Price = editWindow.Price;
-                selectedMeme.MemeType = editWindow.MemeType;
+                selectedCat.Name = editWindow.Name;
+                selectedCat.Birthday = editWindow.Birthday;
+                selectedCat.CatType = editWindow.CatType;
                 LstView.Items.Refresh();
             }
         }

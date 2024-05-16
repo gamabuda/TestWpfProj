@@ -21,21 +21,29 @@ namespace TestWpfProj
     /// </summary>
     public partial class EditWindow : Window
     {
-        public string Title { get { return TitleField.Text; } set { TitleField.Text = value; } }
-        public decimal Price { get { return Convert.ToDecimal(PriceField.Text); } set { PriceField.Text = Convert.ToString(value); } }
-        public MemeType MemeType { get { return (MemeType)MemeTypeField.SelectedItem; } set { MemeTypeField.SelectedItem = value; } }
-        private void NumberValidationTextBox(object sender, TextCompositionEventArgs e)
-        {
-            Regex regex = new Regex("[^0-9]+");
-            e.Handled = regex.IsMatch(e.Text);
+        public string Name { get { return NameField.Text; } set { NameField.Text = value; } }
+        public Birthday Birthday 
+        { 
+            get 
+            {
+                return _birthday;
+            } 
+            set 
+            {
+                _birthday = value;
+                BirthdayField.Text = value.BirthdayString;
+            } 
         }
-        public EditWindow(string title, decimal price, MemeType memetype)
+        Birthday _birthday;
+        public CatType CatType { get { return (CatType)CatTypeField.SelectedItem; } set { CatTypeField.SelectedItem = value; } }
+
+        public EditWindow(string Name, Birthday Birthday, CatType Cattype)
         {
             InitializeComponent();
-            Title = title;
-            Price = price;
-            MemeType = memetype;
-            MemeTypeField.ItemsSource = Data.DataContext.MemeTypes;
+            this.Name = Name;
+            this.Birthday = Birthday;
+            CatType = Cattype;
+            CatTypeField.ItemsSource = Data.DataContext.CatTypes;
         }
 
         private void Confirm_Click(object sender, RoutedEventArgs e)
@@ -46,6 +54,18 @@ namespace TestWpfProj
         private void Cancel_Click(object sender, RoutedEventArgs e)
         {
             this.Close();
+        }
+
+        private void PlusButton_Click(object sender, RoutedEventArgs e)
+        {
+            Birthday.AddDay();
+            BirthdayField.Text = Birthday.BirthdayString;
+        }
+
+        private void MinusButton_Click(Object sender, RoutedEventArgs e)
+        {
+            Birthday.RemoveDay();
+            BirthdayField.Text = Birthday.BirthdayString;
         }
     }
 }

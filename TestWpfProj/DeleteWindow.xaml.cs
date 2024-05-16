@@ -21,10 +21,10 @@ namespace TestWpfProj
     public partial class DeleteWindow : Window
     {
         public string Text { get { return TextElement.Text; } set { TextElement.Text = value; } }
-        public DeleteWindow(Meme meme)
+        public DeleteWindow(Cat Cat)
         {
             InitializeComponent();
-            Text = $"Are you sure want to delete {meme.Title}?";
+            Text = $"Are you sure want to delete {Cat.Name}?";
         }
 
         private void Cancel_Click(object sender, RoutedEventArgs e)
