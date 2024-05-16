@@ -1,7 +1,7 @@
 ﻿using System;
 using System.Collections.Generic;
-using System.Diagnostics;
 using System.Linq;
+using System.Runtime.CompilerServices;
 using System.Text;
 using System.Threading.Tasks;
 using System.Windows;
@@ -17,20 +17,24 @@ using TestWpfProj.Data;
 namespace TestWpfProj.Windows
 {
     /// <summary>
-    /// Логика взаимодействия для ViewWindow.xaml
+    /// Логика взаимодействия для EditMemeWindow.xaml
     /// </summary>
-    public partial class ViewWindow : Window
+    public partial class EditMemeWindow : Window
     {
-        private Meme _viewMeme;
-        public ViewWindow(Meme meme)
+        private Meme _editMeme;
+        public EditMemeWindow(Meme meme)
         {
             InitializeComponent();
 
-            _viewMeme = meme;
-            this.DataContext = _viewMeme;
+            this.DataContext = _editMeme = meme;
         }
 
-        private void CloseBTN_Click(object sender, RoutedEventArgs e)
+        private void CloseBtn_Click(object sender, RoutedEventArgs e)
+        { 
+            Close();
+        }
+
+        private void SaveBtn_Click(object sender, RoutedEventArgs e)
         {
             Close();
         }

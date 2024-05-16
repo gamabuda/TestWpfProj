@@ -6,7 +6,7 @@
         xmlns:local="clr-namespace:TestWpfProj.Windows"
         mc:Ignorable="d"
         WindowStartupLocation="CenterOwner"
-        Title="ViewWindow" Height="400" Width="450">
+        Title="ViewWindow" Height="400" Width="550">
     <Grid>
         <Grid.RowDefinitions>
             <RowDefinition/>
@@ -32,7 +32,7 @@
             </WrapPanel>
             <WrapPanel>
                 <Label Content="Type:"></Label>
-                <Label Content="{Binding Type}"></Label>
+                <Label Content="{Binding MemeType.Title}"></Label>
             </WrapPanel>
             <WrapPanel>
                 <Label Content="Price:"></Label>

@@ -26,6 +26,7 @@ namespace TestWpfProj
         private List<MemeType> _memeTypes;
         private List<SortType> _sortTypes;
 
+
         public MainWindow()
         {
             InitializeComponent();
@@ -50,8 +51,8 @@ namespace TestWpfProj
 
         private void ViewMI_Click(object sender, RoutedEventArgs e)
         {
-            ViewWindow viewWindow = new ViewWindow();
             Meme selectedMeme = (Meme)LstView.SelectedItem;
+            ViewWindow viewWindow = new ViewWindow(selectedMeme);
 
             viewWindow.Owner = this;
             viewWindow.ShowDialog();
@@ -60,7 +61,10 @@ namespace TestWpfProj
         private void EditMI_Click(object sender, RoutedEventArgs e)
         {
             Meme selectedMeme = (Meme)LstView.SelectedItem;
-            MessageBox.Show($"Id:{selectedMeme.Id} \nTitle: {selectedMeme.Title}\nType: {selectedMeme.MemeType.Title}\nPrice: {selectedMeme.Price}$", "Soon!");
+            EditMemeWindow editMemeWindow = new EditMemeWindow(selectedMeme);
+
+            editMemeWindow.Owner = this;
+            editMemeWindow.ShowDialog();
         }
 
         private void RefreshBtn_Click(object sender, RoutedEventArgs e)
