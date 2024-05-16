@@ -39,15 +39,22 @@ namespace TestWpfProj
         private void DeleteMI_Click(object sender, RoutedEventArgs e)
         {
             Meme selectedMeme = (Meme)LstView.SelectedItem;
-            _memes.Remove(selectedMeme);
+            if (selectedMeme == null) return;
+            DeleteWindow deleteWindow = new DeleteWindow(selectedMeme);
+            deleteWindow.ShowDialog();
+            if(deleteWindow.DialogResult == true)
+            {
+                _memes.Remove(selectedMeme);
 
-            LstView.ItemsSource = _memes;
-            LstView.Items.Refresh();
+                LstView.ItemsSource = _memes;
+                LstView.Items.Refresh();
+            }
         }
 
         private void ViewMI_Click(object sender, RoutedEventArgs e)
         {
             Meme selectedMeme = (Meme)LstView.SelectedItem;
+            if (selectedMeme == null) return;
             MessageBox.Show($"Id:{selectedMeme.Id} \nTitle: {selectedMeme.Title}\nType: {selectedMeme.MemeType.Title}\nPrice: {selectedMeme.Price}$", "Soon!");
         }
 
@@ -115,6 +122,26 @@ namespace TestWpfProj
             list = sort.Action.Invoke(list);
             LstView.ItemsSource = list;
             LstView.Items.Refresh();
+        }
+
+        private void MenuItem_Click(object sender, RoutedEventArgs e)
+        {
+
+        }
+
+        private void EditMI_Click(object sender, RoutedEventArgs e)
+        {
+            Meme selectedMeme = (Meme)LstView.SelectedItem;
+            if (selectedMeme == null) return;
+            EditWindow editWindow = new EditWindow(selectedMeme.Title, selectedMeme.Price, selectedMeme.MemeType);
+            editWindow.ShowDialog();
+            if(editWindow.DialogResult == true)
+            {
+                selectedMeme.Title = editWindow.Title;
+                selectedMeme.Price = editWindow.Price;
+                selectedMeme.MemeType = editWindow.MemeType;
+                LstView.Items.Refresh();
+            }
         }
     }
 }

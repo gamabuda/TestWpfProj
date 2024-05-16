@@ -46,6 +46,7 @@
             <ListView.ContextMenu>
                 <ContextMenu>
                     <MenuItem Header="View" Click="ViewMI_Click"/>
+                    <MenuItem Header="Edit" Click="EditMI_Click"/>
                     <MenuItem Header="Delete" Click="DeleteMI_Click"/>
                 </ContextMenu>
             </ListView.ContextMenu>
