@@ -19,7 +19,7 @@
             </Grid.ColumnDefinitions>
 
             <Border Grid.Column="0" Grid.Row="0" CornerRadius="25" Margin="15">
-                <Image />
+                <Image x:Name="ObjectImg" Stretch="Uniform"/>
             </Border>
 
             <StackPanel Grid.Column="1" Grid.Row="0" Margin="15" Orientation="Vertical" VerticalAlignment="Center">
@@ -33,7 +33,7 @@
                 </WrapPanel>
                 <WrapPanel>
                     <Label Content="Type:"/>
-                    <Label Content="{Binding MemeType.Title}"/>
+                    <Label Content="{Binding LanguageType.Title}"/>
                 </WrapPanel>
                 <WrapPanel>
                     <Label Content="Price:"/>

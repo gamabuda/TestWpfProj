@@ -1,37 +1,42 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
+﻿using System.IO;
 using System.Windows;
-using System.Windows.Controls;
-using System.Windows.Data;
-using System.Windows.Documents;
-using System.Windows.Input;
-using System.Windows.Media;
 using System.Windows.Media.Imaging;
-using System.Windows.Shapes;
 using TestWpfProj.Data;
 
 namespace TestWpfProj.Windows
 {
-    /// <summary>
-    /// Логика взаимодействия для ViewItemWindow.xaml
-    /// </summary>
     public partial class ViewItemWindow : Window
     {
-        private Meme _viewMeme;
-        public ViewItemWindow(Meme meme)
+        private Language _viewLang;
+
+        public ViewItemWindow(Language lang)
         {
             InitializeComponent();
+            _viewLang = lang;
+            this.DataContext = _viewLang;
 
-            _viewMeme = meme;
-            this.DataContext = _viewMeme;
+            if (_viewLang.ImageData != null && _viewLang.ImageData.Length > 0)
+            {
+                ObjectImg.Source = ByteArrayToImage(_viewLang.ImageData);
+            }
         }
 
         private void CloseBtn_Click(object sender, RoutedEventArgs e)
         {
             this.Close();
+        }
+
+        private BitmapImage ByteArrayToImage(byte[] byteArray)
+        {
+            using (var stream = new MemoryStream(byteArray))
+            {
+                var image = new BitmapImage();
+                image.BeginInit();
+                image.CacheOption = BitmapCacheOption.OnLoad;
+                image.StreamSource = stream;
+                image.EndInit();
+                return image;
+            }
         }
     }
 }

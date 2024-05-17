@@ -8,20 +8,20 @@ namespace TestWpfProj.Data
 {
     public static class DataContext
     {
-        public static List<MemeType> MemeTypes = new List<MemeType>()
+        public static List<LanguageType> LanguageTypes = new List<LanguageType>()
         {
-            new MemeType("Animals memes"),
-            new MemeType("Tit-tok memes"),
-            new MemeType("Skufs memes")
+            new LanguageType("For young developers"),
+            new LanguageType("For middle developers"),
+            new LanguageType("For professional developers")
         };
 
-        public static List<Meme> Memes = new List<Meme>()
+        public static List<Language> Languages = new List<Language>()
         {
-            new Meme("Megusto", MemeTypes[2], 999),
-            new Meme("bruh", MemeTypes[1], 99),
-            new Meme("Omsk", MemeTypes[2], 199),
-            new Meme("MalishkaHochetSdatPraktiku", MemeTypes[0], 69),
-            new Meme("Sigma", MemeTypes[1], 119)
+            new Language("C#", LanguageTypes[0], 999),
+            new Language("Ruby", LanguageTypes[1], 99),
+            new Language("JavaScript", LanguageTypes[2], 199),
+            new Language("HelpMEidklangugesExepct1C", LanguageTypes[2], 69),
+            new Language("HTML", LanguageTypes[0], 119)
         };
     }
 }

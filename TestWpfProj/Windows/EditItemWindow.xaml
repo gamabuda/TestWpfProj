@@ -40,7 +40,7 @@
                 </WrapPanel>
                 <WrapPanel>
                     <Label Width="35" Content="Type:"/>
-                    <TextBox Width="200" Text="{Binding MemeType.Title}"/>
+                    <TextBox Width="200" Text="{Binding LanguageType.Title}"/>
                 </WrapPanel>
                 <WrapPanel>
                     <Label Width="35" Content="Price:"/>
@@ -54,8 +54,8 @@
                     <ColumnDefinition/>
                 </Grid.ColumnDefinitions>
 
-                <Button x:Name="SaveBtn"   Grid.Column="0" Content="Save"/>
-                <Button x:Name="CloseBtn"  Grid.Column="1" Content="Cancel"/>
+                <Button x:Name="SaveBtn"   Grid.Column="0" Content="Save" Click="SaveBtn_Click"/>
+                <Button x:Name="CloseBtn"  Grid.Column="1" Content="Cancel" Click="CloseBtn_Click"/>
             </Grid>
            
         </Grid>

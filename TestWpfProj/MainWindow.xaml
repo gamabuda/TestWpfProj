@@ -8,37 +8,61 @@
         Title="MainWindow" Height="450" Width="800">
     <Grid Background="Lavender">
         <Grid.RowDefinitions>
-            <RowDefinition Height="auto"/>
+            <RowDefinition Height="Auto"/>
+            <RowDefinition Height="Auto"/>
             <RowDefinition Height="1*"/>
-            <RowDefinition Height="auto"/>
+            <RowDefinition Height="Auto"/>
         </Grid.RowDefinitions>
 
-        <Grid Grid.Row="0" VerticalAlignment="Center" HorizontalAlignment="Center">
+        <Grid Grid.Row="1" VerticalAlignment="Center" HorizontalAlignment="Center">
             <Grid.ColumnDefinitions>
                 <ColumnDefinition Width="auto"/>
                 <ColumnDefinition Width="auto"/>
                 <ColumnDefinition Width="auto"/>
+                <ColumnDefinition Width="auto"/>
             </Grid.ColumnDefinitions>
+            
             <WrapPanel Grid.Column="0" Margin="6" HorizontalAlignment="Center">
                 <Label Content="Search:"/>
                 <TextBox x:Name="SerchTB" Width="175" TextChanged="SerchTB_TextChanged"></TextBox>
             </WrapPanel>
             <WrapPanel Grid.Column="1" Margin="6" HorizontalAlignment="Center">
-                <Label Content="Filter:"/>
-                <ComboBox Width="125" x:Name="FilterCB" DropDownClosed="FilterCB_DropDownClosed" SelectionChanged="FilterCB_SelectionChanged" DisplayMemberPath="Title"></ComboBox>
+                <StackPanel>
+                    <StackPanel Orientation="Horizontal">
+                        <Label Content="Filter:"/>
+                        <ComboBox Width="125" x:Name="FilterCB" SelectionChanged="FilterCB_SelectionChanged" DisplayMemberPath="Title"></ComboBox>
+                    </StackPanel>
+                    <Button Width="125px" Margin="6px" HorizontalAlignment="Right" Click="Button_Click">RemainFilter</Button>
+                </StackPanel>
             </WrapPanel>
             <WrapPanel Grid.Column="2" Margin="6" HorizontalAlignment="Center">
-                <Label Content="Sort:"/>
-                <ComboBox Width="125" ></ComboBox>
+                <StackPanel>
+                    <StackPanel Orientation="Horizontal">
+                        <Label Content="Sort:"/>
+                        <ComboBox x:Name="SortCB" Width="125" SelectionChanged="ComboBox_SelectionChanged" >
+                            <ComboBoxItem Content="От А до Я"/>
+                            <ComboBoxItem Content="От Я до А"/>
+                            <ComboBoxItem Content="По возрастанию цены"/>
+                            <ComboBoxItem Content="По убыванию цены"/>
+                        </ComboBox>
+                    </StackPanel>
+                    <Button Width="125px" Margin="6px" HorizontalAlignment="Right" Click="Button_Click_1">RemainSort</Button>
+                </StackPanel>
+                
+
+            </WrapPanel>
+            <WrapPanel Grid.Column="3" Margin="6" HorizontalAlignment="Center">
+                <Label Content="Welcome"/>
+                <TextBlock  Margin="5" x:Name="UserTB" Width="100"></TextBlock>
             </WrapPanel>
         </Grid>
-        
-        <ListView Name="LstView" Grid.Row="1">
+
+        <ListView Name="LstView" Grid.Row="2">
             <ListView.View>
                 <GridView>
                     <GridViewColumn DisplayMemberBinding="{Binding Path=Id}">Id</GridViewColumn>
                     <GridViewColumn DisplayMemberBinding="{Binding Path=Title}" Width="100">Title</GridViewColumn>
-                    <GridViewColumn DisplayMemberBinding="{Binding Path=MemeType.Title}" Width="100">Type</GridViewColumn>
+                    <GridViewColumn DisplayMemberBinding="{Binding Path=LanguageType.Title}" Width="100">Type</GridViewColumn>
                     <GridViewColumn DisplayMemberBinding="{Binding Path=Price}" Width="100">Price</GridViewColumn>
                 </GridView>
             </ListView.View>
@@ -50,5 +74,7 @@
                 </ContextMenu>
             </ListView.ContextMenu>
         </ListView>
+
+        <Button Content="Экспорт в CSV" Click="ExportToCSV_Click" HorizontalAlignment="Left" VerticalAlignment="Top" Margin="10"/>
     </Grid>
 </Window>

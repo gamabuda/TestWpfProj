@@ -1,33 +1,27 @@
 ﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
-using System.Windows;
-using System.Windows.Controls;
-using System.Windows.Data;
-using System.Windows.Documents;
-using System.Windows.Input;
-using System.Windows.Media;
-using System.Windows.Media.Imaging;
-using System.Windows.Shapes;
-using TestWpfProj.Data;
 using System.IO;
+using System.Windows;
+using System.Windows.Media.Imaging;
 using Microsoft.Win32;
+using TestWpfProj.Data;
 
 namespace TestWpfProj.Windows
 {
-    /// <summary>
-    /// Логика взаимодействия для EditItemWindow.xaml
-    /// </summary>
     public partial class EditItemWindow : Window
     {
+        private Language _language;
         private byte[] _img = new byte[0];
-        public EditItemWindow(Meme meme)
+
+        public EditItemWindow(Language lang)
         {
             InitializeComponent();
+            _language = lang;
+            this.DataContext = _language;
 
-            this.DataContext = _img;
+            if (_language.ImageData != null && _language.ImageData.Length > 0)
+            {
+                ObjectImg.Source = ByteArrayToImage(_language.ImageData);
+            }
         }
 
         private void LoadImgBtn_Click(object sender, RoutedEventArgs e)
@@ -35,31 +29,51 @@ namespace TestWpfProj.Windows
             OpenFileDialog op = new OpenFileDialog();
             op.Title = "Select a photo";
             op.Filter = "All supported graphics|*.jpg;*.jpeg;*.png|" +
-              "JPEG (*.jpg;*.jpeg)|*.jpg;*.jpeg|" +
-              "Portable Network Graphic (*.png)|*.png";
+                        "JPEG (*.jpg;*.jpeg)|*.jpg;*.jpeg|" +
+                        "Portable Network Graphic (*.png)|*.png";
             if (op.ShowDialog() == true)
             {
                 var img = new BitmapImage(new Uri(op.FileName));
-                // 2 byte[]
-                _img = Image2Byte(img);
-                // path
+                _img = ImageToByteArray(img);
                 ObjectImg.Source = img;
             }
         }
 
-        public Byte[] Image2Byte(BitmapImage imageSource)
+        private void SaveBtn_Click(object sender, RoutedEventArgs e)
         {
-            Stream stream = imageSource.StreamSource;
-            Byte[] buffer = null;
-            if (stream != null && stream.Length > 0)
-            {
-                using (BinaryReader br = new BinaryReader(stream))
-                {
-                    buffer = br.ReadBytes((Int32)stream.Length);
-                }
-            }
+            _language.ImageData = _img;
+            this.DialogResult = true;
+            this.Close();
+        }
 
-            return buffer;
+        private void CloseBtn_Click(object sender, RoutedEventArgs e)
+        {
+            this.DialogResult = false;
+            this.Close();
+        }
+
+        private byte[] ImageToByteArray(BitmapImage image)
+        {
+            using (var stream = new MemoryStream())
+            {
+                var encoder = new PngBitmapEncoder();
+                encoder.Frames.Add(BitmapFrame.Create(image));
+                encoder.Save(stream);
+                return stream.ToArray();
+            }
+        }
+
+        private BitmapImage ByteArrayToImage(byte[] byteArray)
+        {
+            using (var stream = new MemoryStream(byteArray))
+            {
+                var image = new BitmapImage();
+                image.BeginInit();
+                image.CacheOption = BitmapCacheOption.OnLoad;
+                image.StreamSource = stream;
+                image.EndInit();
+                return image;
+            }
         }
     }
 }
