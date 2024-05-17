@@ -23,6 +23,7 @@ namespace TestWpfProj
         private List<Child> _listView;
         private List<Child> _searchList = new List<Child>();
         private List<string> _genders;
+        private TextChangedEventArgs _searchInput;
         private List<string> _sortLetters = new List<string>() { "От А до Я", "От Я до А" };
         private List<string> _sortNumbers = new List<string>() { "По возрастанию", "По убыванию" };
         public MainWindow()
@@ -58,8 +59,8 @@ namespace TestWpfProj
                 _people.Remove(selectedPerson);
             }
 
-            SearchTB.Text = "";
-            LstView.ItemsSource = _people;
+            SearchTB_TextChanged(sender, _searchInput);
+            LstView.ItemsSource = _listView;
             LstView.Items.Refresh();
         }
 
@@ -70,14 +71,17 @@ namespace TestWpfProj
             if (selectedPerson == null)
                 return;
 
-            var w = new EditInfoWindow(selectedPerson).ShowDialog();
+            new EditInfoWindow(selectedPerson).ShowDialog();
 
+            SearchTB_TextChanged(sender, _searchInput);
             LstView.ItemsSource = _listView;
             LstView.Items.Refresh();
         }
 
         private void SearchTB_TextChanged(object sender, TextChangedEventArgs e)
         {
+            _searchInput = e;
+
             if (!String.IsNullOrEmpty(SearchTB.Text))
                 _searchList = _people.Where(x => x.Surname.ToLower().StartsWith(SearchTB.Text) || x.Name.ToLower().StartsWith(SearchTB.Text) || x.Patronymic.ToLower().StartsWith(SearchTB.Text)).ToList();
             else
