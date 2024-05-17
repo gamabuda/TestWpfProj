@@ -59,7 +59,15 @@ namespace TestWpfProj
         private void ViewMI_Click(object sender, RoutedEventArgs e)
         {
             Meme selectedMeme = (Meme)LstView.SelectedItem;
-            MessageBox.Show($"Id:{selectedMeme.Id} \nTitle: {selectedMeme.Title}\nType: {selectedMeme.MemeType.Title}\nPrice: {selectedMeme.Price}$", "Soon!");
+
+            if (selectedMeme != null)
+            {
+                MessageBox.Show($"Id:{selectedMeme.Id} \nTitle: {selectedMeme.Title}\nType: {selectedMeme.MemeType.Title}\nPrice: {selectedMeme.Price}$", "Soon!");
+            }
+            else
+            {
+                MessageBox.Show("Пожалуйста, выберите нужный товар.", "Ошибка", MessageBoxButton.OK, MessageBoxImage.Error);
+            }
         }
         private void EditMI_Click(object sender, RoutedEventArgs e)
         {
