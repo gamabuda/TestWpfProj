@@ -13,6 +13,7 @@ using System.Windows.Media.Imaging;
 using System.Windows.Navigation;
 using System.Windows.Shapes;
 using TestWpfProj.Data;
+using TestWpfProj.Windows;
 
 namespace TestWpfProj
 {
@@ -54,14 +55,7 @@ namespace TestWpfProj
         private void ViewPerson_Click(object sender, RoutedEventArgs e)
         {
             Child selectedPerson = (Child)LstView.SelectedItem;
-            MessageBox.Show($"Id: {selectedPerson.Id} \n" +
-                $"Фамилия: {selectedPerson.Surname}\n" +
-                $"Имя: {selectedPerson.Name}\n" +
-                $"Отчество: {selectedPerson.Patronymic}\n" +
-                $"Пол: {selectedPerson.Gender}\n" +
-                $"Возраст: {selectedPerson.Age}\n" +
-                $"Комната: {selectedPerson.RoomNumber}\n" +
-                $"Дата заселения: {selectedPerson.MoveInDate}\n");
+            new EditInfoWindow(selectedPerson).ShowDialog();
         }
 
         private void SearchTB_TextChanged(object sender, TextChangedEventArgs e)
