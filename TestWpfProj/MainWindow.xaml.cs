@@ -45,7 +45,7 @@ namespace TestWpfProj
 
             LstView.ItemsSource = _memes;
             LstView.Items.Refresh();
-        }
+        }//
 
         private void ViewMI_Click(object sender, RoutedEventArgs e)
         {
