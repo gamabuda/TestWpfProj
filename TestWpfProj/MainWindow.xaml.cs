@@ -41,11 +41,20 @@ namespace TestWpfProj
         private void DeleteMI_Click(object sender, RoutedEventArgs e)
         {
             Meme selectedMeme = (Meme)LstView.SelectedItem;
-            _memes.Remove(selectedMeme);
 
-            LstView.ItemsSource = _memes;
-            LstView.Items.Refresh();
-        }//
+            if (selectedMeme != null)
+            {
+                MessageBoxResult result = MessageBox.Show($"Вы уверены, что хотите удалить '{selectedMeme.Title}'?", "Confirm Deletion", MessageBoxButton.YesNo, MessageBoxImage.Warning);
+
+                if (result == MessageBoxResult.Yes)
+                {
+                    _memes.Remove(selectedMeme);
+
+                    LstView.ItemsSource = _memes;
+                    LstView.Items.Refresh();
+                }
+            }
+        }
 
         private void ViewMI_Click(object sender, RoutedEventArgs e)
         {
