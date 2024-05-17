@@ -24,6 +24,9 @@ namespace TestWpfProj
     {
         private List<Meme> _memes;
         private List<MemeType> _memeTypes;
+        private string _searchText = string.Empty;
+        private MemeType _selectedMemeType;
+        private string _selectedSort;
         public MainWindow()
         {
             InitializeComponent();
@@ -63,68 +66,48 @@ namespace TestWpfProj
 
         private void SerchTB_TextChanged(object sender, TextChangedEventArgs e)
         {
-            var tempLst = _memes;
-
-            if(!String.IsNullOrEmpty(SerchTB.Text))
-            {
-                tempLst = _memes.Where(x => x.Title.Contains(SerchTB.Text)).ToList();
-            }
-
-            LstView.ItemsSource = tempLst;
-            LstView.Items.Refresh();
+            _searchText = SerchTB.Text;
+            ApplyFiltersAndSorting();
         }
 
         private void FilterCB_SelectionChanged(object sender, SelectionChangedEventArgs e)
         {
-            var filter = _memes;
-
-            var type = (MemeType)FilterCB.SelectedItem;
-
-            if (type == null)
-                return;
-
-            filter = filter.Where(x => x.MemeType.Id == type.Id).ToList();
-            LstView.ItemsSource = filter;
-            LstView.Items.Refresh();
+            _selectedMemeType = (MemeType)FilterCB.SelectedItem;
+            ApplyFiltersAndSorting();
         }
 
         private void FilterCB_DropDownClosed(object sender, EventArgs e)
         {
-            var filter = _memes;
-
-            var type = (MemeType)FilterCB.SelectedItem;
-
-            if (type == null)
-                return;
-
-            filter = filter.Where(x => x.MemeType.Id == type.Id).ToList();
-            LstView.ItemsSource = filter;
-            LstView.Items.Refresh();
+            _selectedMemeType = (MemeType)FilterCB.SelectedItem;
+            ApplyFiltersAndSorting();
         }
         private void ResetButton_Click(object sender, RoutedEventArgs e)
         {
             ResetFiltersAndSorting();
         }
+
         private void ResetSortingButton_Click(object sender, RoutedEventArgs e)
         {
             ResetSorting();
         }
         private void ResetSorting()
         {
-            // Сбросить сортировку
             SortCB.SelectedIndex = -1;
+            _selectedSort = null;
 
-            // Вернуть полный список
-            LstView.ItemsSource = _memes;
+            ApplyFiltersAndSorting();
         }
+
         private void ResetFiltersAndSorting()
         {
-            // Сбросить фильтрацию
             FilterCB.SelectedIndex = -1;
+            _selectedMemeType = null;
+            SerchTB.Text = string.Empty;
+            _searchText = string.Empty;
 
-            // Вернуть полный список
-            LstView.ItemsSource = _memes;
+            ApplyFiltersAndSorting();
         }
+
         private void SortCB_SelectionChanged(object sender, SelectionChangedEventArgs e)
         {
             if (SortCB.SelectedItem == null)
@@ -132,28 +115,47 @@ namespace TestWpfProj
                 return; // Ничего не делать, если ничего не выбрано
             }
 
-            var sortType = ((ComboBoxItem)SortCB.SelectedItem).Content.ToString();
-
-            switch (sortType)
-            {
-                case "По возрастанию (А-Я)":
-                    _memes = _memes.OrderBy(m => m.Title, StringComparer.CurrentCulture).ToList();
-                    break;
-                case "По убыванию (Я-А)":
-                    _memes = _memes.OrderByDescending(m => m.Title, StringComparer.CurrentCulture).ToList();
-                    break;
-                case "По возрастанию цены":
-                    _memes = _memes.OrderBy(m => m.Price).ToList();
-                    break;
-                case "По убыванию цены":
-                    _memes = _memes.OrderByDescending(m => m.Price).ToList();
-                    break;
-                default:
-                    break;
-            }
-
-            LstView.ItemsSource = _memes;
+            _selectedSort = ((ComboBoxItem)SortCB.SelectedItem).Content.ToString();
+            ApplyFiltersAndSorting();
         }
 
+        private void ApplyFiltersAndSorting()
+        {
+            var filteredList = _memes;
+
+            // Apply search filter
+            if (!string.IsNullOrEmpty(_searchText))
+            {
+                filteredList = filteredList.Where(x => x.Title.Contains(_searchText, StringComparison.CurrentCultureIgnoreCase)).ToList();
+            }
+
+            // Apply type filter
+            if (_selectedMemeType != null)
+            {
+                filteredList = filteredList.Where(x => x.MemeType.Id == _selectedMemeType.Id).ToList();
+            }
+
+            // Apply sorting
+            if (!string.IsNullOrEmpty(_selectedSort))
+            {
+                switch (_selectedSort)
+                {
+                    case "По возрастанию (А-Я)":
+                        filteredList = filteredList.OrderBy(m => m.Title, StringComparer.CurrentCulture).ToList();
+                        break;
+                    case "По убыванию (Я-А)":
+                        filteredList = filteredList.OrderByDescending(m => m.Title, StringComparer.CurrentCulture).ToList();
+                        break;
+                    case "По возрастанию цены":
+                        filteredList = filteredList.OrderBy(m => m.Price).ToList();
+                        break;
+                    case "По убыванию цены":
+                        filteredList = filteredList.OrderByDescending(m => m.Price).ToList();
+                        break;
+                }
+            }
+
+            LstView.ItemsSource = filteredList;
+        }
     }
 }
