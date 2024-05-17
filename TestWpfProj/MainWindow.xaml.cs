@@ -46,7 +46,18 @@ namespace TestWpfProj
         private void DeletePerson_Click(object sender, RoutedEventArgs e)
         {
             Child selectedPerson = (Child)LstView.SelectedItem;
-            _people.Remove(selectedPerson);
+            
+            if (selectedPerson == null)
+                return;
+
+            if (MessageBox.Show("Вы действительно хотите удалить этого человека?",
+                    "Удаление информации",
+                    MessageBoxButton.YesNo,
+                    MessageBoxImage.Question) == MessageBoxResult.Yes)
+            {
+                _people.Remove(selectedPerson);
+            }
+
             SearchTB.Text = "";
             LstView.ItemsSource = _people;
             LstView.Items.Refresh();
@@ -55,7 +66,14 @@ namespace TestWpfProj
         private void ViewPerson_Click(object sender, RoutedEventArgs e)
         {
             Child selectedPerson = (Child)LstView.SelectedItem;
-            new EditInfoWindow(selectedPerson).ShowDialog();
+
+            if (selectedPerson == null)
+                return;
+
+            var w = new EditInfoWindow(selectedPerson).ShowDialog();
+
+            LstView.ItemsSource = _listView;
+            LstView.Items.Refresh();
         }
 
         private void SearchTB_TextChanged(object sender, TextChangedEventArgs e)
@@ -67,6 +85,8 @@ namespace TestWpfProj
 
             if (_searchList.Count > 0)
                 _listView = _searchList;
+            else if (_searchList.Count == 0 && SearchTB.Text.Length != 0)
+                _listView.Clear();
             else if (SearchTB.Text.Length == 0)
                 _listView = _people;
 
@@ -155,7 +175,9 @@ namespace TestWpfProj
 
             if (_searchList.Count > 0)
                 _listView = _searchList.Where(_people => _people.Gender == type).ToList();
-            else
+            else if (_searchList.Count == 0 && SearchTB.Text.Length != 0)
+                _listView.Clear();
+            else if (SearchTB.Text.Length == 0)
                 _listView = _people.Where(_people => _people.Gender == type).ToList();
 
             NameFilter_DropDownClosed(sender, e);

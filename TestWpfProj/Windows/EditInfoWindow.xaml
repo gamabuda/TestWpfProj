@@ -6,6 +6,109 @@
         xmlns:local="clr-namespace:TestWpfProj.Windows"
         mc:Ignorable="d"
         Title="Информация о ребенке" Height="400" Width="600" WindowStartupLocation="CenterScreen" Background="Lavender">
+
+    <Window.Resources>
+        <Style x:Key="FocusVisual">
+            <Setter Property="Control.Template">
+                <Setter.Value>
+                    <ControlTemplate>
+                        <Rectangle Margin="2" StrokeDashArray="1 2" Stroke="{DynamicResource {x:Static SystemColors.ControlTextBrushKey}}" SnapsToDevicePixels="true" StrokeThickness="1"/>
+                    </ControlTemplate>
+                </Setter.Value>
+            </Setter>
+        </Style>
+        <SolidColorBrush x:Key="Button.Static.Background" Color="#FFDDDDDD"/>
+        <SolidColorBrush x:Key="Button.Static.Border" Color="#FF707070"/>
+        <SolidColorBrush x:Key="Button.MouseOver.Background" Color="#B227B0FF"/>
+        <SolidColorBrush x:Key="Button.MouseOver.Border"/>
+        <SolidColorBrush x:Key="Button.Pressed.Background" Color="#E527B0FF"/>
+        <SolidColorBrush x:Key="Button.Pressed.Border"/>
+        <SolidColorBrush x:Key="Button.Disabled.Background" Color="#FFF4F4F4"/>
+        <SolidColorBrush x:Key="Button.Disabled.Border"/>
+        <SolidColorBrush x:Key="Button.Disabled.Foreground" Color="#FF838383"/>
+        <Style TargetType="{x:Type Button}">
+            <Setter Property="FocusVisualStyle" Value="{StaticResource FocusVisual}"/>
+            <Setter Property="Background" Value="{StaticResource Button.Static.Background}"/>
+            <Setter Property="BorderBrush" Value="{StaticResource Button.Static.Border}"/>
+            <Setter Property="Foreground" Value="{DynamicResource {x:Static SystemColors.ControlTextBrushKey}}"/>
+            <Setter Property="BorderThickness" Value="1"/>
+            <Setter Property="HorizontalContentAlignment" Value="Center"/>
+            <Setter Property="VerticalContentAlignment" Value="Center"/>
+            <Setter Property="Padding" Value="1"/>
+            <Setter Property="Template">
+                <Setter.Value>
+                    <ControlTemplate TargetType="{x:Type Button}">
+                        <Border x:Name="border" CornerRadius="6" Background="{TemplateBinding Background}" BorderBrush="{TemplateBinding BorderBrush}" BorderThickness="{TemplateBinding BorderThickness}" SnapsToDevicePixels="true">
+                            <ContentPresenter x:Name="contentPresenter" Focusable="False" HorizontalAlignment="{TemplateBinding HorizontalContentAlignment}" Margin="{TemplateBinding Padding}" RecognizesAccessKey="True" SnapsToDevicePixels="{TemplateBinding SnapsToDevicePixels}" VerticalAlignment="{TemplateBinding VerticalContentAlignment}"/>
+                        </Border>
+                        <ControlTemplate.Triggers>
+                            <Trigger Property="IsDefaulted" Value="true">
+                                <Setter Property="BorderBrush" TargetName="border" Value="{DynamicResource {x:Static SystemColors.HighlightBrushKey}}"/>
+                            </Trigger>
+                            <Trigger Property="IsMouseOver" Value="true">
+                                <Setter Property="Background" TargetName="border" Value="{StaticResource Button.MouseOver.Background}"/>
+                                <Setter Property="BorderBrush" TargetName="border" Value="{StaticResource Button.MouseOver.Border}"/>
+                            </Trigger>
+                            <Trigger Property="IsPressed" Value="true">
+                                <Setter Property="Background" TargetName="border" Value="{StaticResource Button.Pressed.Background}"/>
+                                <Setter Property="BorderBrush" TargetName="border" Value="{StaticResource Button.Pressed.Border}"/>
+                            </Trigger>
+                            <Trigger Property="IsEnabled" Value="false">
+                                <Setter Property="Background" TargetName="border" Value="{StaticResource Button.Disabled.Background}"/>
+                                <Setter Property="BorderBrush" TargetName="border" Value="{StaticResource Button.Disabled.Border}"/>
+                                <Setter Property="TextElement.Foreground" TargetName="contentPresenter" Value="{StaticResource Button.Disabled.Foreground}"/>
+                            </Trigger>
+                        </ControlTemplate.Triggers>
+                    </ControlTemplate>
+                </Setter.Value>
+            </Setter>
+        </Style>
+        <SolidColorBrush x:Key="TextBox.Static.Border" Color="#FFABAdB3"/>
+        <SolidColorBrush x:Key="TextBox.MouseOver.Border" Color="#FF7EB4EA"/>
+        <SolidColorBrush x:Key="TextBox.Focus.Border" Color="#FF569DE5"/>
+        <Style TargetType="{x:Type TextBox}">
+            <Setter Property="Background" Value="{DynamicResource {x:Static SystemColors.WindowBrushKey}}"/>
+            <Setter Property="BorderBrush" Value="{StaticResource TextBox.Static.Border}"/>
+            <Setter Property="Foreground" Value="{DynamicResource {x:Static SystemColors.ControlTextBrushKey}}"/>
+            <Setter Property="BorderThickness" Value="1"/>
+            <Setter Property="KeyboardNavigation.TabNavigation" Value="None"/>
+            <Setter Property="HorizontalContentAlignment" Value="Left"/>
+            <Setter Property="FocusVisualStyle" Value="{x:Null}"/>
+            <Setter Property="AllowDrop" Value="true"/>
+            <Setter Property="ScrollViewer.PanningMode" Value="VerticalFirst"/>
+            <Setter Property="Stylus.IsFlicksEnabled" Value="False"/>
+            <Setter Property="Template">
+                <Setter.Value>
+                    <ControlTemplate TargetType="{x:Type TextBox}">
+                        <Border x:Name="border" CornerRadius="2" Background="{TemplateBinding Background}" BorderBrush="{TemplateBinding BorderBrush}" BorderThickness="{TemplateBinding BorderThickness}" SnapsToDevicePixels="True">
+                            <ScrollViewer x:Name="PART_ContentHost" Focusable="false" HorizontalScrollBarVisibility="Hidden" VerticalScrollBarVisibility="Hidden"/>
+                        </Border>
+                        <ControlTemplate.Triggers>
+                            <Trigger Property="IsEnabled" Value="false">
+                                <Setter Property="Opacity" TargetName="border" Value="0.56"/>
+                            </Trigger>
+                            <Trigger Property="IsMouseOver" Value="true">
+                                <Setter Property="BorderBrush" TargetName="border" Value="{StaticResource TextBox.MouseOver.Border}"/>
+                            </Trigger>
+                            <Trigger Property="IsKeyboardFocused" Value="true">
+                                <Setter Property="BorderBrush" TargetName="border" Value="{StaticResource TextBox.Focus.Border}"/>
+                            </Trigger>
+                        </ControlTemplate.Triggers>
+                    </ControlTemplate>
+                </Setter.Value>
+            </Setter>
+            <Style.Triggers>
+                <MultiTrigger>
+                    <MultiTrigger.Conditions>
+                        <Condition Property="IsInactiveSelectionHighlightEnabled" Value="true"/>
+                        <Condition Property="IsSelectionActive" Value="false"/>
+                    </MultiTrigger.Conditions>
+                    <Setter Property="SelectionBrush" Value="{DynamicResource {x:Static SystemColors.InactiveSelectionHighlightBrushKey}}"/>
+                </MultiTrigger>
+            </Style.Triggers>
+        </Style>
+    </Window.Resources>
+
     <Grid Margin="20,0,20,0">
         <Grid.RowDefinitions>
             <RowDefinition Height="20*"></RowDefinition>
@@ -19,7 +122,7 @@
         </Grid.ColumnDefinitions>
 
         <StackPanel x:Name="ID_SP" Grid.Column="0" VerticalAlignment="Center" Height="22">
-            <TextBlock Text="{Binding Id}" VerticalAlignment="Center" FontSize="12" IsEnabled="False"/>
+            <TextBlock Text="{Binding Id}" VerticalAlignment="Center" FontSize="12" IsEnabled="False" Foreground="#FF3A3A3A"/>
         </StackPanel>
 
         <StackPanel VerticalAlignment="Center" HorizontalAlignment="Left" Orientation="Horizontal" Grid.Column="1" Margin="201,0,0,0" Width="76">
@@ -33,7 +136,7 @@
         </StackPanel>
 
         <Border Grid.Column="0" Grid.Row="1" CornerRadius="25" >
-            <Button x:Name="LoadImgBtn" Click="LoadImgBtn_Click" BorderBrush="#FFC9C9C9">
+            <Button x:Name="LoadImgBtn" Click="LoadImgBtn_Click" BorderBrush="#FFC9C9C9" IsEnabled="False">
                 <Image x:Name="ObjectImg" Width="280" Height="274" Source="{Binding Photo}"/>
             </Button>
         </Border>
@@ -56,19 +159,19 @@
                 </StackPanel>
 
                 <StackPanel x:Name="Info_SP" Grid.Column="1" Margin="4,0,0,0" IsEnabled="False">
-                    <TextBox Text="{Binding Surname}" VerticalAlignment="Center" FontSize="12" Height="25" Padding="0,5,0,0" Background="{x:Null}" BorderBrush="{x:Null}" />
-                    <TextBox Text="{Binding Name}" VerticalAlignment="Center" FontSize="12" Height="25" Padding="0,5,0,0" Background="{x:Null}" BorderBrush="{x:Null}"/>
-                    <TextBox Text="{Binding Patronymic}" VerticalAlignment="Center" FontSize="12" Height="25" Padding="0,5,0,0" BorderBrush="{x:Null}" Background="{x:Null}"/>
-                    <TextBox Text="{Binding Gender}" VerticalAlignment="Center" FontSize="12" Height="25" Padding="0,5,0,0" BorderBrush="{x:Null}" Background="{x:Null}"/>
-                    <TextBox Text="{Binding Age}" VerticalAlignment="Center" FontSize="12" Height="25" Padding="0,5,0,0" BorderBrush="{x:Null}" Background="{x:Null}"/>
-                    <TextBox Text="{Binding RoomNumber}" VerticalAlignment="Center" FontSize="12" Height="25" Padding="0,5,0,0" BorderBrush="{x:Null}" Background="{x:Null}"/>
-                    <TextBox Text="{Binding MoveInDate}" VerticalAlignment="Center" FontSize="12" Height="25"  Padding="0,5,0,0" BorderBrush="{x:Null}" Background="{x:Null}" Cursor="" />
+                    <TextBox x:Name="Surname_TB" Text="{Binding Surname}" VerticalAlignment="Center" FontSize="12" Height="25" Padding="0,5,0,0" Background="{x:Null}" BorderBrush="{x:Null}" />
+                    <TextBox x:Name="Name_TB" Text="{Binding Name}" VerticalAlignment="Center" FontSize="12" Height="25" Padding="0,5,0,0" Background="{x:Null}" BorderBrush="{x:Null}"/>
+                    <TextBox x:Name="Patronymic_TB"  Text="{Binding Patronymic}" VerticalAlignment="Center" FontSize="12" Height="25" Padding="0,5,0,0" BorderBrush="{x:Null}" Background="{x:Null}"/>
+                    <TextBox x:Name="Gender_TB" Text="{Binding Gender}" VerticalAlignment="Center" FontSize="12" Height="25" Padding="0,5,0,0" BorderBrush="{x:Null}" Background="{x:Null}"/>
+                    <TextBox x:Name="Age_TB" Text="{Binding Age}" VerticalAlignment="Center" FontSize="12" Height="25" Padding="0,5,0,0" BorderBrush="{x:Null}" Background="{x:Null}"/>
+                    <TextBox x:Name="RoomNumber_TB"  Text="{Binding RoomNumber}" VerticalAlignment="Center" FontSize="12" Height="25" Padding="0,5,0,0" BorderBrush="{x:Null}" Background="{x:Null}"/>
+                    <TextBox x:Name="MoveInDate_TB" VerticalAlignment="Center" FontSize="12" Height="25"  Padding="0,5,0,0" BorderBrush="{x:Null}" Background="{x:Null}" Cursor="" />
                 </StackPanel>
 
             </Grid>
         </Border>
 
-        <Button x:Name="SaveBtn" Grid.Column="0" Grid.Row="2" Content="Save" Height="30" Margin="0,0,4,0" Cursor="Hand" Click="SaveBtn_Click"/>
+        <Button x:Name="SaveBtn" Grid.Column="0" Grid.Row="2" Content="Save" Height="30" Margin="0,0,4,0" Cursor="Hand" Click="SaveBtn_Click" IsEnabled="False"/>
         <Button x:Name="CloseBtn"  Grid.Column="1" Grid.Row="2" Content="Cancel" Height="30" Margin="4,0,0,0" Cursor="Hand" Click="CloseBtn_Click"/>
 
     </Grid>
