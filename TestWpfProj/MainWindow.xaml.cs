@@ -54,6 +54,10 @@ namespace TestWpfProj
                     LstView.Items.Refresh();
                 }
             }
+            else
+            {
+                MessageBox.Show("Пожалуйста, выберите нужный товар.", "Ошибка", MessageBoxButton.OK, MessageBoxImage.Error);
+            }
         }
 
         private void ViewMI_Click(object sender, RoutedEventArgs e)
@@ -72,6 +76,7 @@ namespace TestWpfProj
         private void EditMI_Click(object sender, RoutedEventArgs e)
         {
             Meme selectedMeme = (Meme)LstView.SelectedItem;
+
             if (selectedMeme != null)
             {
                 EditItemWindow editWindow = new EditItemWindow(selectedMeme);
@@ -80,6 +85,10 @@ namespace TestWpfProj
                     // Refresh the ListView to show updated data
                     LstView.Items.Refresh();
                 }
+            }
+            else
+            {
+                MessageBox.Show("Пожалуйста, выберите нужный товар.", "Ошибка", MessageBoxButton.OK, MessageBoxImage.Error);
             }
         }
 
