@@ -77,20 +77,18 @@ namespace TestWpfProj.Windows
             this.Close();
         }
 
-        public Byte[] Image2Byte(BitmapImage imageSource)
+        public byte[] Image2Byte(BitmapImage imageSource)//сохранение картинки
         {
-            Stream stream = imageSource.StreamSource;
-            Byte[] buffer = null;
-            if (stream != null && stream.Length > 0)
+            using (MemoryStream ms = new MemoryStream())
             {
-                using (BinaryReader br = new BinaryReader(stream))
-                {
-                    buffer = br.ReadBytes((Int32)stream.Length);
-                }
+                JpegBitmapEncoder encoder = new JpegBitmapEncoder();
+                encoder.Frames.Add(BitmapFrame.Create(imageSource));
+                encoder.Save(ms);
+                return ms.ToArray();
             }
-
-            return buffer;
         }
+
+
         private void CloseBtn_Click(object sender, RoutedEventArgs e)
         {
             this.DialogResult = false;
