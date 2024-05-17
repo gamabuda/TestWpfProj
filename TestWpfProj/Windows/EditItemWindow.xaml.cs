@@ -14,6 +14,7 @@ using System.Windows.Shapes;
 using TestWpfProj.Data;
 using System.IO;
 using Microsoft.Win32;
+using static TestWpfProj.MainWindow;
 
 namespace TestWpfProj.Windows
 {
@@ -22,12 +23,31 @@ namespace TestWpfProj.Windows
     /// </summary>
     public partial class EditItemWindow : Window
     {
-        private byte[] _img = new byte[0];
+        private Meme _meme;
+        private byte[] _img;
+
         public EditItemWindow(Meme meme)
         {
             InitializeComponent();
+            _meme = meme;
+            this.DataContext = _meme;
 
-            this.DataContext = _img;
+            if (_meme.Image != null)
+            {
+                ObjectImg.Source = ByteToImage(_meme.Image);
+            }
+        }
+        private BitmapImage ByteToImage(byte[] imageData)
+        {
+            using (var ms = new MemoryStream(imageData))
+            {
+                var image = new BitmapImage();
+                image.BeginInit();
+                image.CacheOption = BitmapCacheOption.OnLoad;
+                image.StreamSource = ms;
+                image.EndInit();
+                return image;
+            }
         }
 
         private void LoadImgBtn_Click(object sender, RoutedEventArgs e)
@@ -46,6 +66,16 @@ namespace TestWpfProj.Windows
                 ObjectImg.Source = img;
             }
         }
+        private void SaveBtn_Click(object sender, RoutedEventArgs e)
+        {
+            if (_img != null)
+            {
+                _meme.Image = _img;
+            }
+
+            this.DialogResult = true;
+            this.Close();
+        }
 
         public Byte[] Image2Byte(BitmapImage imageSource)
         {
@@ -61,5 +91,11 @@ namespace TestWpfProj.Windows
 
             return buffer;
         }
+        private void CloseBtn_Click(object sender, RoutedEventArgs e)
+        {
+            this.DialogResult = false;
+            this.Close();
+        }
     }
 }
+   

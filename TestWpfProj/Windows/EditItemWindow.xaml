@@ -6,58 +6,57 @@
         xmlns:local="clr-namespace:TestWpfProj.Windows"
         mc:Ignorable="d"
         Title="EditItemWindow" Height="450" Width="800">
-    <Border Margin="12" CornerRadius="50">
-        <Grid Background="LightGray">
-            <Grid.RowDefinitions>
-                <RowDefinition/>
-                <RowDefinition Height="auto"/>
-            </Grid.RowDefinitions>
-            <Grid.ColumnDefinitions>
-                <ColumnDefinition/>
-                <ColumnDefinition/>
-            </Grid.ColumnDefinitions>
+	<Border Margin="12" CornerRadius="50">
+		<Grid Background="LightGray">
+			<Grid.RowDefinitions>
+				<RowDefinition/>
+				<RowDefinition Height="auto"/>
+			</Grid.RowDefinitions>
+			<Grid.ColumnDefinitions>
+				<ColumnDefinition/>
+				<ColumnDefinition/>
+			</Grid.ColumnDefinitions>
 
-            <Border Grid.Column="0" Grid.Row="0" CornerRadius="25" Margin="15">
-                <Grid>
-                    <Grid.RowDefinitions>
-                        <RowDefinition/>
-                        <RowDefinition Height="auto"/>
-                    </Grid.RowDefinitions>
+			<Border Grid.Column="0" Grid.Row="0" CornerRadius="25" Margin="15">
+				<Grid>
+					<Grid.RowDefinitions>
+						<RowDefinition/>
+						<RowDefinition Height="auto"/>
+					</Grid.RowDefinitions>
 
-                    <Image x:Name="ObjectImg" Grid.Row="0"/>
-                    <Button x:Name="LoadImgBtn" Grid.Row="1" Content="Load new..." Click="LoadImgBtn_Click"/>
-                </Grid>
-            </Border>
+					<Image x:Name="ObjectImg" Grid.Row="0"/>
+					<Button x:Name="LoadImgBtn" Grid.Row="1" Content="Load new..." Click="LoadImgBtn_Click"/>
+				</Grid>
+			</Border>
 
-            <StackPanel Grid.Column="1" Grid.Row="0" Margin="15" Orientation="Vertical" VerticalAlignment="Center">
-                <WrapPanel>
-                    <Label Width="35" Content="Id:"/>
-                    <Label Content="{Binding Id}"/>
-                </WrapPanel>
-                <WrapPanel>
-                    <Label Width="35" Content="Title:"/>
-                    <TextBox Width="200" Text="{Binding Title}"/>
-                </WrapPanel>
-                <WrapPanel>
-                    <Label Width="35" Content="Type:"/>
-                    <TextBox Width="200" Text="{Binding MemeType.Title}"/>
-                </WrapPanel>
-                <WrapPanel>
-                    <Label Width="35" Content="Price:"/>
-                    <TextBox Width="200" Text="{Binding Price}"/>
-                </WrapPanel>
-            </StackPanel>
+			<StackPanel Grid.Column="1" Grid.Row="0" Margin="15" Orientation="Vertical" VerticalAlignment="Center">
+				<WrapPanel>
+					<Label Width="35" Content="Id:"/>
+					<Label Content="{Binding Id}"/>
+				</WrapPanel>
+				<WrapPanel>
+					<Label Width="35" Content="Title:"/>
+					<TextBox Width="200" Text="{Binding Title}"/>
+				</WrapPanel>
+				<WrapPanel>
+					<Label Width="35" Content="Type:"/>
+					<TextBox Width="200" Text="{Binding MemeType.Title}"/>
+				</WrapPanel>
+				<WrapPanel>
+					<Label Width="35" Content="Price:"/>
+					<TextBox Width="200" Text="{Binding Price}"/>
+				</WrapPanel>
+			</StackPanel>
 
-            <Grid Grid.ColumnSpan="2" Grid.Row="1">
-                <Grid.ColumnDefinitions>
-                    <ColumnDefinition/>
-                    <ColumnDefinition/>
-                </Grid.ColumnDefinitions>
+			<Grid Grid.ColumnSpan="2" Grid.Row="1">
+				<Grid.ColumnDefinitions>
+					<ColumnDefinition/>
+					<ColumnDefinition/>
+				</Grid.ColumnDefinitions>
 
-                <Button x:Name="SaveBtn"   Grid.Column="0" Content="Save"/>
-                <Button x:Name="CloseBtn"  Grid.Column="1" Content="Cancel"/>
-            </Grid>
-           
-        </Grid>
-    </Border>
+				<Button x:Name="SaveBtn" Grid.Column="0" Content="Save" Click="SaveBtn_Click"/>
+				<Button x:Name="CloseBtn" Grid.Column="1" Content="Cancel" Click="CloseBtn_Click"/>
+			</Grid>
+		</Grid>
+	</Border>
 </Window>

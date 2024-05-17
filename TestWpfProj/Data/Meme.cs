@@ -34,5 +34,6 @@ namespace TestWpfProj.Data
         public MemeType? MemeType { get; set; }
 
         public decimal Price { get; set; } = 0;
+        public byte[] Image { get; set; }  // Add this property
     }
 }

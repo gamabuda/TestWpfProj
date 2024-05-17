@@ -55,7 +55,15 @@ namespace TestWpfProj
         private void EditMI_Click(object sender, RoutedEventArgs e)
         {
             Meme selectedMeme = (Meme)LstView.SelectedItem;
-            new EditItemWindow(selectedMeme).ShowDialog();
+            if (selectedMeme != null)
+            {
+                EditItemWindow editWindow = new EditItemWindow(selectedMeme);
+                if (editWindow.ShowDialog() == true)
+                {
+                    // Refresh the ListView to show updated data
+                    LstView.Items.Refresh();
+                }
+            }
         }
 
         private void RefreshBtn_Click(object sender, RoutedEventArgs e)
