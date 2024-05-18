@@ -11,6 +11,7 @@ using System.Windows.Input;
 using System.Windows.Media;
 using System.Windows.Media.Imaging;
 using System.Windows.Shapes;
+using TestWpfProj.Data;
 
 namespace TestWpfProj.Windows
 {
@@ -19,9 +20,18 @@ namespace TestWpfProj.Windows
     /// </summary>
     public partial class ViewItemWindow : Window
     {
-        public ViewItemWindow()
+        private Film _viewFilm;
+        public ViewItemWindow(Film film)
         {
             InitializeComponent();
+
+            _viewFilm = film;
+            this.DataContext = _viewFilm;
+        }
+
+        private void CloseBtn_Click(object sender, RoutedEventArgs e)
+        {
+            this.Close();
         }
     }
 }

@@ -11,6 +11,9 @@ using System.Windows.Input;
 using System.Windows.Media;
 using System.Windows.Media.Imaging;
 using System.Windows.Shapes;
+using TestWpfProj.Data;
+using System.IO;
+using Microsoft.Win32;
 
 namespace TestWpfProj.Windows
 {
@@ -19,9 +22,44 @@ namespace TestWpfProj.Windows
     /// </summary>
     public partial class EditItemWindow : Window
     {
-        public EditItemWindow()
+        private byte[] _img = new byte[0];
+        public EditItemWindow(Film film)
         {
             InitializeComponent();
+
+            this.DataContext = _img;
+        }
+
+        private void LoadImgBtn_Click(object sender, RoutedEventArgs e)
+        {
+            OpenFileDialog op = new OpenFileDialog();
+            op.Title = "Select a photo";
+            op.Filter = "All supported graphics|*.jpg;*.jpeg;*.png|" +
+              "JPEG (*.jpg;*.jpeg)|*.jpg;*.jpeg|" +
+              "Portable Network Graphic (*.png)|*.png";
+            if (op.ShowDialog() == true)
+            {
+                var img = new BitmapImage(new Uri(op.FileName));
+                // 2 byte[]
+                _img = Image2Byte(img);
+                // path
+                ObjectImg.Source = img;
+            }
+        }
+
+        public Byte[] Image2Byte(BitmapImage imageSource)
+        {
+            Stream stream = imageSource.StreamSource;
+            Byte[] buffer = null;
+            if (stream != null && stream.Length > 0)
+            {
+                using (BinaryReader br = new BinaryReader(stream))
+                {
+                    buffer = br.ReadBytes((Int32)stream.Length);
+                }
+            }
+
+            return buffer;
         }
     }
 }

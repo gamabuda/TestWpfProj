@@ -5,8 +5,46 @@
         xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
         xmlns:local="clr-namespace:TestWpfProj.Windows"
         mc:Ignorable="d"
-        Title="ViewItemWindow" Height="450" Width="800">
-    <Grid>
-        
-    </Grid>
+        Title="ViewItemWindow" Height="400" Width="450">
+    <Border Margin="12" CornerRadius="50">
+        <Grid Background="LightGray">
+            <Grid.RowDefinitions>
+                <RowDefinition/>
+                <RowDefinition Height="auto"/>
+            </Grid.RowDefinitions>
+            <Grid.ColumnDefinitions>
+                <ColumnDefinition/>
+                <ColumnDefinition/>
+            </Grid.ColumnDefinitions>
+
+            <Border Grid.Column="0" Grid.Row="0" CornerRadius="25" Margin="15">
+                <Image />
+            </Border>
+
+            <StackPanel Grid.Column="1" Grid.Row="0" Margin="15" Orientation="Vertical" VerticalAlignment="Center">
+                <WrapPanel>
+                    <Label Content="Id:"/>
+                    <Label Content="{Binding Id}"/>
+                </WrapPanel>
+                <WrapPanel>
+                    <Label Content="Title:"/>
+                    <Label Content="{Binding Title}"/>
+                </WrapPanel>
+                <WrapPanel>
+                    <Label Content="Ganr:"/>
+                    <Label Content="{Binding FilmGanr.Title}"/>
+                </WrapPanel>
+                <WrapPanel>
+                    <Label Content="Data:"/>
+                    <Label Content="{Binding Data}"/>
+                </WrapPanel>
+                <WrapPanel>
+                    <Label Content="Otsenka:"/>
+                    <Label Content="{Binding Otsenka}"/>
+                </WrapPanel>
+            </StackPanel>
+
+            <Button x:Name="CloseBtn"  Grid.ColumnSpan="2" Grid.Row="1" Content="Close" Click="CloseBtn_Click"/>
+        </Grid>
+    </Border>
 </Window>
