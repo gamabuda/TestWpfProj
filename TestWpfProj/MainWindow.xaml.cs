@@ -24,6 +24,8 @@ namespace TestWpfProj
     {
         private List<Meme> _memes;
         private List<MemeType> _memeTypes;
+        private bool isFiltered = false;
+        private bool isSorted = false;
         public MainWindow()
         {
             InitializeComponent();
@@ -31,8 +33,20 @@ namespace TestWpfProj
             _memes = Data.DataContext.Memes;
             _memeTypes = Data.DataContext.MemeTypes;
 
+            foreach (var meme in _memes)
+            {
+                meme.Price = meme.Title.Length * 2;
+            }
+
             LstView.ItemsSource = _memes;
             FilterCB.ItemsSource = _memeTypes;
+        }
+        private void ResetBtn_Click(object sender, RoutedEventArgs e)
+        {
+            isFiltered = false;
+            isSorted = false;
+            LstView.ItemsSource = _memes;
+            LstView.Items.Refresh();
         }
 
         private void DeleteMI_Click(object sender, RoutedEventArgs e)
@@ -47,13 +61,7 @@ namespace TestWpfProj
         private void ViewMI_Click(object sender, RoutedEventArgs e)
         {
             Meme selectedMeme = (Meme)LstView.SelectedItem;
-            new ViewItemWindow(selectedMeme).ShowDialog();
-        }
-
-        private void EditMI_Click(object sender, RoutedEventArgs e)
-        {
-            Meme selectedMeme = (Meme)LstView.SelectedItem;
-            new EditItemWindow(selectedMeme).ShowDialog();
+            MessageBox.Show($"Id:{selectedMeme.Id} \nTitle: {selectedMeme.Title}\nType: {selectedMeme.MemeType.Title}\nPrice: {selectedMeme.Price}$", "Soon!");
         }
 
         private void RefreshBtn_Click(object sender, RoutedEventArgs e)
@@ -66,9 +74,9 @@ namespace TestWpfProj
         {
             var tempLst = _memes;
 
-            if(!String.IsNullOrEmpty(SerchTB.Text))
+            if (!String.IsNullOrEmpty(SerchTB.Text))
             {
-                tempLst = _memes.Where(x => x.Title.Contains(SerchTB.Text)).ToList();
+                tempLst = _memes.Where(x => x.Title.Contains(SerchTB.Text) || x.Id.StartsWith(SerchTB.Text)).ToList();
             }
 
             LstView.ItemsSource = tempLst;
@@ -77,16 +85,23 @@ namespace TestWpfProj
 
         private void FilterCB_SelectionChanged(object sender, SelectionChangedEventArgs e)
         {
-            var filter = _memes;
-
-            var type = (MemeType)FilterCB.SelectedItem;
-
-            if (type == null)
-                return;
-
-            filter = filter.Where(x => x.MemeType.Id == type.Id).ToList();
-            LstView.ItemsSource = filter;
-            LstView.Items.Refresh();
+            if (!isFiltered)
+            {
+                var type = (MemeType)FilterCB.SelectedItem;
+                if (type != null)
+                {
+                    _memes = _memes.Where(x => x.MemeType.Id == type.Id).ToList();
+                    LstView.ItemsSource = _memes;
+                    LstView.Items.Refresh();
+                    isFiltered = true;
+                }
+            }
+            else
+            {
+                isFiltered = false;
+                LstView.ItemsSource = _memes;
+                LstView.Items.Refresh();
+            }
         }
 
         private void FilterCB_DropDownClosed(object sender, EventArgs e)
@@ -101,6 +116,38 @@ namespace TestWpfProj
             //filter = filter.Where(x => x.MemeType.Id == type.Id).ToList();
             //LstView.ItemsSource = filter;
             //LstView.Items.Refresh();
+        }
+
+        private void SortCB_SelectionChanged(object sender, SelectionChangedEventArgs e)
+        {
+            if (!isSorted)
+            {
+                var selectedSortOption = (ComboBoxItem)SortCB.SelectedItem;
+                switch (selectedSortOption.Content.ToString())
+                {
+                    case "Sort A-Я":
+                        _memes = _memes.OrderBy(x => x.Title).ToList();
+                        break;
+                    case "Sort Я-А":
+                        _memes = _memes.OrderByDescending(x => x.Title).ToList();
+                        break;
+                    case "Sort Price Asc":
+                        _memes = _memes.OrderBy(x => x.Price).ToList();
+                        break;
+                    case "Sort Price Desc":
+                        _memes = _memes.OrderByDescending(x => x.Price).ToList();
+                        break;
+                }
+                LstView.ItemsSource = _memes;
+                LstView.Items.Refresh();
+                isSorted = true;
+            }
+            else
+            {
+                isSorted = false;
+                LstView.ItemsSource = _memes;
+                LstView.Items.Refresh();
+            }
         }
     }
 }

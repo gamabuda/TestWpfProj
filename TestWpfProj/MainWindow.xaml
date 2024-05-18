@@ -29,10 +29,15 @@
             </WrapPanel>
             <WrapPanel Grid.Column="2" Margin="6" HorizontalAlignment="Center">
                 <Label Content="Sort:"/>
-                <ComboBox Width="125" ></ComboBox>
+                <ComboBox Width="125" x:Name="SortCB" SelectionChanged="SortCB_SelectionChanged">
+                    <ComboBoxItem Content="Sort A-Я"/>
+                    <ComboBoxItem Content="Sort Я-А"/>
+                    <ComboBoxItem Content="Sort Price Asc"/>
+                    <ComboBoxItem Content="Sort Price Desc"/>
+                </ComboBox>
             </WrapPanel>
         </Grid>
-        
+
         <ListView Name="LstView" Grid.Row="1">
             <ListView.View>
                 <GridView>
@@ -45,7 +50,6 @@
             <ListView.ContextMenu>
                 <ContextMenu>
                     <MenuItem Header="View" Click="ViewMI_Click"/>
-                    <MenuItem Header="Edit" Click="EditMI_Click"/>
                     <MenuItem Header="Delete" Click="DeleteMI_Click"/>
                 </ContextMenu>
             </ListView.ContextMenu>
