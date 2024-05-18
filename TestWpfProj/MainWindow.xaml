@@ -44,12 +44,12 @@
                     <GridViewColumn DisplayMemberBinding="{Binding Path=FilmGanr.Title}" Width="120">Ganr</GridViewColumn>
                     <GridViewColumn DisplayMemberBinding="{Binding Path=Data}" Width="100">Data</GridViewColumn>
                     <GridViewColumn DisplayMemberBinding="{Binding Path=Otsenka}" Width="70">Otsenka</GridViewColumn>
-                    <GridViewColumn DisplayMemberBinding="{Binding Path=Picture}" Width="100">Picture</GridViewColumn>
                 </GridView>
             </ListView.View>
             <ListView.ContextMenu>
                 <ContextMenu>
                     <MenuItem Header="View" Click="ViewMI_Click"/>
+                    <MenuItem Header="Edit" Click="EditMI_Click"/>
                     <MenuItem Header="Delete" Click="DeleteMI_Click"/>
                 </ContextMenu>
             </ListView.ContextMenu>

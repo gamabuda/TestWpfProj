@@ -13,6 +13,7 @@ using System.Windows.Media.Imaging;
 using System.Windows.Navigation;
 using System.Windows.Shapes;
 using TestWpfProj.Data;
+using TestWpfProj.Windows;
 
 namespace TestWpfProj
 {
@@ -89,7 +90,13 @@ namespace TestWpfProj
         private void ViewMI_Click(object sender, RoutedEventArgs e)
         {
             Film selectedFilm = (Film)LstView.SelectedItem;
-            MessageBox.Show($"Id: {selectedFilm.Id} \nTitle: {selectedFilm.Title} \nGanr: {selectedFilm.FilmGanr.Title} \nData: {selectedFilm.Data} \nOtsenka: {selectedFilm.Otsenka} \nPicture: {selectedFilm.Picture}", "Soon!");
+            new ViewItemWindow(selectedFilm).ShowDialog();
+        }
+
+        private void EditMI_Click(object sender, RoutedEventArgs e)
+        {
+            Film selectedMeme = (Film)LstView.SelectedItem;
+            new EditItemWindow(selectedMeme).ShowDialog();
         }
 
         private void RefreshBtn_Click(object sender, RoutedEventArgs e)
