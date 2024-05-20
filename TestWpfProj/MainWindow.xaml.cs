@@ -27,7 +27,7 @@ namespace TestWpfProj
         private List<SortType> _sortTypes;
 
 
-        public MainWindow()
+        public MainWindow(User user)
         {
             InitializeComponent();
 
@@ -38,6 +38,9 @@ namespace TestWpfProj
             LstView.ItemsSource = _memes;
             FilterCB.ItemsSource = _memeTypes;
             SortCB.ItemsSource = _sortTypes;
+
+            MessageBox.Show($"Hello, {user.Login}!");
+            MessageBox.Show($"Welcome back, {UserContext.User.Login}!");
         }
 
         private void DeleteMI_Click(object sender, RoutedEventArgs e)
@@ -107,21 +110,6 @@ namespace TestWpfProj
 
             LstView.ItemsSource = filter;
             LstView.Items.Refresh();
-        }
-
-        private void FilterCB_DropDownClosed(object sender, EventArgs e)
-        {
-            //var filter = _memes;
-
-            //var type = (MemeType)FilterCB.SelectedItem;
-
-            ////if (type == null)
-            ////    return;
-
-            //filter = filter.Where(x => x.MemeType.Id == type.Id).ToList();
-            //LstView.ItemsSource = filter;               
-            //LstView.Items.Refresh();
-
         }
 
         private void SortCB_SelectionChanged(object sender, SelectionChangedEventArgs e)

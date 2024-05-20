@@ -25,7 +25,7 @@
             </WrapPanel>
             <WrapPanel Grid.Column="1" Margin="6" HorizontalAlignment="Center">
                 <Label Content="Filter:"/>
-                <ComboBox Width="125" x:Name="FilterCB" DropDownClosed="FilterCB_DropDownClosed" SelectionChanged="FilterCB_SelectionChanged" DisplayMemberPath="Title" Cursor="Hand"></ComboBox>
+                <ComboBox Width="125" x:Name="FilterCB" SelectionChanged="FilterCB_SelectionChanged" DisplayMemberPath="Title" Cursor="Hand"></ComboBox>
             </WrapPanel>
             <WrapPanel Grid.Column="2" Margin="6" HorizontalAlignment="Center">
                 <Label Content="Sort:"/>
