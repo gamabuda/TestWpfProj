@@ -22,8 +22,8 @@ namespace TestWpfProj
     /// </summary>
     public partial class MainWindow : Window
     {
-        private List<Meme> _memes;
-        private List<MemeType> _memeTypes;
+        private List<Book> _books;
+        private List<BookGenre> _bookGenres;
         private List<SortType> _sortTypes;
 
 
@@ -31,12 +31,12 @@ namespace TestWpfProj
         {
             InitializeComponent();
 
-            _memes = Data.DataContext.Memes;
-            _memeTypes = Data.DataContext.MemeTypes;
+            _books = Data.DataContext.Memes;
+            _bookGenres = Data.DataContext.BookGenres;
             _sortTypes = Data.DataContext.SortTypes;
 
-            LstView.ItemsSource = _memes;
-            FilterCB.ItemsSource = _memeTypes;
+            LstView.ItemsSource = _books;
+            FilterCB.ItemsSource = _bookGenres;
             SortCB.ItemsSource = _sortTypes;
 
             MessageBox.Show($"Hello, {user.Login}!");
@@ -45,17 +45,17 @@ namespace TestWpfProj
 
         private void DeleteMI_Click(object sender, RoutedEventArgs e)
         {
-            Meme selectedMeme = (Meme)LstView.SelectedItem;
-            _memes.Remove(selectedMeme);
+            Book selectedBook = (Book)LstView.SelectedItem;
+            _books.Remove(selectedBook);
 
-            LstView.ItemsSource = _memes;
+            LstView.ItemsSource = _books;
             LstView.Items.Refresh();
         }
 
         private void ViewMI_Click(object sender, RoutedEventArgs e)
         {
-            Meme selectedMeme = (Meme)LstView.SelectedItem;
-            ViewWindow viewWindow = new ViewWindow(selectedMeme);
+            Book selectedBook = (Book)LstView.SelectedItem;
+            ViewWindow viewWindow = new ViewWindow(selectedBook);
 
             viewWindow.Owner = this;
             viewWindow.ShowDialog();
@@ -63,26 +63,26 @@ namespace TestWpfProj
 
         private void EditMI_Click(object sender, RoutedEventArgs e)
         {
-            Meme selectedMeme = (Meme)LstView.SelectedItem;
-            EditMemeWindow editMemeWindow = new EditMemeWindow(selectedMeme);
+            Book selectedBook = (Book)LstView.SelectedItem;
+            EditBookWindow editBookWindow = new EditBookWindow(selectedBook);
 
-            editMemeWindow.Owner = this;
-            editMemeWindow.ShowDialog();
+            editBookWindow.Owner = this;
+            editBookWindow.ShowDialog();
         }
 
         private void RefreshBtn_Click(object sender, RoutedEventArgs e)
         {
-            LstView.ItemsSource = _memes;
+            LstView.ItemsSource = _books;
             LstView.Items.Refresh();
         }
 
         private void SearchTB_TextChanged(object sender, TextChangedEventArgs e)
         {
-            var tempLst = _memes;
+            var tempLst = _books;
 
             if(!String.IsNullOrEmpty(SearchTB.Text))
             {
-                tempLst = _memes.Where(x => x.Title.Contains(SearchTB.Text)).ToList();
+                tempLst = _books.Where(x => x.Title.Contains(SearchTB.Text)).ToList();
             }
 
             LstView.ItemsSource = tempLst;
@@ -91,20 +91,20 @@ namespace TestWpfProj
 
         private void FilterCB_SelectionChanged(object sender, SelectionChangedEventArgs e)
         {
-            var filter = _memes;
+            var filter = _books;
 
-            var type = (MemeType)FilterCB.SelectedItem;
+            var type = (BookGenre)FilterCB.SelectedItem;
 
             if (type == null)
                 return;
 
             if (type.Title != "Отображение по умолчанию")
             {
-                filter = filter.Where(x => x.MemeType.Id == type.Id).ToList();
+                filter = filter.Where(x => x.BookGenre?.Id == type.Id).ToList();
             } 
             else
             {
-                filter = _memes;
+                filter = _books;
             }
 
 
@@ -114,7 +114,7 @@ namespace TestWpfProj
 
         private void SortCB_SelectionChanged(object sender, SelectionChangedEventArgs e)
         {
-            var sortList = new List<Meme>();
+            var sortList = new List<Book>();
 
             var type = (SortType)SortCB.SelectedItem;
 
@@ -122,24 +122,29 @@ namespace TestWpfProj
 
             if (type.SortTitle == "По умолчанию")
             {
-                sortList = _memes;
+                sortList = _books;
             }
-            else if (type.SortTitle == "От A до Z")
+            else if (type.SortTitle == "От А до Я")
             {
-                sortList = _memes.OrderBy(x => x.Title).ToList();
+                sortList = _books.OrderBy(x => x.Title).ToList();
             }
-            else if (type.SortTitle == "От Z до A")
+            else if (type.SortTitle == "От Я до А")
             {
-                sortList = _memes.OrderByDescending(x => x.Title).ToList();
+                sortList = _books.OrderByDescending(x => x.Title).ToList();
             }
             else if (type.SortTitle == "По возрастанию цены")
             {
-                sortList = _memes.OrderBy(x => x.Price).ToList();
+                sortList = _books.OrderBy(x => x.Price).ToList();
             }
             else if (type.SortTitle == "По убыванию цены")
             {
-                sortList = _memes.OrderByDescending(x => x.Price).ToList();
+                sortList = _books.OrderByDescending(x => x.Price).ToList();
             }
+            else if (type.SortTitle == "По автору")
+            {
+                sortList = _books.OrderBy(x => x.Writer).ToList();
+            }
+
 
             LstView.ItemsSource = sortList;
             LstView.Items.Refresh();

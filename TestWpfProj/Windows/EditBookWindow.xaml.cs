@@ -19,14 +19,14 @@ namespace TestWpfProj.Windows
     /// <summary>
     /// Логика взаимодействия для EditMemeWindow.xaml
     /// </summary>
-    public partial class EditMemeWindow : Window
+    public partial class EditBookWindow : Window
     {
-        private Meme _editMeme;
-        public EditMemeWindow(Meme meme)
+        private Book _editBook;
+        public EditBookWindow(Book book)
         {
             InitializeComponent();
 
-            this.DataContext = _editMeme = meme;
+            this.DataContext = _editBook = book;
         }
 
         private void CloseBtn_Click(object sender, RoutedEventArgs e)
@@ -36,6 +36,15 @@ namespace TestWpfProj.Windows
 
         private void SaveBtn_Click(object sender, RoutedEventArgs e)
         {
+            if (String.IsNullOrEmpty(Type.Text) || String.IsNullOrEmpty(Title.Text) || String.IsNullOrEmpty(Price.Text) || String.IsNullOrEmpty(Writer.Text))
+            {
+                MessageBox.Show("Incorrect information");
+            }
+
+            _editBook.BookGenre.Title = Type.Text;
+            _editBook.Title = Title.Text;
+            _editBook.Price = Convert.ToInt32(Price.Text);
+            _editBook.Writer = Writer.Text;
             Close();
         }
     }

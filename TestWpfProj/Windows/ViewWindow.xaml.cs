@@ -21,13 +21,13 @@ namespace TestWpfProj.Windows
     /// </summary>
     public partial class ViewWindow : Window
     {
-        private Meme _viewMeme;
-        public ViewWindow(Meme meme)
+        private Book _viewBook;
+        public ViewWindow(Book book)
         {
             InitializeComponent();
 
-            _viewMeme = meme;
-            this.DataContext = _viewMeme;
+            _viewBook = book;
+            this.DataContext = _viewBook;
         }
 
         private void CloseBTN_Click(object sender, RoutedEventArgs e)

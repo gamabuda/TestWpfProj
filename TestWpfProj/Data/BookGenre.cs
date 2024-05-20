@@ -6,9 +6,9 @@ using System.Threading.Tasks;
 
 namespace TestWpfProj.Data
 {
-    public class MemeType
+    public class BookGenre
     {
-        public MemeType(string title)
+        public BookGenre(string title)
         {
             Id = Guid.NewGuid().ToString();
             Title = title;

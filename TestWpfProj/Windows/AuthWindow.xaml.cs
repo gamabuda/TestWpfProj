@@ -27,7 +27,6 @@ namespace TestWpfProj.Windows
             AuthFrame.NavigationService.Navigate(new AuthPage(this));
         }
 
-
         private void LoginBtn_Click(object sender, RoutedEventArgs e)
         {
             // авторизация 1
@@ -53,7 +52,7 @@ namespace TestWpfProj.Windows
 
         private void Label_MouseDown_1(object sender, MouseButtonEventArgs e)
         {
-            AuthFrame.NavigationService.Navigate(new RegPage());
+            AuthFrame.NavigationService.Navigate(new RegPage(this));
         }
     }
 }

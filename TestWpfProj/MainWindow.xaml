@@ -5,7 +5,7 @@
         xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
         xmlns:local="clr-namespace:TestWpfProj"
         mc:Ignorable="d"
-        Title="MainWindow" Height="450" Width="800">
+        Title="MainWindow" Height="550" Width="1200">
     <Grid Background="Lavender">
         <Grid.RowDefinitions>
             <RowDefinition Height="auto"/>
@@ -37,9 +37,10 @@
             <ListView.View>
                 <GridView>
                     <GridViewColumn DisplayMemberBinding="{Binding Path=Id}">Id</GridViewColumn>
-                    <GridViewColumn DisplayMemberBinding="{Binding Path=Title}" Width="100">Title</GridViewColumn>
+                    <GridViewColumn DisplayMemberBinding="{Binding Path=Title}">Title</GridViewColumn>
                     <GridViewColumn DisplayMemberBinding="{Binding Path=Price}" Width="100">Price</GridViewColumn>
-                    <GridViewColumn DisplayMemberBinding="{Binding Path=MemeType.Title}" Width="100">Type</GridViewColumn>
+                    <GridViewColumn DisplayMemberBinding="{Binding Path=BookGenre.Title}">Type</GridViewColumn>
+                    <GridViewColumn DisplayMemberBinding="{Binding Path=Writer}">Writer</GridViewColumn>
                 </GridView>
             </ListView.View>
             <ListView.ContextMenu>

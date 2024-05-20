@@ -20,9 +20,12 @@ namespace TestWpfProj.Pages
     /// </summary>
     public partial class RegPage : Page
     {
-        public RegPage()
+        private Window _w;
+        public RegPage(Window w)
         {
+
             InitializeComponent();
+            _w = w;
         }
 
         private void LoginBtn_Click(object sender, RoutedEventArgs e)
@@ -35,6 +38,7 @@ namespace TestWpfProj.Pages
             if (Data.UserContext.User != null)
             {
                 new MainWindow(user).Show();
+                _w.Close();
                 return;
             }
 

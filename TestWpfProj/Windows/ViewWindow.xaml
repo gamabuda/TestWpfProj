@@ -32,11 +32,15 @@
             </WrapPanel>
             <WrapPanel>
                 <Label Content="Type:"></Label>
-                <Label Content="{Binding MemeType.Title}"></Label>
+                <Label Content="{Binding BookGenre.Title}"></Label>
             </WrapPanel>
             <WrapPanel>
                 <Label Content="Price:"></Label>
                 <Label Content="{Binding Price}"></Label>
+            </WrapPanel>
+            <WrapPanel>
+                <Label Content="Writer:"></Label>
+                <Label Content="{Binding Writer}"></Label>
             </WrapPanel>
         </StackPanel>
 
