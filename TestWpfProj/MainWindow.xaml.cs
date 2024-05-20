@@ -24,7 +24,7 @@ namespace TestWpfProj
     {
         private List<Meme> _memes;
         private List<MemeType> _memeTypes;
-        public MainWindow()
+        public MainWindow(User user)
         {
             InitializeComponent();
 
@@ -33,6 +33,9 @@ namespace TestWpfProj
 
             LstView.ItemsSource = _memes;
             FilterCB.ItemsSource = _memeTypes;
+
+            MessageBox.Show($"Hello, {user.Login}!");
+            MessageBox.Show($"Welcome back, {UserContext.User.Login}!");
         }
 
         private void DeleteMI_Click(object sender, RoutedEventArgs e)

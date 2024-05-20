@@ -23,5 +23,11 @@ namespace TestWpfProj.Data
             new Meme("MalishkaHochetSdatPraktiku", MemeTypes[0], 69),
             new Meme("Sigma", MemeTypes[1], 119)
         };
+
+        public static List<User> Users = new List<User>()
+        {
+            new User() {Login = "user", Password = "user"},
+            new User() {Login = "admin", Password = "admin", Role = 0}
+        };
     }
 }
