@@ -20,14 +20,13 @@ namespace TestWpfProj.Data
             //Picture = picture;
         }
 
-        public Film(string title, FilmGanr ganr, DateTime data, double otsenka, string picture)
+        public Film(string title, FilmGanr ganr, DateTime data, double otsenka)
         {
             Id = Guid.NewGuid().ToString();
             Title = title;
             FilmGanr = ganr;
             Data = data;
             Otsenka = otsenka;
-            Picture = picture;
         }
 
         public string Id { get; set; }
@@ -35,7 +34,6 @@ namespace TestWpfProj.Data
         public string Ganr { get; set; }
         public DateTime Data { get; set; }
         public double Otsenka { get; set; }
-        public string Picture { get; set; }
         public FilmGanr? FilmGanr { get; set; }
     }
 }

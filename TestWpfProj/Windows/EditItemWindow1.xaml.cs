@@ -1,5 +1,7 @@
-﻿using System;
+﻿using Microsoft.Win32;
+using System;
 using System.Collections.Generic;
+using System.IO;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
@@ -12,18 +14,16 @@ using System.Windows.Media;
 using System.Windows.Media.Imaging;
 using System.Windows.Shapes;
 using TestWpfProj.Data;
-using System.IO;
-using Microsoft.Win32;
 
 namespace TestWpfProj.Windows
 {
     /// <summary>
-    /// Логика взаимодействия для EditItemWindow.xaml
+    /// Логика взаимодействия для EditItemWindow1.xaml
     /// </summary>
-    public partial class EditItemWindow : Window
+    public partial class EditItemWindow1 : Window
     {
         private byte[] _img = new byte[0];
-        public EditItemWindow(Film film)
+        public EditItemWindow1(Film film)
         {
             InitializeComponent();
 

@@ -26,7 +26,7 @@ namespace TestWpfProj
         private List<FilmGanr> _filmGanres;
         private List<Film> _listView;
         private List<string> _sortItems = new List<string>() { "From A to Z", "From Z to A", "↑ Otsenka", "↓ Otsenka" };
-        public MainWindow()
+        public MainWindow(User user)
         {
             InitializeComponent();
 
@@ -37,6 +37,9 @@ namespace TestWpfProj
             LstView.ItemsSource = _listView;
             FilterCB.ItemsSource = _filmGanres;
             Sort.ItemsSource = _sortItems;
+
+            MessageBox.Show($"Hello, {user.Login}!");
+            MessageBox.Show($"Welcome back, {UserContext.User.Login}!");
         }
 
         private void Sort_DropDownClosed(object sender, EventArgs e)
@@ -96,7 +99,7 @@ namespace TestWpfProj
         private void EditMI_Click(object sender, RoutedEventArgs e)
         {
             Film selectedMeme = (Film)LstView.SelectedItem;
-            new EditItemWindow(selectedMeme).ShowDialog();
+            new EditItemWindow1(selectedMeme).ShowDialog();
         }
 
         private void RefreshBtn_Click(object sender, RoutedEventArgs e)

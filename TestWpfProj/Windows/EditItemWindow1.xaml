@@ -1,11 +1,11 @@
-﻿<Window x:Class="TestWpfProj.Windows.Window1"
+﻿<Window x:Class="TestWpfProj.Windows.EditItemWindow1"
         xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
         xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
         xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
         xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
         xmlns:local="clr-namespace:TestWpfProj.Windows"
         mc:Ignorable="d"
-        Title="EditItemWindow" Height="450" Width="800">
+        Title="EditItemWindow1" Height="450" Width="800">
     <Border Margin="12" CornerRadius="50">
         <Grid Background="LightGray">
             <Grid.RowDefinitions>
