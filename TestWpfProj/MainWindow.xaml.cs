@@ -24,13 +24,22 @@ namespace TestWpfProj
         private List<Meme> _memes;
         private List<MemeType> _memeTypes;
         private string _selectedSortOption;
+        private bool _isLoggedIn = false;
         public MainWindow()
         {
             InitializeComponent();
 
-            _memes = Data.DataContext.Memes;
             _memeTypes = Data.DataContext.MemeTypes;
 
+            if (!_isLoggedIn)
+            {
+                // Если вход не был выполнен, скрыть окно или показать сообщение
+                this.Hide();
+                return;
+            }
+
+            // Инициализация списка Meme
+            _memes = Data.DataContext.Memes;
             foreach (var meme in _memes)
             {
                 meme.Price = meme.Title.Length * 2;
@@ -39,6 +48,15 @@ namespace TestWpfProj
             LstView.ItemsSource = _memes;
             FilterCB.ItemsSource = _memeTypes;
 
+        }
+        public void SetLoggedIn(bool isLoggedIn)
+        {
+            _isLoggedIn = isLoggedIn;
+            if (_isLoggedIn)
+            {
+                // Показать главное окно после входа
+                this.Show();
+            }
         }
 
         private void DeleteMI_Click(object sender, RoutedEventArgs e)
