@@ -11,5 +11,11 @@ namespace TestWpfProj.Data
         public string Login { get; set; }
         public string Password { get; set; }
         public int Role { get; set; } = 1;
+
+        public User(string login, string password)
+        {
+            Login = login;
+            Password = password;
+        }
     }
 }

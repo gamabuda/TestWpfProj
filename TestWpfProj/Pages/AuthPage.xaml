@@ -9,7 +9,16 @@
       Title="AuthPage">
 
     <StackPanel Orientation="Vertical" VerticalAlignment="Center">
-        <Label Content="Welcome to the AuthPage!"/>
-        <Button x:Name="LoginBtn" Content="Login In" Click="LoginBtn_Click"/>
+        <Label Content="Добро пожаловать на страницу аутентификации!"/>
+
+
+        <Label Content="Введите Ваш логин."/>
+        <TextBox x:Name="Login" />
+
+        <Label Content="Введите Ваш пароль." />
+        <PasswordBox x:Name="Password" />
+
+        <Label Content=""/>
+        <Button x:Name="LoginBtn" Content="Вход" Click="LoginBtn_Click" IsDefault="true" />
     </StackPanel>
 </Page>

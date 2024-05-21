@@ -26,7 +26,6 @@ namespace TestWpfProj
         private List<BookGenre> _bookGenres;
         private List<SortType> _sortTypes;
 
-
         public MainWindow(User user)
         {
             InitializeComponent();
@@ -39,17 +38,30 @@ namespace TestWpfProj
             FilterCB.ItemsSource = _bookGenres;
             SortCB.ItemsSource = _sortTypes;
 
-            MessageBox.Show($"Hello, {user.Login}!");
-            MessageBox.Show($"Welcome back, {UserContext.User.Login}!");
+            MessageBox.Show($"Добро пожаловать, {user.Login}!");
         }
 
         private void DeleteMI_Click(object sender, RoutedEventArgs e)
         {
             Book selectedBook = (Book)LstView.SelectedItem;
-            _books.Remove(selectedBook);
 
-            LstView.ItemsSource = _books;
-            LstView.Items.Refresh();
+            if (selectedBook != null)
+            {
+                MessageBoxResult conf = MessageBox.Show($"Вы уверены, что хотите удалить '{selectedBook.Title}' ?", "Подтвердить удаление.", MessageBoxButton.YesNo);
+
+                if (conf == MessageBoxResult.Yes)
+                {
+                    _books.Remove(selectedBook);
+
+                    LstView.ItemsSource = _books;
+                    LstView.Items.Refresh();
+                }
+                else
+                {
+                    LstView.Items.Refresh();
+                }
+            }
+
         }
 
         private void ViewMI_Click(object sender, RoutedEventArgs e)

@@ -12,6 +12,7 @@ using System.Windows.Media;
 using System.Windows.Media.Imaging;
 using System.Windows.Navigation;
 using System.Windows.Shapes;
+using TestWpfProj.Data;
 
 namespace TestWpfProj.Pages
 {
@@ -20,29 +21,36 @@ namespace TestWpfProj.Pages
     /// </summary>
     public partial class RegPage : Page
     {
+        private User _user;
         private Window _w;
         public RegPage(Window w)
         {
+            _w = w;
 
             InitializeComponent();
-            _w = w;
         }
 
-        private void LoginBtn_Click(object sender, RoutedEventArgs e)
+        private void CreateAcc_Click(object sender, RoutedEventArgs e)
         {
-            // авторизация 1
-            var user = Data.DataContext.Users.Last();
-            // авторизация 2
-            Data.UserContext.User = user;
+            string login = Login.Text;
+            string password = Password.Password;
 
-            if (Data.UserContext.User != null)
+            if (Data.DataContext.Users.Exists(x => x.Login == login))
             {
-                new MainWindow(user).Show();
-                _w.Close();
-                return;
+                MessageBox.Show("Аккаунт с таким именем уже существует.");
+            } 
+            else if (Password.Password == PasswordConfirmation.Password)
+            {
+                _user = new User(login, password);
+                new MainWindow(_user).Show();
+                Window w = Window.GetWindow(this);
+                w.Close();
+            } 
+            else
+            {
+                MessageBox.Show("Некорректные данные.");
             }
-
-            new MainWindow(user).Show();
+                
         }
     }
 }

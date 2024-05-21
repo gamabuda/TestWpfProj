@@ -9,7 +9,19 @@
       Title="RegPage">
     
     <StackPanel Orientation="Vertical" VerticalAlignment="Center">
-        <Label Content="Welcome to the RegPage!"/>
-        <Button x:Name="LoginBtn" Content="Login In" Click="LoginBtn_Click"/>
+        <Label Content="Добро пожаловать на страницу регистрации!"/>
+
+
+        <Label Content="Введите Ваш логин."/>
+        <TextBox x:Name="Login" />
+
+        <Label Content="Введите Ваш пароль." />
+        <PasswordBox x:Name="Password" />
+
+        <Label Content="Подтвердите пароль." />
+        <PasswordBox x:Name="PasswordConfirmation" />
+
+        <Label Content=""/>
+        <Button x:Name="LoginBtn" Content="Создать аккаунт" Click="CreateAcc_Click" IsDefault="true" />
     </StackPanel>
 </Page>

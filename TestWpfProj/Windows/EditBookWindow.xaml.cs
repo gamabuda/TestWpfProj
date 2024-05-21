@@ -30,21 +30,24 @@ namespace TestWpfProj.Windows
         }
 
         private void CloseBtn_Click(object sender, RoutedEventArgs e)
-        { 
+        {
             Close();
         }
 
         private void SaveBtn_Click(object sender, RoutedEventArgs e)
         {
-            if (String.IsNullOrEmpty(Type.Text) || String.IsNullOrEmpty(Title.Text) || String.IsNullOrEmpty(Price.Text) || String.IsNullOrEmpty(Writer.Text))
+            if (!(String.IsNullOrEmpty(Type.Text) || String.IsNullOrEmpty(Title.Text) || String.IsNullOrEmpty(Price.Text) || String.IsNullOrEmpty(Writer.Text)))
             {
-                MessageBox.Show("Incorrect information");
+                _editBook.BookGenre.Title = Type.Text;
+                _editBook.Title = Title.Text;
+                _editBook.Price = Convert.ToInt32(Price.Text);
+                _editBook.Writer = Writer.Text;
+            }
+            else
+            {
+                MessageBox.Show("Некорректная информация.");
             }
 
-            _editBook.BookGenre.Title = Type.Text;
-            _editBook.Title = Title.Text;
-            _editBook.Price = Convert.ToInt32(Price.Text);
-            _editBook.Writer = Writer.Text;
             Close();
         }
     }

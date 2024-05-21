@@ -44,8 +44,8 @@ namespace TestWpfProj.Data
 
         public static List<User> Users = new List<User>()
         {
-            new User() { Login = "user", Password = "user" },
-            new User() { Login = "admin", Password = "admin", Role = 0 },
+            new User("user", "user"),
+            new User("admin", "admin"),
         };
     }
 }

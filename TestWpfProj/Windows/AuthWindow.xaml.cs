@@ -27,24 +27,6 @@ namespace TestWpfProj.Windows
             AuthFrame.NavigationService.Navigate(new AuthPage(this));
         }
 
-        private void LoginBtn_Click(object sender, RoutedEventArgs e)
-        {
-            // авторизация 1
-            var user = Data.DataContext.Users.Last();
-            // авторизация 2
-            Data.UserContext.User = user;
-
-            if (Data.UserContext.User != null)
-            {
-                new MainWindow(user).Show();
-                this.Close();
-                return;
-            }
-
-            new MainWindow(user).Show();
-            this.Close();
-        }
-
         private void Label_MouseDown(object sender, MouseButtonEventArgs e)
         {
             AuthFrame.NavigationService.Navigate(new AuthPage(this));
