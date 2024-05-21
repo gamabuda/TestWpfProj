@@ -13,7 +13,6 @@ using System.Windows.Media.Imaging;
 using System.Windows.Navigation;
 using System.Windows.Shapes;
 using TestWpfProj.Data;
-using TestWpfProj.Windows;
 
 namespace TestWpfProj
 {
@@ -24,8 +23,6 @@ namespace TestWpfProj
     {
         private List<Meme> _memes;
         private List<MemeType> _memeTypes;
-        private bool isFiltered = false;
-        private bool isSorted = false;
         public MainWindow()
         {
             InitializeComponent();
@@ -35,18 +32,12 @@ namespace TestWpfProj
 
             foreach (var meme in _memes)
             {
-                meme.Price = meme.Title.Length * 2;
+                meme.Price = meme.Title.Length * 2;  
             }
 
             LstView.ItemsSource = _memes;
             FilterCB.ItemsSource = _memeTypes;
-        }
-        private void ResetBtn_Click(object sender, RoutedEventArgs e)
-        {
-            isFiltered = false;
-            isSorted = false;
-            LstView.ItemsSource = _memes;
-            LstView.Items.Refresh();
+
         }
 
         private void DeleteMI_Click(object sender, RoutedEventArgs e)
@@ -85,23 +76,16 @@ namespace TestWpfProj
 
         private void FilterCB_SelectionChanged(object sender, SelectionChangedEventArgs e)
         {
-            if (!isFiltered)
-            {
-                var type = (MemeType)FilterCB.SelectedItem;
-                if (type != null)
-                {
-                    _memes = _memes.Where(x => x.MemeType.Id == type.Id).ToList();
-                    LstView.ItemsSource = _memes;
-                    LstView.Items.Refresh();
-                    isFiltered = true;
-                }
-            }
-            else
-            {
-                isFiltered = false;
-                LstView.ItemsSource = _memes;
-                LstView.Items.Refresh();
-            }
+            var filter = _memes;
+
+            var type = (MemeType)FilterCB.SelectedItem;
+
+            if (type == null)
+                return;
+
+            filter = filter.Where(x => x.MemeType.Id == type.Id).ToList();
+            LstView.ItemsSource = filter;
+            LstView.Items.Refresh();
         }
 
         private void FilterCB_DropDownClosed(object sender, EventArgs e)
@@ -120,34 +104,26 @@ namespace TestWpfProj
 
         private void SortCB_SelectionChanged(object sender, SelectionChangedEventArgs e)
         {
-            if (!isSorted)
+            var selectedSortOption = (ComboBoxItem)SortCB.SelectedItem;
+
+            switch (selectedSortOption.Content.ToString())
             {
-                var selectedSortOption = (ComboBoxItem)SortCB.SelectedItem;
-                switch (selectedSortOption.Content.ToString())
-                {
-                    case "Sort A-Я":
-                        _memes = _memes.OrderBy(x => x.Title).ToList();
-                        break;
-                    case "Sort Я-А":
-                        _memes = _memes.OrderByDescending(x => x.Title).ToList();
-                        break;
-                    case "Sort Price Asc":
-                        _memes = _memes.OrderBy(x => x.Price).ToList();
-                        break;
-                    case "Sort Price Desc":
-                        _memes = _memes.OrderByDescending(x => x.Price).ToList();
-                        break;
-                }
-                LstView.ItemsSource = _memes;
-                LstView.Items.Refresh();
-                isSorted = true;
+                case "Sort A-Я":
+                    _memes = _memes.OrderBy(x => x.Title).ToList();
+                    break;
+                case "Sort Я-А":
+                    _memes = _memes.OrderByDescending(x => x.Title).ToList();
+                    break;
+                case "Sort Price Asc":
+                    _memes = _memes.OrderBy(x => x.Price).ToList();
+                    break;
+                case "Sort Price Desc":
+                    _memes = _memes.OrderByDescending(x => x.Price).ToList();
+                    break;
             }
-            else
-            {
-                isSorted = false;
-                LstView.ItemsSource = _memes;
-                LstView.Items.Refresh();
-            }
+
+            LstView.ItemsSource = _memes;
+            LstView.Items.Refresh();
         }
     }
 }
