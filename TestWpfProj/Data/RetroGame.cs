@@ -6,33 +6,32 @@ using System.Threading.Tasks;
 
 namespace TestWpfProj.Data
 {
-    public class Meme
+    public class RetroGame
     {
-        public Meme(string title)
+        public RetroGame(string title)
         {
             Id = Guid.NewGuid().ToString();
             Title = title;
         }
 
-        public Meme(string title, MemeType type)
+        public RetroGame(string title, GameType type)
         {
             Id = Guid.NewGuid().ToString();
             Title = title;
-            MemeType = type;
+            GameType = type;
         }
 
-        public Meme(string title, MemeType type, decimal price)
+        public RetroGame(string title, GameType type, decimal price)
         {
             Id = Guid.NewGuid().ToString();
             Title = title;
-            MemeType = type;
+            GameType = type;
             Price = price;
         }
 
         public string Id { get; set; }
         public string Title { get; set; }
-        public MemeType? MemeType { get; set; }
-
+        public GameType? GameType { get; set; }
         public decimal Price { get; set; } = 0;
     }
 }

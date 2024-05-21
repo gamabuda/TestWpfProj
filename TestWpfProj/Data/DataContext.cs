@@ -8,20 +8,32 @@ namespace TestWpfProj.Data
 {
     public static class DataContext
     {
-        public static List<MemeType> MemeTypes = new List<MemeType>()
+        public static List<GameType> GameTypes = new List<GameType>()
         {
-            new MemeType("Animals memes"),
-            new MemeType("Tit-tok memes"),
-            new MemeType("Skufs memes")
+            new GameType("Platformer"),
+            new GameType("Shooter"),
+            new GameType("Puzzle"),
+            new GameType("Board Game"),
+            new GameType("Card Game")
         };
 
-        public static List<Meme> Memes = new List<Meme>()
+        public static List<RetroGame> RetroGames = new List<RetroGame>()
         {
-            new Meme("Megusto", MemeTypes[2], 999),
-            new Meme("bruh", MemeTypes[1], 99),
-            new Meme("Omsk", MemeTypes[2], 199),
-            new Meme("MalishkaHochetSdatPraktiku", MemeTypes[0], 69),
-            new Meme("Sigma", MemeTypes[1], 119)
+            new RetroGame("Super Mario", GameTypes[0], 49.99m),
+            new RetroGame("Contra", GameTypes[1], 29.99m),
+            new RetroGame("Tetris", GameTypes[2], 19.99m),
+            new RetroGame("Chess", GameTypes[3], 10.99m),
+            new RetroGame("Battleship", GameTypes[1], 8.99m),
+            new RetroGame("Tic-Tac-Toe", GameTypes[3], 9.99m),
+            new RetroGame("Checkers", GameTypes[3], 15.99m),
+            new RetroGame("Go", GameTypes[0], 39.99m),
+            new RetroGame("Solitaire", GameTypes[4], 17.99m)
+        };
+
+        public static List<User> Users = new List<User>()
+        {
+            new User() {Login = "user", Password = "user"},
+            new User() {Login = "admin", Password = "admin", Role = 0}
         };
     }
 }

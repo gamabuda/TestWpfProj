@@ -13,55 +13,57 @@ using System.Windows.Media.Imaging;
 using System.Windows.Navigation;
 using System.Windows.Shapes;
 using TestWpfProj.Data;
+using TestWpfProj.Windows;
 
 namespace TestWpfProj
 {
-    /// <summary>
-    /// Interaction logic for MainWindow.xaml
-    /// </summary>
     public partial class MainWindow : Window
     {
-        private List<Meme> _memes;
-        private List<MemeType> _memeTypes;
-        public MainWindow()
+        private List<RetroGame> _games;
+        private List<GameType> _gameTypes;
+
+        public MainWindow(User user)
         {
             InitializeComponent();
 
-            _memes = Data.DataContext.Memes;
-            _memeTypes = Data.DataContext.MemeTypes;
+            _games = Data.DataContext.RetroGames;
+            _gameTypes = Data.DataContext.GameTypes;
 
-            LstView.ItemsSource = _memes;
-            FilterCB.ItemsSource = _memeTypes;
+            LstView.ItemsSource = _games;
+            FilterCB.ItemsSource = _gameTypes;
+
+            MessageBox.Show($"Hello, {user.Login}!");
+            MessageBox.Show($"Welcome back, {UserContext.User.Login}!");
         }
 
         private void DeleteMI_Click(object sender, RoutedEventArgs e)
         {
-            Meme selectedMeme = (Meme)LstView.SelectedItem;
-            _memes.Remove(selectedMeme);
+            RetroGame selectedGame = (RetroGame)LstView.SelectedItem;
+            _games.Remove(selectedGame);
 
-            LstView.ItemsSource = _memes;
+            LstView.ItemsSource = _games;
             LstView.Items.Refresh();
         }
 
         private void ViewMI_Click(object sender, RoutedEventArgs e)
         {
-            Meme selectedMeme = (Meme)LstView.SelectedItem;
-            MessageBox.Show($"Id:{selectedMeme.Id} \nTitle: {selectedMeme.Title}\nType: {selectedMeme.MemeType.Title}\nPrice: {selectedMeme.Price}$", "Soon!");
+            RetroGame selectedGame = (RetroGame)LstView.SelectedItem;
+            new ViewItemWindow1(selectedGame).ShowDialog();
         }
 
-        private void RefreshBtn_Click(object sender, RoutedEventArgs e)
+        private void EditMI_Click(object sender, RoutedEventArgs e)
         {
-            LstView.ItemsSource = _memes;
-            LstView.Items.Refresh();
+            RetroGame selectedGame = (RetroGame)LstView.SelectedItem;
+            new EditItemWindow1(selectedGame).ShowDialog();
         }
 
         private void SerchTB_TextChanged(object sender, TextChangedEventArgs e)
         {
-            var tempLst = _memes;
+            var tempLst = _games;
 
-            if(!String.IsNullOrEmpty(SerchTB.Text))
+            if (!String.IsNullOrEmpty(SerchTB.Text))
             {
-                tempLst = _memes.Where(x => x.Title.Contains(SerchTB.Text)).ToList();
+                tempLst = _games.Where(x => x.Title.Contains(SerchTB.Text)).ToList();
             }
 
             LstView.ItemsSource = tempLst;
@@ -70,30 +72,42 @@ namespace TestWpfProj
 
         private void FilterCB_SelectionChanged(object sender, SelectionChangedEventArgs e)
         {
-            var filter = _memes;
+            var filter = _games;
 
-            var type = (MemeType)FilterCB.SelectedItem;
+            var type = (GameType)FilterCB.SelectedItem;
 
             if (type == null)
                 return;
 
-            filter = filter.Where(x => x.MemeType.Id == type.Id).ToList();
+            filter = filter.Where(x => x.GameType.Id == type.Id).ToList();
             LstView.ItemsSource = filter;
             LstView.Items.Refresh();
         }
-
-        private void FilterCB_DropDownClosed(object sender, EventArgs e)
+        private void SortCB_SelectionChanged(object sender, SelectionChangedEventArgs e)
         {
-            //var filter = _memes;
+            if (SortCB.SelectedItem is ComboBoxItem selectedItem)
+            {
+                string sortCriteria = selectedItem.Content.ToString();
 
-            //var type = (MemeType)FilterCB.SelectedItem;
+                switch (sortCriteria)
+                {
+                    case "Title A-Z":
+                        _games = _games.OrderBy(x => x.Title).ToList();
+                        break;
+                    case "Title Z-A":
+                        _games = _games.OrderByDescending(x => x.Title).ToList();
+                        break;
+                    case "Price Ascending":
+                        _games = _games.OrderBy(x => x.Price).ToList();
+                        break;
+                    case "Price Descending":
+                        _games = _games.OrderByDescending(x => x.Price).ToList();
+                        break;
+                }
 
-            ////if (type == null)
-            ////    return;
-
-            //filter = filter.Where(x => x.MemeType.Id == type.Id).ToList();
-            //LstView.ItemsSource = filter;
-            //LstView.Items.Refresh();
+                LstView.ItemsSource = _games;
+                LstView.Items.Refresh();
+            }
         }
     }
 }

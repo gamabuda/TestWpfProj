@@ -5,7 +5,7 @@
         xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
         xmlns:local="clr-namespace:TestWpfProj"
         mc:Ignorable="d"
-        Title="MainWindow" Height="450" Width="800">
+        Title="Retro Games Admin Panel" Height="450" Width="800">
     <Grid Background="Lavender">
         <Grid.RowDefinitions>
             <RowDefinition Height="auto"/>
@@ -25,25 +25,32 @@
             </WrapPanel>
             <WrapPanel Grid.Column="1" Margin="6" HorizontalAlignment="Center">
                 <Label Content="Filter:"/>
-                <ComboBox Width="125" x:Name="FilterCB" DropDownClosed="FilterCB_DropDownClosed" SelectionChanged="FilterCB_SelectionChanged" DisplayMemberPath="Title"></ComboBox>
+                <ComboBox Width="125" x:Name="FilterCB" SelectionChanged="FilterCB_SelectionChanged" DisplayMemberPath="Title"></ComboBox>
             </WrapPanel>
             <WrapPanel Grid.Column="2" Margin="6" HorizontalAlignment="Center">
                 <Label Content="Sort:"/>
-                <ComboBox Width="125" ></ComboBox>
+                <ComboBox Width="150" x:Name="SortCB" SelectionChanged="SortCB_SelectionChanged">
+                    <ComboBoxItem Content="Title A-Z"/>
+                    <ComboBoxItem Content="Title Z-A"/>
+                    <ComboBoxItem Content="Price Ascending"/>
+                    <ComboBoxItem Content="Price Descending"/>
+                </ComboBox>
             </WrapPanel>
         </Grid>
-        
+
         <ListView Name="LstView" Grid.Row="1">
             <ListView.View>
                 <GridView>
                     <GridViewColumn DisplayMemberBinding="{Binding Path=Id}">Id</GridViewColumn>
                     <GridViewColumn DisplayMemberBinding="{Binding Path=Title}" Width="100">Title</GridViewColumn>
-                    <GridViewColumn DisplayMemberBinding="{Binding Path=MemeType.Title}" Width="100">Type</GridViewColumn>
+                    <GridViewColumn DisplayMemberBinding="{Binding Path=GameType.Title}" Width="100">Genre</GridViewColumn>
+                    <GridViewColumn DisplayMemberBinding="{Binding Path=Price}" Width="100">Price</GridViewColumn>
                 </GridView>
             </ListView.View>
             <ListView.ContextMenu>
                 <ContextMenu>
                     <MenuItem Header="View" Click="ViewMI_Click"/>
+                    <MenuItem Header="Edit" Click="EditMI_Click"/>
                     <MenuItem Header="Delete" Click="DeleteMI_Click"/>
                 </ContextMenu>
             </ListView.ContextMenu>
