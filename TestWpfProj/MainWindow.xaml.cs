@@ -23,6 +23,7 @@ namespace TestWpfProj
     {
         private List<Meme> _memes;
         private List<MemeType> _memeTypes;
+        private string _selectedSortOption;
         public MainWindow()
         {
             InitializeComponent();
@@ -34,7 +35,7 @@ namespace TestWpfProj
             {
                 meme.Price = meme.Title.Length * 2;  
             }
-
+            _selectedSortOption = "Sort A-Я";
             LstView.ItemsSource = _memes;
             FilterCB.ItemsSource = _memeTypes;
 
@@ -73,21 +74,6 @@ namespace TestWpfProj
             LstView.ItemsSource = tempLst;
             LstView.Items.Refresh();
         }
-
-        private void FilterCB_SelectionChanged(object sender, SelectionChangedEventArgs e)
-        {
-            var filter = _memes;
-
-            var type = (MemeType)FilterCB.SelectedItem;
-
-            if (type == null)
-                return;
-
-            filter = filter.Where(x => x.MemeType.Id == type.Id).ToList();
-            LstView.ItemsSource = filter;
-            LstView.Items.Refresh();
-        }
-
         private void FilterCB_DropDownClosed(object sender, EventArgs e)
         {
             //var filter = _memes;
@@ -101,29 +87,51 @@ namespace TestWpfProj
             //LstView.ItemsSource = filter;
             //LstView.Items.Refresh();
         }
+        private void FilterCB_SelectionChanged(object sender, SelectionChangedEventArgs e)
+        {
+            var filter = _memes;
+            var type = (MemeType)FilterCB.SelectedItem;
+
+            if (type == null)
+                return;
+
+            filter = filter.Where(x => x.MemeType.Id == type.Id).ToList();
+
+            // Применение сортировки на основе последнего выбранного параметра
+            ApplySorting(filter);
+
+            LstView.ItemsSource = filter;
+            LstView.Items.Refresh();
+        }
 
         private void SortCB_SelectionChanged(object sender, SelectionChangedEventArgs e)
         {
             var selectedSortOption = (ComboBoxItem)SortCB.SelectedItem;
+            _selectedSortOption = selectedSortOption.Content.ToString();
+        }
 
-            switch (selectedSortOption.Content.ToString())
+        private void ApplySorting(List<Meme> memes)
+        {
+            switch (_selectedSortOption)
             {
-                case "Sort A-Я":
-                    _memes = _memes.OrderBy(x => x.Title).ToList();
+                case "Sort A-Z":
+                    memes = memes.OrderBy(x => x.Title).ToList();
                     break;
-                case "Sort Я-А":
-                    _memes = _memes.OrderByDescending(x => x.Title).ToList();
+                case "Sort Z-A":
+                    memes = memes.OrderByDescending(x => x.Title).ToList();
                     break;
                 case "Sort Price Asc":
-                    _memes = _memes.OrderBy(x => x.Price).ToList();
+                    memes = memes.OrderBy(x => x.Price).ToList();
                     break;
                 case "Sort Price Desc":
-                    _memes = _memes.OrderByDescending(x => x.Price).ToList();
+                    memes = memes.OrderByDescending(x => x.Price).ToList();
                     break;
             }
 
-            LstView.ItemsSource = _memes;
+            // Убедитесь, что UI обновляется после сортировки
+            LstView.ItemsSource = memes;
             LstView.Items.Refresh();
         }
+
     }
 }
