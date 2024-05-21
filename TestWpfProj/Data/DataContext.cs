@@ -4,11 +4,14 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 using System.Windows.Media.Imaging;
+using TestWpfProj.Data.Users;
 
 namespace TestWpfProj.Data
 {
     public static class DataContext
     {
+        public static Guest? Guest { get; set; } = new Guest("Guest", "");
+
         public static List<string> Genders = new List<string>() { "М", "Ж" };
 
         public static List<Child> Children = new List<Child>()
@@ -26,6 +29,11 @@ namespace TestWpfProj.Data
             new Child("Датченко", "Олеся", "Игоревна", "Ж", 12, 103, new DateOnly(2014, 7, 10), new BitmapImage(new Uri("../img/people/girl.jpg", UriKind.Relative))),
             new Child("Здоровяк", "Марина", "Талгатовна", "Ж", 14, 103, new DateOnly(2023, 11, 29), new BitmapImage(new Uri("../img/people/girljpg", UriKind.Relative))),
             new Child("Ромашко", "Незабудка", "Розовна", "Ж", 11, 103, new DateOnly(2016, 1, 31), new BitmapImage(new Uri("../img/people/girl.jpg", UriKind.Relative))),
+        };
+
+        public static List<User> Users = new List<User>()
+        {
+            new Admin("mainAdmin", "123"),
         };
     }
 }

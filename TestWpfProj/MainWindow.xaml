@@ -72,9 +72,9 @@
                 </GridView>
             </ListView.View>
             <ListView.ContextMenu>
-                <ContextMenu>
+                <ContextMenu x:Name="ContextM" >
                     <MenuItem Header="Инфо" Click="ViewPerson_Click"/>
-                    <MenuItem Header="Удалить" Click="DeletePerson_Click"/>
+                    <MenuItem x:Name="Delete_MI" Header="Удалить" Click="DeletePerson_Click"/>
                 </ContextMenu>
             </ListView.ContextMenu>
         </ListView>

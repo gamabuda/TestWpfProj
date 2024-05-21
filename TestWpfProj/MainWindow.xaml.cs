@@ -1,6 +1,7 @@
 ﻿using System;
 using System.Collections.Generic;
 using System.Linq;
+using System.Reflection;
 using System.Text;
 using System.Threading.Tasks;
 using System.Windows;
@@ -13,12 +14,14 @@ using System.Windows.Media.Imaging;
 using System.Windows.Navigation;
 using System.Windows.Shapes;
 using TestWpfProj.Data;
+using TestWpfProj.Data.Users;
 using TestWpfProj.Windows;
 
 namespace TestWpfProj
 {
     public partial class MainWindow : Window
     {
+        private User _user;
         private List<Child> _people;
         private List<Child> _listView;
         private List<Child> _searchList = new List<Child>();
@@ -26,10 +29,11 @@ namespace TestWpfProj
         private TextChangedEventArgs _searchInput;
         private List<string> _sortLetters = new List<string>() { "От А до Я", "От Я до А" };
         private List<string> _sortNumbers = new List<string>() { "По возрастанию", "По убыванию" };
-        public MainWindow()
+        public MainWindow(User user)
         {
             InitializeComponent();
 
+            _user = user;
             _people = Data.DataContext.Children;
             _genders = Data.DataContext.Genders;
             _listView = _people;
@@ -42,6 +46,9 @@ namespace TestWpfProj
             AgeFilter.ItemsSource = _sortNumbers;
             RoomNumberFilter.ItemsSource = _sortNumbers;
             MoveInDateFilter.ItemsSource = _sortNumbers;
+
+            if (_user is Guest)
+                ContextM.Items.Remove(Delete_MI);
         }
 
         private void DeletePerson_Click(object sender, RoutedEventArgs e)
@@ -71,7 +78,7 @@ namespace TestWpfProj
             if (selectedPerson == null)
                 return;
 
-            new EditInfoWindow(selectedPerson).ShowDialog();
+            new EditInfoWindow(selectedPerson, _user).ShowDialog();
 
             SearchTB_TextChanged(sender, _searchInput);
             LstView.ItemsSource = _listView;

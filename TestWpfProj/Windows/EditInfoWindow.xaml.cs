@@ -14,19 +14,33 @@ using System.Windows.Media;
 using System.Windows.Media.Imaging;
 using System.Windows.Shapes;
 using TestWpfProj.Data;
+using TestWpfProj.Data.Users;
 
 namespace TestWpfProj.Windows
 {
     public partial class EditInfoWindow : Window
     {
+        private User _user;
         private byte[] _img = new byte[0];
         private Child selectedChild;
-        public EditInfoWindow(Child selectedPerson)
+        public EditInfoWindow(Child selectedPerson, User user)
         {
             InitializeComponent();
+            _user = user;
             selectedChild = selectedPerson;
             this.DataContext = selectedChild;
             MoveInDate_TB.Text = selectedChild.MoveInDate.ToString();
+
+            if (_user is Guest)
+            {
+                LoadImgBtn.IsEnabled = false;
+                Info_SP.IsEnabled = false;
+                ID_SP.Visibility = Visibility.Hidden;
+                SaveBtn.Visibility = Visibility.Hidden;
+                CloseBtn.Visibility = Visibility.Hidden;
+                EditBtn.Visibility = Visibility.Hidden;
+                DeleteBtn.Visibility = Visibility.Hidden;
+            }
         }
 
         private void LoadImgBtn_Click(object sender, RoutedEventArgs e)
