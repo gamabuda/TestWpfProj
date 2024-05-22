@@ -24,7 +24,8 @@ namespace TestWpfProj
         private List<Meme> _memes;
         private List<MemeType> _memeTypes;
         private string _selectedSortOption;
-        public MainWindow()
+
+        public MainWindow(User user)
         {
             InitializeComponent();
 
