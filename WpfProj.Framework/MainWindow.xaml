@@ -26,6 +26,13 @@
                     <GridViewColumn DisplayMemberBinding="{Binding Path=Title}" Width="100">Title</GridViewColumn>
                     <GridViewColumn DisplayMemberBinding="{Binding Path=MemeType.Title}" Width="100">Type</GridViewColumn>
                     <GridViewColumn DisplayMemberBinding="{Binding Path=Price}" Width="100">Price</GridViewColumn>
+                    <GridViewColumn Width="100" Header="Photo">
+                        <GridViewColumn.CellTemplate>
+                            <DataTemplate>
+                                <Image Source="{Binding Photo}"/>
+                            </DataTemplate>
+                        </GridViewColumn.CellTemplate>
+                    </GridViewColumn>
                 </GridView>
             </ListView.View>
             <ListView.ContextMenu>
