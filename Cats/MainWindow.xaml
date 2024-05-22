@@ -1,0 +1,56 @@
+﻿<Window x:Class="Cats.MainWindow"
+        xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+        xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+        xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
+        xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
+        xmlns:local="clr-namespace:Cats"
+        mc:Ignorable="d"
+        Title="MainWindow" Height="450" Width="800">
+    <Grid Background="Lavender">
+        <Grid.RowDefinitions>
+            <RowDefinition Height="auto"/>
+            <RowDefinition Height="1*"/>
+            <RowDefinition Height="auto"/>
+        </Grid.RowDefinitions>
+
+        <Grid Grid.Row="0" VerticalAlignment="Center" HorizontalAlignment="Center">
+            <Grid.ColumnDefinitions>
+                <ColumnDefinition Width="auto"/>
+                <ColumnDefinition Width="auto"/>
+                <ColumnDefinition Width="auto"/>
+            </Grid.ColumnDefinitions>
+            <WrapPanel Grid.Column="0" Margin="6" HorizontalAlignment="Center">
+                <Label Content="Search:"/>
+                <TextBox x:Name="SerchTB" Width="175" TextChanged="SerchTB_TextChanged"></TextBox>
+            </WrapPanel>
+            <WrapPanel Grid.Column="1" Margin="6" HorizontalAlignment="Center">
+                <Label Content="Filter:"/>
+                <ComboBox Width="125" x:Name="FilterCB" DropDownClosed="FilterCB_DropDownClosed" DisplayMemberPath="Title"></ComboBox>
+                <Button Click="Button_Click">×</Button>
+            </WrapPanel>
+            <WrapPanel Grid.Column="2" Margin="6" HorizontalAlignment="Center">
+                <Label Content="Sort:"/>
+                <ComboBox Width="125" x:Name="SortCB" DropDownClosed="SortCB_DropDownClosed" DisplayMemberPath="Name"></ComboBox>
+            </WrapPanel>
+        </Grid>
+
+        <ListView Name="LstView" Grid.Row="1">
+            <ListView.View>
+                <GridView>
+                    <GridViewColumn DisplayMemberBinding="{Binding Path=Id}">Id</GridViewColumn>
+                    <GridViewColumn DisplayMemberBinding="{Binding Path=Name}" Width="100">Name</GridViewColumn>
+                    <GridViewColumn DisplayMemberBinding="{Binding Path=CatType.Title}" Width="100">Порода</GridViewColumn>
+                    <GridViewColumn DisplayMemberBinding="{Binding Birthday, StringFormat=\{0:d\}}" Width="100">День рождения</GridViewColumn>
+                    <GridViewColumn DisplayMemberBinding="{Binding Path=Gender}">Gender</GridViewColumn>
+                </GridView>
+            </ListView.View>
+            <ListView.ContextMenu>
+                <ContextMenu>
+                    <MenuItem Header="View" Click="ViewMI_Click"/>
+                    <MenuItem Header="Edit" Click="EditMI_Click"/>
+                    <MenuItem Header="Delete" Click="DeleteMI_Click"/>
+                </ContextMenu>
+            </ListView.ContextMenu>
+        </ListView>
+    </Grid>
+</Window>

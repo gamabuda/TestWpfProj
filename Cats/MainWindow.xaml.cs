@@ -1,23 +1,15 @@
 ﻿using System;
+using System.Collections;
 using System.Collections.Generic;
 using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
 using System.Windows;
 using System.Windows.Controls;
-using System.Windows.Data;
-using System.Windows.Documents;
-using System.Windows.Input;
-using System.Windows.Media;
-using System.Windows.Media.Imaging;
-using System.Windows.Navigation;
-using System.Windows.Shapes;
-using TestWpfProj.Data;
+using Cats.Data;
 
-namespace TestWpfProj
+namespace Cats
 {
     /// <summary>
-    /// Interaction logic for MainWindow.xaml
+    /// Логика взаимодействия для MainWindow.xaml
     /// </summary>
     public partial class MainWindow : Window
     {
@@ -27,8 +19,8 @@ namespace TestWpfProj
         {
             InitializeComponent();
 
-            _Cats = Data.DataContext.Cats;
-            _CatTypes = Data.DataContext.CatTypes;
+            _Cats = DataBaseManager.GetAllCats();
+            _CatTypes = DataBaseManager.GetAllCatTypes();
 
             LstView.ItemsSource = _Cats;
             FilterCB.ItemsSource = _CatTypes;
@@ -42,7 +34,7 @@ namespace TestWpfProj
             if (selectedCat == null) return;
             DeleteWindow deleteWindow = new DeleteWindow(selectedCat);
             deleteWindow.ShowDialog();
-            if(deleteWindow.DialogResult == true)
+            if (deleteWindow.DialogResult == true)
             {
                 _Cats.Remove(selectedCat);
 
@@ -94,13 +86,13 @@ namespace TestWpfProj
 
             var type = (CatType)FilterCB.SelectedItem;
 
-            if (type == null) 
-            { 
+            if (type == null)
+            {
                 filter = Search(filter);
                 LstView.ItemsSource = filter;
                 return;
             }
-            filter = filter.Where(x => x.CatType.Id == type.Id).ToList();
+            filter = filter.Where(x => x.CatType.ID == type.ID).ToList();
 
             var sort = (Sort)SortCB.SelectedItem;
             filter = sort.SortingFunc(filter);
@@ -137,7 +129,7 @@ namespace TestWpfProj
             if (selectedCat == null) return;
             EditWindow editWindow = new EditWindow(selectedCat.Name, selectedCat.Birthday, selectedCat.CatType);
             editWindow.ShowDialog();
-            if(editWindow.DialogResult == true)
+            if (editWindow.DialogResult == true)
             {
                 selectedCat.Name = editWindow.Name;
                 selectedCat.Birthday = editWindow.Birthday;

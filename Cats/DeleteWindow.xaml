@@ -1,0 +1,29 @@
+﻿<Window x:Class="Cats.DeleteWindow"
+        xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+        xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+        xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
+        xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
+        xmlns:local="clr-namespace:Cats"
+        mc:Ignorable="d"
+        Title="Confirm Delete" Height="150" Width="300"
+        WindowStartupLocation="CenterOwner"
+        ResizeMode="NoResize"
+        ShowInTaskbar="False">
+    <Grid Margin="10">
+        <Grid.RowDefinitions>
+            <RowDefinition Height="Auto" MinHeight="64.08"/>
+            <RowDefinition Height="Auto"/>
+        </Grid.RowDefinitions>
+        <TextBlock Text="Are you sure want to delete NULL?" 
+                   TextWrapping="Wrap" 
+                   VerticalAlignment="Center" 
+                   HorizontalAlignment="Center" 
+                   Margin="10"
+                   x:Name="TextElement"
+                   Grid.Row="0"/>
+        <StackPanel Grid.Row="1" Orientation="Horizontal" HorizontalAlignment="Center" Margin="10">
+            <Button Content="Delete" Width="75" Margin="5" Click="Delete_Click"/>
+            <Button Content="Cancel" Width="75" Margin="5" Click="Cancel_Click"/>
+        </StackPanel>
+    </Grid>
+</Window>

@@ -5,6 +5,23 @@
     <TargetFramework>net6.0-windows</TargetFramework>
     <Nullable>enable</Nullable>
     <UseWPF>true</UseWPF>
+    <LangVersion>12</LangVersion>
   </PropertyGroup>
+
+  <ItemGroup>
+    <None Remove="Data\Images\Default.png" />
+    <None Remove="Default.png" />
+  </ItemGroup>
+
+  <ItemGroup>
+    <PackageReference Include="System.Runtime" Version="4.3.1" />
+  </ItemGroup>
+
+  <ItemGroup>
+    <Resource Include="Data\Images\Default.png">
+      <CopyToOutputDirectory>Never</CopyToOutputDirectory>
+    </Resource>
+    <Resource Include="Default.png" />
+  </ItemGroup>
 
 </Project>
