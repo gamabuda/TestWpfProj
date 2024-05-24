@@ -26,9 +26,13 @@ namespace TestWpfProj
         private List<BookGenre> _bookGenres;
         private List<SortType> _sortTypes;
 
-        public MainWindow(User user)
+        private Window _w;
+
+        public MainWindow(User user, Window w)
         {
             InitializeComponent();
+
+            _w = w;
 
             _books = Data.DataContext.Memes;
             _bookGenres = Data.DataContext.BookGenres;
@@ -37,6 +41,12 @@ namespace TestWpfProj
             LstView.ItemsSource = _books;
             FilterCB.ItemsSource = _bookGenres;
             SortCB.ItemsSource = _sortTypes;
+            
+            if (user.Role == 1)
+            {
+                contextMenu.Items.Remove(editForAdm);
+                contextMenu.Items.Remove(deleteForAdm);
+            }
 
             MessageBox.Show($"Добро пожаловать, {user.Login}!");
         }
@@ -160,6 +170,21 @@ namespace TestWpfProj
 
             LstView.ItemsSource = sortList;
             LstView.Items.Refresh();
+        }
+
+        private void Button_Click(object sender, RoutedEventArgs e)
+        {
+            if (MessageBox.Show("Вы точно хотите выйти из аккаунта?", "Подтвердить выход", MessageBoxButton.YesNo, MessageBoxImage.Question) == MessageBoxResult.Yes)
+            {
+                new AuthWindow().Show();
+                Window w = Window.GetWindow(this);
+                w.Close();
+            } 
+            else
+            {
+                return;
+            }
+
         }
     }
 }

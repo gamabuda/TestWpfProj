@@ -34,11 +34,12 @@ namespace TestWpfProj.Pages
         {
             string login = Login.Text;
             string password = Password.Password;
+
             _user = new User(login, password);
 
             if (Data.DataContext.Users.Exists(x => x.Login == login && x.Password == password))
             {
-                new MainWindow(_user).Show();
+                new MainWindow(_user, _w).Show();
                 Window w = Window.GetWindow(this);
                 w.Close();
             }

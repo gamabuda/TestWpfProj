@@ -20,6 +20,7 @@ namespace TestWpfProj.Windows
     /// </summary>
     public partial class AuthWindow : Window
     {
+
         public AuthWindow()
         {
             InitializeComponent();
