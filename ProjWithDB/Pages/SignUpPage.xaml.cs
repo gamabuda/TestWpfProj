@@ -12,9 +12,9 @@ using System.Windows.Media;
 using System.Windows.Media.Imaging;
 using System.Windows.Navigation;
 using System.Windows.Shapes;
-using TestWpfProj.Data.Users;
+using ProjWithDB.Data.Users;
 
-namespace TestWpfProj.Pages
+namespace ProjWithDB.Pages
 {
     public partial class SignUpPage : Page
     {
@@ -31,7 +31,7 @@ namespace TestWpfProj.Pages
 
         private void GuestButton_Click(object sender, RoutedEventArgs e)
         {
-            new MainWindow(Data.DataContext.Guest).Show();
+            new MainWindow((User)ChildrenHomeEntities.GetContext().User.Where(x => x == x.Guest)).Show();
             Window ownerWindow = Window.GetWindow(this);
             ownerWindow.Close();
         }
@@ -40,9 +40,9 @@ namespace TestWpfProj.Pages
         {
             string login = LoginTextBox.Text;
             string password = PasswordTextBox.Password;
-            if (PasswordTextBox.Password == ConfirmPasswordTextBox.Password && !Data.DataContext.Users.Exists(x => x.Login == login && x.Password == password))
+            if (PasswordTextBox.Password == ConfirmPasswordTextBox.Password && ChildrenHomeEntities.GetContext().User.Where(x => x.Login == login && x.Password == password) == null)
             {
-                _user = new User(login, password);
+                _user = new User();
                 new MainWindow(_user).Show();
                 Window ownerWindow = Window.GetWindow(this);
                 ownerWindow.Close();

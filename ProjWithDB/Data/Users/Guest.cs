@@ -4,7 +4,7 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 
-namespace TestWpfProj.Data.Users
+namespace ProjWithDB.Data.Users
 {
     public class Guest : User
     {

@@ -12,9 +12,9 @@ using System.Windows.Media;
 using System.Windows.Media.Imaging;
 using System.Windows.Navigation;
 using System.Windows.Shapes;
-using TestWpfProj.Data.Users;
+using ProjWithDB.Data.Users;
 
-namespace TestWpfProj.Pages
+namespace ProjWithDB.Pages
 {
     public partial class SignInPage : Page
     {
@@ -22,6 +22,7 @@ namespace TestWpfProj.Pages
         public SignInPage()
         {
             InitializeComponent();
+            ;
         }
 
         private void RegisterButton_Click(object sender, RoutedEventArgs e)
@@ -31,25 +32,36 @@ namespace TestWpfProj.Pages
 
         private void GuestButton_Click(object sender, RoutedEventArgs e)
         {
-            new MainWindow(Data.DataContext.Guest).Show();
-            Window ownerWindow = Window.GetWindow(this);
-            ownerWindow.Close();
+            foreach (var u in ChildrenHomeEntities.GetContext().User)
+            {
+                if (u.Login == "guest")
+                {
+                    _user = u;
+                   new MainWindow(_user).Show();
+                    Window.GetWindow(this).Close();
+                    return;
+                }
+            }
+            new MainWindow(_user).Show();
+            Window.GetWindow(this).Close();
         }
 
         private void LoginButton_Click(object sender, RoutedEventArgs e)
         {
             string login = LoginTextBox.Text;
             string password = PasswordTextBox.Password;
-            _user = new User(login, password);
+            _user = new User();
 
-            if (Data.DataContext.Users.Exists(x => x.Login == login && x.Password == password))
+            foreach (var u in ChildrenHomeEntities.GetContext().User)
             {
-                new MainWindow(_user).Show();
-                Window ownerWindow = Window.GetWindow(this);
-                ownerWindow.Close();
+                if (u.Login == login && u.Password == password)
+                {
+                    new MainWindow(_user).Show();
+                    Window.GetWindow(this).Close();
+                    return;
+                }
             }
-            else
-                MessageBox.Show("Некорректные данные!", "Ошибка входа", MessageBoxButton.OK, MessageBoxImage.Error);
+            MessageBox.Show("Некорректные данные!", "Ошибка входа", MessageBoxButton.OK, MessageBoxImage.Error);
         }
     }
 }

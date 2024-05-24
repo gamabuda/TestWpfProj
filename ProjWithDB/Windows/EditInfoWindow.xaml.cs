@@ -13,25 +13,25 @@ using System.Windows.Input;
 using System.Windows.Media;
 using System.Windows.Media.Imaging;
 using System.Windows.Shapes;
-using TestWpfProj.Data;
-using TestWpfProj.Data.Users;
+using ProjWithDB.Data;
+using ProjWithDB.Data.Users;
 
-namespace TestWpfProj.Windows
+namespace ProjWithDB.Windows
 {
     public partial class EditInfoWindow : Window
     {
         private User _user;
         private byte[] _img = new byte[0];
-        private Child selectedChild;
+        private Child _selectedChild;
         public EditInfoWindow(Child selectedPerson, User user)
         {
             InitializeComponent();
             _user = user;
-            selectedChild = selectedPerson;
-            this.DataContext = selectedChild;
-            MoveInDate_TB.Text = selectedChild.MoveInDate.ToString();
+            _selectedChild = selectedPerson;
+            this.DataContext = _selectedChild;
+            MoveInDate_TB.Text = _selectedChild.MoveInDate.ToString();
 
-            if (_user is Guest)
+            if (_user.Guest.Count > 0)
             {
                 LoadImgBtn.IsEnabled = false;
                 Info_SP.IsEnabled = false;
@@ -53,10 +53,26 @@ namespace TestWpfProj.Windows
             if (op.ShowDialog() == true)
             {
                 var img = new BitmapImage(new Uri(op.FileName));
+                _img = Image2Byte(img);
                 ObjectImg.Source = img;
+                
                 LoadImgBtn.Background = Brushes.Lavender;
                 LoadImgBtn.BorderBrush = Brushes.Transparent;
             }
+        }
+
+        public Byte[] Image2Byte(BitmapImage imageSource)
+        {
+            Stream stream = imageSource.StreamSource;
+            Byte[] buffer = null;
+            if (stream != null && stream.Length > 0)
+            {
+                using (BinaryReader br = new BinaryReader(stream))
+                {
+                    buffer = br.ReadBytes((Int32)stream.Length);
+                }
+            }
+            return buffer;
         }
 
         private void SaveBtn_Click(object sender, RoutedEventArgs e)
@@ -64,18 +80,18 @@ namespace TestWpfProj.Windows
             if (String.IsNullOrEmpty(Surname_TB.Text) || String.IsNullOrEmpty(Name_TB.Text) || String.IsNullOrEmpty(Patronymic_TB.Text) || String.IsNullOrEmpty(Gender_TB.Text) || String.IsNullOrEmpty(Age_TB.Text) || String.IsNullOrEmpty(RoomNumber_TB.Text) || String.IsNullOrEmpty(MoveInDate_TB.Text))
                 return;
 
-            selectedChild.Surname = Surname_TB.Text;
-            selectedChild.Name = Name_TB.Text;  
-            selectedChild.Patronymic = Patronymic_TB.Text;
-            selectedChild.Gender = Gender_TB.Text;
-            selectedChild.Age = Convert.ToInt32(Age_TB.Text);
-            selectedChild.RoomNumber = Convert.ToInt32(RoomNumber_TB.Text);
+            _selectedChild.Surname = Surname_TB.Text;
+            _selectedChild.Name = Name_TB.Text;  
+            _selectedChild.Patronymic = Patronymic_TB.Text;
+            _selectedChild.Gender = Gender_TB.Text;
+            _selectedChild.Age = Convert.ToInt32(Age_TB.Text);
+            _selectedChild.RoomNumber = Convert.ToInt32(RoomNumber_TB.Text);
             try
             {
-                selectedChild.MoveInDate = DateOnly.Parse(MoveInDate_TB.Text);
+                _selectedChild.MoveInDate = DateTime.Parse(MoveInDate_TB.Text);
             } catch 
             {
-                MoveInDate_TB.Text = selectedChild.MoveInDate.ToString();
+                MoveInDate_TB.Text = _selectedChild.MoveInDate.ToString();
                 return;
             }
             
@@ -104,7 +120,7 @@ namespace TestWpfProj.Windows
                     MessageBoxButton.YesNo,
                     MessageBoxImage.Question) == MessageBoxResult.Yes)
             {
-                TestWpfProj.Data.DataContext.Children.Remove(selectedChild);
+                ChildrenHomeEntities.GetContext().Child.Remove(_selectedChild);
                 this.Close();
             }
         }

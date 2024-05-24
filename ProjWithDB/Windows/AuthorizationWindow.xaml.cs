@@ -11,13 +11,10 @@ using System.Windows.Input;
 using System.Windows.Media;
 using System.Windows.Media.Imaging;
 using System.Windows.Shapes;
-using TestWpfProj.Pages;
+using ProjWithDB.Pages;
 
-namespace TestWpfProj.Windows
+namespace ProjWithDB.Windows
 {
-    /// <summary>
-    /// Логика взаимодействия для AuthorizationWindow.xaml
-    /// </summary>
     public partial class AuthorizationWindow : Window
     {
         public AuthorizationWindow()
