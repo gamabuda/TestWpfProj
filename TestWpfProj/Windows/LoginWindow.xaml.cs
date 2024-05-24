@@ -20,8 +20,30 @@ namespace TestWpfProj.Windows
         public LoginWindow()
         {
             InitializeComponent();
+            try
+            {
+                SetCustomCursor(this);
+            }
+            catch (Exception ex)
+            {
+                MessageBox.Show($"{ex.Message}");
+            }
         }
-
+        private void SetCustomCursor(FrameworkElement element)
+        {
+            try
+            {
+                string cursorFile = "Resources/BakedPotato.cur";
+                var cursorStream = Application.GetResourceStream(new Uri(cursorFile, UriKind.Relative)).Stream;
+                var customCursor = new Cursor(cursorStream);
+                element.Cursor = customCursor;
+            }
+            catch (Exception ex)
+            {
+                MessageBox.Show($"{ex.Message}");
+                throw;
+            }
+        }
         private void LoginBtn_Click(object sender, RoutedEventArgs e)
         {
             string username = UsernameTB.Text;

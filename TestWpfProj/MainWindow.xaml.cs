@@ -34,7 +34,31 @@ namespace TestWpfProj
 
             MessageBox.Show($"Hello, {user.Login}!");
             MessageBox.Show($"Welcome back, {UserContext.User.Login}!");
+            try
+            {
+                SetCustomCursor(this);
+            }
+            catch (Exception ex)
+            {
+                MessageBox.Show($"{ex.Message}");
+            }
         }
+        private void SetCustomCursor(FrameworkElement element)
+        {
+            try
+            {
+                string cursorFile = "Resources/Cake.cur";
+                var cursorStream = Application.GetResourceStream(new Uri(cursorFile, UriKind.Relative)).Stream;
+                var customCursor = new Cursor(cursorStream);
+                element.Cursor = customCursor;
+            }
+            catch (Exception ex)
+            {
+                MessageBox.Show($"{ex.Message}");
+                throw;
+            }
+        }
+    
 
         private void DeleteMI_Click(object sender, RoutedEventArgs e)
         {

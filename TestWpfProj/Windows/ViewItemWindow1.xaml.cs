@@ -28,7 +28,31 @@ namespace TestWpfProj.Windows
             TitleTB.Text = _game.Title;
             GameTypeTB.Text = _game.GameType.Title;
             PriceTB.Text = _game.Price.ToString();
+            try
+            {
+                SetCustomCursor(this);
+            }
+            catch (Exception ex)
+            {
+                MessageBox.Show($"{ex.Message}");
+            }
         }
+        private void SetCustomCursor(FrameworkElement element)
+        {
+            try
+            {
+                string cursorFile = "Resources/GoldenApple.cur";
+                var cursorStream = Application.GetResourceStream(new Uri(cursorFile, UriKind.Relative)).Stream;
+                var customCursor = new Cursor(cursorStream);
+                element.Cursor = customCursor;
+            }
+            catch (Exception ex)
+            {
+                MessageBox.Show($"{ex.Message}");
+                throw;
+            }
+        }
+    
 
         private void CloseBtn_Click(object sender, RoutedEventArgs e)
         {

@@ -7,4 +7,20 @@
     <UseWPF>true</UseWPF>
   </PropertyGroup>
 
+  <ItemGroup>
+    <None Remove="Resources\Apple.cur" />
+    <None Remove="Resources\BakedPotato.cur" />
+    <None Remove="Resources\Cake.cur" />
+    <None Remove="Resources\Cookie.cur" />
+    <None Remove="Resources\GoldenApple.cur" />
+  </ItemGroup>
+
+  <ItemGroup>
+    <Resource Include="Resources\Apple.cur" />
+    <Resource Include="Resources\BakedPotato.cur" />
+    <Resource Include="Resources\Cake.cur" />
+    <Resource Include="Resources\Cookie.cur" />
+    <Resource Include="Resources\GoldenApple.cur" />
+  </ItemGroup>
+
 </Project>
