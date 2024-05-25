@@ -1,0 +1,58 @@
+﻿<Window x:Class="BooksProj.MainWindow"
+        xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+        xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+        xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
+        xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
+        xmlns:local="clr-namespace:BooksProj"
+        mc:Ignorable="d"
+        WindowStartupLocation="CenterScreen"
+        Title="MainWindow" Height="450" Width="1000">
+    <Grid Background="Lavender">
+        <Grid.RowDefinitions>
+            <RowDefinition Height="auto"/>
+            <RowDefinition Height="1*"/>
+            <RowDefinition Height="auto"/>
+        </Grid.RowDefinitions>
+
+        <Grid VerticalAlignment="Center" HorizontalAlignment="Left" Margin="58,0,0,0">
+            <Grid.ColumnDefinitions>
+                <ColumnDefinition Width="auto"/>
+                <ColumnDefinition Width="auto"/>
+                <ColumnDefinition Width="auto"/>
+            </Grid.ColumnDefinitions>
+            <WrapPanel Grid.Column="0" Margin="6" HorizontalAlignment="Center">
+                <Label Content="Поиск:"/>
+                <TextBox x:Name="SearchTB" Width="175" TextChanged="SearchTB_TextChanged"></TextBox>
+            </WrapPanel>
+            <WrapPanel Grid.Column="1" Margin="6" HorizontalAlignment="Center">
+                <Label Content="Фильтрация:"/>
+                <ComboBox Width="125" x:Name="FilterCB" SelectionChanged="FilterCB_SelectionChanged" DisplayMemberPath="Title" Cursor="Hand"></ComboBox>
+            </WrapPanel>
+            <WrapPanel Grid.Column="2" Margin="6" HorizontalAlignment="Center">
+                <Label Content="Сортировка:"/>
+                <ComboBox Width="125" x:Name="SortCB" Cursor="Hand" SelectionChanged="SortCB_SelectionChanged" DisplayMemberPath="SortTitle" ></ComboBox>
+            </WrapPanel>
+
+            <Button Grid.Column="2" Margin="228,0,-247,0" Height="28" Width="150" Click="Button_Click">Меню входа</Button>
+        </Grid>
+
+        <ListView Name="LstView" Grid.Row="1">
+            <ListView.View>
+                <GridView>
+                    <GridViewColumn DisplayMemberBinding="{Binding Path=Id}">Номер</GridViewColumn>
+                    <GridViewColumn DisplayMemberBinding="{Binding Path=Title}">Название</GridViewColumn>
+                    <GridViewColumn DisplayMemberBinding="{Binding Path=Price}" Width="100">Цена</GridViewColumn>
+                    <GridViewColumn DisplayMemberBinding="{Binding Path=BookGenre.Title}">Жанр</GridViewColumn>
+                    <GridViewColumn DisplayMemberBinding="{Binding Path=Writer}">Автор</GridViewColumn>
+                </GridView>
+            </ListView.View>
+            <ListView.ContextMenu>
+                <ContextMenu x:Name="contextMenu">
+                    <MenuItem Header="Просмотр" Click="ViewMI_Click"/>
+                    <MenuItem x:Name="editForAdm" Header="Изменение" Click="EditMI_Click"/>
+                    <MenuItem x:Name="deleteForAdm"  Header="Удаление" Click="DeleteMI_Click"/>
+                </ContextMenu>
+            </ListView.ContextMenu>
+        </ListView>
+    </Grid>
+</Window>

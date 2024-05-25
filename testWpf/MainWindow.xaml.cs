@@ -38,7 +38,7 @@ namespace testWpf
             {
                 if (BookGenreTb.Text == null || BookPriceTb.Text == null || BookWriterTb.Text == null || BookTitleTb.Text == null)
                 {
-                    MessageBox.Show("Incorrect Information", "Warning", MessageBoxButton.OK, MessageBoxImage.Warning);
+                    MessageBox.Show("Некоректная информация", "Ошибка", MessageBoxButton.OK, MessageBoxImage.Warning);
                 } 
                 else
                 {

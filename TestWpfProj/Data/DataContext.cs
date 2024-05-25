@@ -23,7 +23,7 @@ namespace TestWpfProj.Data
             new BookGenre("Ужасы"),
             new BookGenre("Научная фантастика"),
             new BookGenre("Детектив"),
-            new BookGenre("Жанр"),
+            new BookGenre("Рассказ"),
 
             new BookGenre("Отображение по умолчанию"),
         };
