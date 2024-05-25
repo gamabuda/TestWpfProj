@@ -64,6 +64,19 @@ namespace MemeWpfApp.Data
             return _dbConnection.User.ToList();
         }
 
+        public static bool AddUser(User u)
+        {
+            try
+            {
+                _dbConnection.User.Add(u);
+                return true;
+            }
+            catch
+            {
+                return false;
+            }
+        }
+
         public static List<Role> GetRoles()
         {
             return _dbConnection.Role.ToList();

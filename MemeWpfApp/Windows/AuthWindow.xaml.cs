@@ -1,4 +1,5 @@
 ﻿using MemeWpfApp.Data;
+using MemeWpfApp.DbConnection;
 using System;
 using System.Collections.Generic;
 using System.Linq;
@@ -33,7 +34,9 @@ namespace MemeWpfApp.Windows
                 return;
             }
 
-            if (Auth(LoginTb.Text, PasswordPb.Password))
+            // reg or auth choose what u want
+            if (Reg(LoginTb.Text, PasswordPb.Password))
+            //if (Auth(LoginTb.Text, PasswordPb.Password))
             {
                 new MainWindow().Show();
                 this.Close();
@@ -51,6 +54,20 @@ namespace MemeWpfApp.Windows
                 return true;
             else 
                 return false;
+        }
+
+        private bool Reg(string login, string password)
+        {
+            var newUser = new User();
+            newUser.Login = LoginTb.Text;
+            newUser.Password = PasswordPb.Password;
+            newUser.RoleId = 2;
+            newUser.Name = "Unkown";
+            newUser.Surname = "Unkown";
+            
+            DataBaseManager.AddUser(newUser);
+            DataBaseManager.UpdateDatabase();
+            return true;
         }
     }
 }
