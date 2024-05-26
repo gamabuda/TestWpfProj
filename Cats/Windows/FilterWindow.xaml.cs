@@ -26,12 +26,14 @@ namespace Cats
     {
         public List<CatType>? CatTypes { get; set; }
         public Sort? Sort { get; set; }
+        public bool Reversed { get; set; }
         public FilterWindow(List<CatType>? catTypes, Sort? sort, bool? isChecked = false)
         {
             InitializeComponent();
             this.CatTypes = catTypes ?? [];
             Sort = sort;
             isReversed.IsChecked = isChecked;
+            Reversed = isChecked.Value;
             FilterCB.ItemsSource = DataBaseManager.GetAllCatTypes();
             SortCB.ItemsSource = SortsList.SortList;
             SortCB.SelectedItem = sort;
@@ -52,6 +54,7 @@ namespace Cats
 
         private void RefreshFilters()
         {
+            FiltersStackPanel.Children.Clear();
             if (CatTypes != null)
                 foreach (var type in CatTypes)
                 {
@@ -91,7 +94,17 @@ namespace Cats
 
         private void SortCB_DropDownClosed(object sender, EventArgs e)
         {
-            Sort = FilterCB.SelectedItem as Sort;
+            Sort = SortCB.SelectedItem as Sort;
+        }
+
+        private void isReversed_Checked(object sender, RoutedEventArgs e)
+        {
+            Reversed = true;
+        }
+
+        private void isReversed_Unchecked(object sender, RoutedEventArgs e)
+        {
+            Reversed = false;
         }
     }
 

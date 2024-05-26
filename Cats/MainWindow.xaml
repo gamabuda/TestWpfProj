@@ -5,13 +5,16 @@
         xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
         xmlns:local="clr-namespace:Cats"
         mc:Ignorable="d"
-        Title="MainWindow" Height="450" Width="800">
+        Title="MainWindow" Height="450" Width="800"
+        WindowStartupLocation="CenterScreen">
     <Grid Background="Lavender">
         <Grid.RowDefinitions>
             <RowDefinition Height="auto"/>
             <RowDefinition Height="1*"/>
             <RowDefinition Height="auto"/>
         </Grid.RowDefinitions>
+
+        
 
         <Grid Grid.Row="0" VerticalAlignment="Center" HorizontalAlignment="Center">
             <Grid.ColumnDefinitions>
@@ -30,7 +33,13 @@
             <Button x:Name="AddBtn" Margin="6" Grid.Column="4" Padding="10 0" Click="AddBtn_OnClick">Add</Button>
             <Button x:Name="AddTypeBtn" Margin="6" Grid.Column="5" Padding="10 0" Click="AddTypeBtn_OnClick">Add Type</Button>
         </Grid>
-
+        <Grid HorizontalAlignment="Right" Margin="6">
+            <StackPanel Orientation="Horizontal">
+                <Label x:Name="UserLabel"></Label>
+                <Button x:Name="LogOutBtn" Padding="5 0" Click="LogOutBtn_Click">Log out</Button>
+            </StackPanel>
+            
+        </Grid>
         <ListView Name="LstView" Grid.Row="1">
             <ListView.ItemContainerStyle>
                 <Style TargetType="ListViewItem">
@@ -62,5 +71,7 @@
                 </ContextMenu>
             </ListView.ContextMenu>
         </ListView>
+
+        
     </Grid>
 </Window>

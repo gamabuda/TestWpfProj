@@ -33,12 +33,7 @@ namespace Cats
             IdTb.Text = cat.ID;
             GenderTb.Text = cat.Gender;
             BirthdayTb.Text = cat.Birthday.ToShortDateString();
-            //Cat = cat;
-            //Name.Text = cat.Name;
-            //Id.Text = cat.Id;
-            //Image.Source = new BitmapImage(new Uri($@"/TestWpfProj;{cat.Image}", UriKind.Relative));
-            //Birthday.Text = cat.Birthday.BirthdayString;
-            //Gender.Text = cat.Gender;
+            ImageB.Source = ByteImageConverter.ByteToImage(cat.Image);
         }
     }
 }

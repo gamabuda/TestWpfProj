@@ -9,7 +9,7 @@
         WindowStartupLocation="CenterOwner"
         ResizeMode="NoResize"
         ShowInTaskbar="False"
-        SizeToContent="Height">
+        SizeToContent="Height" Icon="/Windows/icons8-cat-footprint-100.ico">
     <Grid Margin="10">
         <Grid.RowDefinitions>
             <RowDefinition Height="Auto" MinHeight="64.08"/>

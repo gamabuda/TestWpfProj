@@ -1,0 +1,30 @@
+﻿<Window x:Class="Cats.Windows.AuthorisationWindow"
+        xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+        xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+        xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
+        xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
+        xmlns:local="clr-namespace:Cats.Windows"
+        mc:Ignorable="d"
+        Title="AuthorisationWindow" Height="350" Width="400" Icon="/Windows/icons8-cat-footprint-100.ico"
+        WindowStartupLocation="CenterScreen">
+    <Grid Margin="15">
+        <Grid.RowDefinitions>
+            <RowDefinition Height="Auto"/>
+            <RowDefinition Height="Auto"/>
+        </Grid.RowDefinitions>
+
+        <StackPanel Grid.Row="0" Orientation="Vertical">
+            <Label Content="Login" FontSize="20" HorizontalContentAlignment="Center" FontWeight="bold"></Label>
+            <TextBox x:Name="LoginTb" FontSize="20" HorizontalContentAlignment="Center"></TextBox>
+            <Label Content="Password" FontSize="20" HorizontalContentAlignment="Center" FontWeight="bold"></Label>
+            <PasswordBox x:Name="PasswordTb" FontSize="20" HorizontalContentAlignment="Center"></PasswordBox>
+        </StackPanel>
+
+        <StackPanel Grid.Row="1" Orientation="Vertical" HorizontalAlignment="Center" Margin="25">
+            <Button x:Name="LoginBtn" Padding="75 5" FontSize="16" FontWeight="Bold" Click="LoginBtn_Click">Login</Button>
+            <Button x:Name="CreateAccountBtn" Padding="0 5" Margin="0 10 0 0" FontSize="16" FontWeight="Bold" Click="CreateAccountBtn_Click">Create new account</Button>
+            <Button x:Name="GuestBtn" Padding="0 5" Margin="0 10 0 0" FontSize="16" FontWeight="Bold" Click="GuestBtn_OnClick">Login as guest</Button>
+        </StackPanel>
+
+    </Grid>
+</Window>

@@ -33,13 +33,7 @@ namespace Cats
         public AddWindow()
         {
             InitializeComponent();
-            if (UserContext.CurrentUser.isAdmin == true)
-            {
-                IdField.Visibility = Visibility.Visible;
-                OkBtn.Visibility = Visibility.Visible;
-                RequestBtn.Visibility = Visibility.Collapsed;
-            }
-
+            IdField.Visibility = UserContext.CurrentUser.isAdmin == true ? Visibility.Visible : Visibility.Collapsed;
             GenderCb.ItemsSource = new string[2] {"Кот", "Кошка"};
             CatTypeCb.ItemsSource = DataBaseManager.GetAllCatTypes();
         }
@@ -66,6 +60,15 @@ namespace Cats
 
         private void OkBtn_Click(object sender, RoutedEventArgs e)
         {
+            //if (BirthdayDatePicker.SelectedDate == null || CatTypeCb.SelectedItem == null ||
+            //    GenderCb.Text == "" || NameTb.Text == "")
+            //{
+            //    MessageBox.Show("Заполните все поля!");
+            //    return;
+            //}
+            Random rnd = new Random();
+            CatTypeCb.SelectedItem = DataBaseManager.GetAllCatTypes()[rnd.Next(DataBaseManager.GetAllCatTypes().Count)];
+            GenderCb.SelectedItem = ((string[]) ["Кот", "Кошка"])[rnd.Next(1)];
             DialogResult = true;
             NewCat = new Cat()
             {
@@ -98,7 +101,7 @@ namespace Cats
         private void AddImgBtn_Click(object sender, RoutedEventArgs e)
         {
             LoadImg();
-            ImgHolder.Source = ByteImageConverter.ByteToImage(Image);
+            if(Image != null) ImgHolder.Source = ByteImageConverter.ByteToImage(Image);
         }
     }
 }

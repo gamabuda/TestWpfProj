@@ -8,7 +8,8 @@
         Title="FilterWindow" Height="225" Width="305"
         ResizeMode="NoResize"
         ShowInTaskbar="False"
-        SizeToContent="Height">
+        SizeToContent="Height" Icon="/Windows/icons8-cat-footprint-100.ico"
+        WindowStartupLocation="CenterOwner">
     <Grid>
         <Grid.RowDefinitions>
             <RowDefinition Height="auto"></RowDefinition>
@@ -38,7 +39,7 @@
                 <ComboBox Width="245" FontSize="8px" x:Name="SortCB" DisplayMemberPath="Title" DropDownClosed="SortCB_DropDownClosed"></ComboBox>
                 <Button Grid.Column="1" Grid.Row="0" Padding="5 0 5 0" Click="SortClear">×</Button>
             </StackPanel>
-            <CheckBox x:Name="isReversed" FontSize="8px" VerticalContentAlignment="Center">Reversed</CheckBox>
+            <CheckBox x:Name="isReversed" FontSize="8px" VerticalContentAlignment="Center" Checked="isReversed_Checked" Unchecked="isReversed_Unchecked">Reversed</CheckBox>
         </StackPanel>
         <StackPanel Grid.Row="2" Grid.ColumnSpan="2" Width="auto" Orientation="Horizontal" HorizontalAlignment="Right" Margin="10 10 20 10">
             <Button Margin="0 0 10 0" Padding="10 0 10 0" Click="OkButtonClick">Ok</Button>

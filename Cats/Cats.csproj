@@ -85,6 +85,9 @@
       <DependentUpon>Model1.tt</DependentUpon>
     </Compile>
     <Compile Include="Service\DataBaseManager.cs" />
+    <Compile Include="Windows\AuthorisationWindow.xaml.cs">
+      <DependentUpon>AuthorisationWindow.xaml</DependentUpon>
+    </Compile>
     <Compile Include="Windows\DeleteWindow.xaml.cs">
       <DependentUpon>DeleteWindow.xaml</DependentUpon>
     </Compile>
@@ -123,6 +126,10 @@
       <SubType>Designer</SubType>
     </Page>
     <Page Include="Windows\AddWindow.xaml">
+      <SubType>Designer</SubType>
+      <Generator>MSBuild:Compile</Generator>
+    </Page>
+    <Page Include="Windows\AuthorisationWindow.xaml">
       <SubType>Designer</SubType>
       <Generator>MSBuild:Compile</Generator>
     </Page>
@@ -199,6 +206,7 @@
       <DependentUpon>Model1.edmx</DependentUpon>
       <LastGenOutput>Model1.cs</LastGenOutput>
     </Content>
+    <Resource Include="Windows\icons8-cat-footprint-100.ico" />
   </ItemGroup>
   <ItemGroup />
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />

@@ -5,7 +5,8 @@
         xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
         xmlns:local="clr-namespace:Cats"
         mc:Ignorable="d"
-        Title="InfoWindow" Height="450" Width="300">
+        Title="InfoWindow" Height="450" Width="300"
+        WindowStartupLocation="CenterOwner">
     <Grid>
         <Border BorderBrush="Gray" BorderThickness="1" CornerRadius="10" Padding="10" Margin="10">
             <StackPanel>
@@ -13,7 +14,7 @@
                 <TextBlock x:Name="NameTb" FontSize="24" FontWeight="Bold" HorizontalAlignment="Center" Margin="0,10"/>
 
                 <!-- Фотография кота -->
-                <Image x:Name="ImageB" Source="/Default.png" Height="200" Margin="0,10" Stretch="UniformToFill" HorizontalAlignment="Center"/>
+                <Image x:Name="ImageB" Height="200" Margin="0,10" Stretch="UniformToFill" HorizontalAlignment="Center"/>
 
                 <!-- ID кота -->
                 <TextBlock x:Name="IdTb" FontSize="16" HorizontalAlignment="Center" Margin="0,5"/>

@@ -5,6 +5,7 @@ using System.Linq;
 using System.Windows;
 using System.Windows.Controls;
 using Cats.Core;
+using Cats.Windows;
 
 namespace Cats
 {
@@ -21,8 +22,13 @@ namespace Cats
         {
             InitializeComponent();
             _currentFilter = [];
+            if (UserContext.CurrentUser.ID == "GUEST")
+            {
+                AddBtn.Visibility = Visibility.Collapsed;
+            }
             if (UserContext.CurrentUser.isAdmin != true)
             {
+                AddTypeBtn.Visibility = Visibility.Collapsed;
                 EditMI.Visibility = Visibility.Collapsed;
                 DeleteMI.Visibility = Visibility.Collapsed;
             }
@@ -30,6 +36,8 @@ namespace Cats
             _Cats = DataBaseManager.GetAllCats();
 
             LstView.ItemsSource = _Cats;
+
+            UserLabel.Content = UserContext.CurrentUser.Nickname;
         }
 
         private void DeleteMI_Click(object sender, RoutedEventArgs e)
@@ -103,6 +111,7 @@ namespace Cats
             if(filterWindow.DialogResult == false) return;
             _currentFilter = filterWindow.CatTypes;
             _currentSort = filterWindow.Sort;
+            isReversed = filterWindow.Reversed;
             Filter();
         }
 
@@ -111,6 +120,7 @@ namespace Cats
             var lst = DataBaseManager.GetAllCats();
             lst = lst.Where(x => _currentFilter.Count == 0 || _currentFilter.Any(s => s == x.CatType)).ToList();
             if (_currentSort != null) lst = _currentSort.SortingFunc(lst);
+            if (isReversed) lst.Reverse();
             LstView.ItemsSource = Search(lst);
             LstView.Items.Refresh();
 
@@ -122,6 +132,14 @@ namespace Cats
             addWindow.ShowDialog();
             if(addWindow.DialogResult == false) return;
             DataBaseManager.AddCatType(addWindow.NewType);
+        }
+
+        private void LogOutBtn_Click(object sender, RoutedEventArgs e)
+        {
+            UserContext.CurrentUser = null;
+            AuthorisationWindow authorisationWindow = new AuthorisationWindow();
+            authorisationWindow.Show();
+            Close();
         }
     }
 }

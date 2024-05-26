@@ -7,7 +7,8 @@
         mc:Ignorable="d"
         Title="AddWindow" Height="350" Width="300"
         ResizeMode="NoResize"
-        SizeToContent="Height">
+        SizeToContent="Height" Icon="/Windows/icons8-cat-footprint-100.ico"
+        WindowStartupLocation="CenterOwner">
     <Grid Margin="10">
         <Grid.RowDefinitions>
             <RowDefinition Height="Auto"/>
