@@ -14,18 +14,22 @@ namespace Cats
     public partial class MainWindow : Window
     {
         private List<Cat> _Cats;
-        private List<CatType> _CatTypes;
+        private List<CatType> _currentFilter;
+        private Sort _currentSort;
+        private bool isReversed;
         public MainWindow()
         {
             InitializeComponent();
+            _currentFilter = [];
+            if (UserContext.CurrentUser.isAdmin != true)
+            {
+                EditMI.Visibility = Visibility.Collapsed;
+                DeleteMI.Visibility = Visibility.Collapsed;
+            }
 
             _Cats = DataBaseManager.GetAllCats();
-            _CatTypes = DataBaseManager.GetAllCatTypes();
 
             LstView.ItemsSource = _Cats;
-            FilterCB.ItemsSource = _CatTypes;
-            SortCB.ItemsSource = SortsList.SortList;
-            SortCB.SelectedItem = SortsList.SortList[0];
         }
 
         private void DeleteMI_Click(object sender, RoutedEventArgs e)
@@ -36,8 +40,8 @@ namespace Cats
             deleteWindow.ShowDialog();
             if (deleteWindow.DialogResult == true)
             {
-                _Cats.Remove(selectedCat);
-
+                DataBaseManager.RemoveCat(selectedCat);
+                _Cats = DataBaseManager.GetAllCats();
                 LstView.ItemsSource = _Cats;
                 LstView.Items.Refresh();
             }
@@ -49,93 +53,75 @@ namespace Cats
             if (selectedCat == null) return;
             InfoWindow infoWindow = new InfoWindow(selectedCat);
             infoWindow.ShowDialog();
-            //MessageBox.Show($"Id:{selectedCat.Id} \nName: {selectedCat.Name}\nType: {selectedCat.CatType.Title}\nBirthday: {selectedCat.Birthday.BirthdayString}");
-        }
-
-        private void RefreshBtn_Click(object sender, RoutedEventArgs e)
-        {
-            LstView.ItemsSource = _Cats;
-            LstView.Items.Refresh();
         }
 
         private void SerchTB_TextChanged(object sender, TextChangedEventArgs e)
         {
             Filter();
-            var lst = (List<Cat>)LstView.ItemsSource;
-            lst = Search(lst);
-            LstView.ItemsSource = lst;
-            LstView.Items.Refresh();
         }
 
         private List<Cat> Search(List<Cat> source)
         {
             if (!String.IsNullOrEmpty(SerchTB.Text))
             {
-                source = source.Where(x => x.Name.ToLower().Contains(SerchTB.Text.ToLower())).ToList();
+                source = source.Where(x => x.Name.ToLower().Contains(SerchTB.Text.ToLower()) 
+                                           || x.CatType.Title.ToLower().Contains(SerchTB.Text.ToLower()) 
+                                           || x.Birthday.ToShortDateString().ToLower().Contains(SerchTB.Text.ToLower())
+                                           || x.User.Nickname.ToLower().Contains(SerchTB.Text.ToLower())).ToList();
             }
             return source;
-        }
-
-        private void FilterCB_DropDownClosed(object sender, EventArgs e)
-        {
-            Filter();
-        }
-        private void Filter()
-        {
-            var filter = _Cats;
-
-            var type = (CatType)FilterCB.SelectedItem;
-
-            if (type == null)
-            {
-                filter = Search(filter);
-                LstView.ItemsSource = filter;
-                return;
-            }
-            filter = filter.Where(x => x.CatType.ID == type.ID).ToList();
-
-            var sort = (Sort)SortCB.SelectedItem;
-            filter = sort.SortingFunc(filter);
-            if (SerchTB.Text != "")
-                filter = Search(filter);
-            LstView.ItemsSource = filter;
-            LstView.Items.Refresh();
-        }
-        private void Button_Click(object sender, RoutedEventArgs e)
-        {
-            FilterCB.SelectedValue = null;
-            Filter();
-        }
-
-        private void SortCB_DropDownClosed(object sender, EventArgs e)
-        {
-            var list = (List<Cat>)LstView.ItemsSource;
-
-            var sort = (Sort)SortCB.SelectedItem;
-
-            list = sort.SortingFunc.Invoke(list);
-            LstView.ItemsSource = list;
-            LstView.Items.Refresh();
-        }
-
-        private void MenuItem_Click(object sender, RoutedEventArgs e)
-        {
-
         }
 
         private void EditMI_Click(object sender, RoutedEventArgs e)
         {
             Cat selectedCat = (Cat)LstView.SelectedItem;
             if (selectedCat == null) return;
-            EditWindow editWindow = new EditWindow(selectedCat.Name, selectedCat.Birthday, selectedCat.CatType);
+            AddWindow editWindow = new AddWindow(selectedCat);
             editWindow.ShowDialog();
             if (editWindow.DialogResult == true)
             {
-                selectedCat.Name = editWindow.Name;
-                selectedCat.Birthday = editWindow.Birthday;
-                selectedCat.CatType = editWindow.CatType;
+                DataBaseManager.EditCat(editWindow.NewCat);
                 LstView.Items.Refresh();
             }
+        }
+
+        private void AddBtn_OnClick(object sender, RoutedEventArgs e)
+        {
+            AddWindow addWindow = new AddWindow();
+            addWindow.ShowDialog();
+            if (addWindow.DialogResult == false) return;
+            DataBaseManager.AddCat(addWindow.NewCat);
+            _Cats = DataBaseManager.GetAllCats();
+            LstView.ItemsSource = _Cats;
+            LstView.Items.Refresh();
+        }
+
+        private void FilterBtn_OnClick(object sender, RoutedEventArgs e)
+        {
+            FilterWindow filterWindow = new FilterWindow(_currentFilter, _currentSort, isReversed);
+            filterWindow.ShowDialog();
+            if(filterWindow.DialogResult == false) return;
+            _currentFilter = filterWindow.CatTypes;
+            _currentSort = filterWindow.Sort;
+            Filter();
+        }
+
+        private void Filter()
+        {
+            var lst = DataBaseManager.GetAllCats();
+            lst = lst.Where(x => _currentFilter.Count == 0 || _currentFilter.Any(s => s == x.CatType)).ToList();
+            if (_currentSort != null) lst = _currentSort.SortingFunc(lst);
+            LstView.ItemsSource = Search(lst);
+            LstView.Items.Refresh();
+
+        }
+
+        private void AddTypeBtn_OnClick(object sender, RoutedEventArgs e)
+        {
+            AddTypeWindow addWindow = new AddTypeWindow();
+            addWindow.ShowDialog();
+            if(addWindow.DialogResult == false) return;
+            DataBaseManager.AddCatType(addWindow.NewType);
         }
     }
 }
