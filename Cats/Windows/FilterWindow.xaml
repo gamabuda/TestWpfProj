@@ -24,7 +24,7 @@
             <StackPanel Orientation="Vertical">
                 <StackPanel Orientation="Horizontal">
                     <ComboBox Width="245" FontSize="8px" x:Name="FilterCB" DisplayMemberPath="Title" DropDownClosed="FilterCB_DropDownClosed"></ComboBox>
-                    <Button Grid.Column="1" Grid.Row="0" Padding="5 0 5 0" Click="FilterClear">×</Button>
+                    <Button Background="{x:Null}" BorderBrush="{x:Null}" Grid.Column="1" Grid.Row="0" Padding="5 0 5 0" Click="FilterClear">×</Button>
                 </StackPanel>
                 <ScrollViewer Margin="0 0 10 0" MaxHeight="75" VerticalScrollBarVisibility="Auto">
                     <StackPanel x:Name="FiltersStackPanel" Orientation="Vertical"></StackPanel>
@@ -37,7 +37,7 @@
             <Label Content="Sort" FontSize="8"></Label>
             <StackPanel Orientation="Horizontal">
                 <ComboBox Width="245" FontSize="8px" x:Name="SortCB" DisplayMemberPath="Title" DropDownClosed="SortCB_DropDownClosed"></ComboBox>
-                <Button Grid.Column="1" Grid.Row="0" Padding="5 0 5 0" Click="SortClear">×</Button>
+                <Button Background="{x:Null}" BorderBrush="{x:Null}" Grid.Column="1" Grid.Row="0" Padding="5 0 5 0" Click="SortClear">×</Button>
             </StackPanel>
             <CheckBox x:Name="isReversed" FontSize="8px" VerticalContentAlignment="Center" Checked="isReversed_Checked" Unchecked="isReversed_Unchecked">Reversed</CheckBox>
         </StackPanel>
