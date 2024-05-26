@@ -4,7 +4,7 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Windows;
 using System.Windows.Controls;
-using Cats.Data;
+using Cats.Core;
 
 namespace Cats
 {

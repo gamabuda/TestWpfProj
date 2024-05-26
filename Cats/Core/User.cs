@@ -7,7 +7,7 @@
 // </auto-generated>
 //------------------------------------------------------------------------------
 
-namespace Cats
+namespace Cats.Core
 {
     using System;
     using System.Collections.Generic;
