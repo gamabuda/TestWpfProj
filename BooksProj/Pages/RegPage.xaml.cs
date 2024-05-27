@@ -14,6 +14,7 @@ using System.Windows.Media;
 using System.Windows.Media.Imaging;
 using System.Windows.Navigation;
 using System.Windows.Shapes;
+using BooksProj.Data;
 
 namespace BooksProj.Pages
 {
@@ -22,13 +23,13 @@ namespace BooksProj.Pages
     /// </summary>
     public partial class RegPage : Page
     {
-        private User _user;
+        private List<User> _user;
         private Window _w;
 
-        bookDataBaseEntities _entities;
         public RegPage(Window w)
         {
             _w = w;
+            _user = DBManager.GetUsers();
 
             InitializeComponent();
         }
@@ -41,7 +42,7 @@ namespace BooksProj.Pages
             Regex nums = new Regex(@"\d");
             Regex spec = new Regex(@"[:graph:]");
 
-            if (_entities.User.ToList().Exists(x => x.Login == login))
+            if (_user.Exists(x => x.Login == login))
             {
                 MessageBox.Show("Аккаунт с таким именем уже существует.", "Ошибка создания.", MessageBoxButton.OK, MessageBoxImage.Warning);
             }
@@ -53,9 +54,9 @@ namespace BooksProj.Pages
                 && nums.IsMatch(Login.Text.Substring(1))
                 && !spec.IsMatch(Login.Text))
             {
-                _user = new User(login, password);
-                _entities.User.Add(_user);
-                new MainWindow(_user, _w).Show();
+                var user = new User(login, password);
+                _user.Add(user);
+                new MainWindow(user, _w).Show();
                 Window w = Window.GetWindow(this);
                 w.Close();
             }

@@ -13,7 +13,7 @@ using System.Windows.Media;
 using System.Windows.Media.Imaging;
 using System.Windows.Navigation;
 using System.Windows.Shapes;
-
+using BooksProj.Data;
 
 namespace BooksProj.Pages
 {
@@ -23,11 +23,11 @@ namespace BooksProj.Pages
     public partial class AuthPage : Page
     {
         private Window _w;
-        private User _user;
-        bookDataBaseEntities _entities;
+        private List<User> _user;
         public AuthPage(Window w)
         {
             _w = w;
+            _user = DBManager.GetUsers();
 
             InitializeComponent();
         }
@@ -37,11 +37,11 @@ namespace BooksProj.Pages
             string login = Login.Text;
             string password = Password.Password;
 
-            _user = new User(login, password);
+            var user = new User(login, password);
 
-            if (_entities.User.ToList().Exists(x => x.Login == login && x.Password == password))
+            if (_user.Exists(x => x.Login == login && x.Password == password))
             {
-                new MainWindow(_user, _w).Show();
+                new MainWindow(user, _w).Show();
                 Window w = Window.GetWindow(this);
                 w.Close();
             }
@@ -49,7 +49,6 @@ namespace BooksProj.Pages
             {
                 MessageBox.Show("Некорректные данные.");
             }
-
         }
     }
 }
