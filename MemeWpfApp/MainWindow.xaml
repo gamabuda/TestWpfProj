@@ -15,14 +15,18 @@
 
         <Grid Grid.Row="0">
             <Grid.ColumnDefinitions>
+                <ColumnDefinition Width="auto"/>
+                <ColumnDefinition Width="auto"/>
                 <ColumnDefinition />
                 <ColumnDefinition/>
                 <ColumnDefinition/>
             </Grid.ColumnDefinitions>
-            
-            <Button Content="Memes" Grid.Column="0" Click="Button_Click"/>
-            <Button x:Name="TypeMemePageBtn" Content="Type of memes" Grid.Column="1" Click="TypeMemePageBtn_Click"/>
-            <Button Content="Profile" Grid.Column="2" Click="Button_Click_1"/>
+
+            <Button Content="Back" Grid.Column="0" Click="Button_Click_2"/>
+            <Button Content="Forward" Grid.Column="1" Click="Button_Click_3"/>
+            <Button Content="Memes" Grid.Column="2" Click="Button_Click"/>
+            <Button x:Name="TypeMemePageBtn" Content="Type of memes" Grid.Column="3" Click="TypeMemePageBtn_Click"/>
+            <Button Content="Profile" Grid.Column="4" Click="Button_Click_1"/>
         </Grid>
 
         <Frame x:Name="MainFrame" Grid.Row="1" NavigationUIVisibility="Hidden" />

@@ -56,5 +56,17 @@ namespace MemeWpfApp
         {
             MainFrame.NavigationService.Navigate(new Profile());
         }
+
+        private void Button_Click_2(object sender, RoutedEventArgs e)
+        {
+            if(MainFrame.NavigationService.CanGoBack) 
+                MainFrame.NavigationService.GoBack();
+        }
+
+        private void Button_Click_3(object sender, RoutedEventArgs e)
+        {
+            if (MainFrame.NavigationService.CanGoForward)
+                MainFrame.NavigationService.GoForward();
+        }
     }
 }
