@@ -12,13 +12,13 @@ using System.Windows.Media;
 using System.Windows.Media.Imaging;
 using System.Windows.Navigation;
 using System.Windows.Shapes;
-using ProjWithDB.Data.Users;
 
 namespace ProjWithDB.Pages
 {
     public partial class SignInPage : Page
     {
         private User _user;
+        private List<User> _users = ChildrenHomeEntities.GetContext().User.ToList();
         public SignInPage()
         {
             InitializeComponent();
@@ -37,7 +37,7 @@ namespace ProjWithDB.Pages
                 if (u.Login == "guest")
                 {
                     _user = u;
-                   new MainWindow(_user).Show();
+                    new MainWindow(_user).Show();
                     Window.GetWindow(this).Close();
                     return;
                 }
@@ -52,16 +52,59 @@ namespace ProjWithDB.Pages
             string password = PasswordTextBox.Password;
             _user = new User();
 
-            foreach (var u in ChildrenHomeEntities.GetContext().User)
+            if (String.IsNullOrEmpty(login) || String.IsNullOrEmpty(password))
             {
-                if (u.Login == login && u.Password == password)
+                MessageBox.Show("Заполните все поля!", "Ошибка входа", MessageBoxButton.OK, MessageBoxImage.Error);
+                return;
+            }
+
+            if (CheckLogin() && CheckPassword())
+            {
+                foreach (var u in ChildrenHomeEntities.GetContext().User)
                 {
-                    new MainWindow(_user).Show();
-                    Window.GetWindow(this).Close();
-                    return;
+                    if (u.Login == login.ToLower().Trim())
+                    {
+                        _user = u;
+                        new MainWindow(_user).Show();
+                        Window.GetWindow(this).Close();
+                        return;
+                    }
                 }
             }
-            MessageBox.Show("Некорректные данные!", "Ошибка входа", MessageBoxButton.OK, MessageBoxImage.Error);
+        }
+
+        private bool CheckLogin()
+        {
+            string login = LoginTextBox.Text;
+            bool isExisted = false;
+
+            foreach (var user in _users)
+            {
+                if (login.ToLower().Trim() == user.Login)
+                {
+                    isExisted = true;
+                    _user = user;
+                }
+
+            }
+
+            if (!isExisted)
+                MessageBox.Show("Пользователя с таким логином не существует!", "Ошибка входа", MessageBoxButton.OK, MessageBoxImage.Error);
+
+            return isExisted;
+        }
+
+        private bool CheckPassword()
+        {
+            bool isValid = false;
+            string password = PasswordTextBox.Password;
+
+            if (password.Trim() == _user.Password)
+                isValid = true;
+            else
+                MessageBox.Show("Неверный пароль!", "Ошибка входа", MessageBoxButton.OK, MessageBoxImage.Error);
+
+            return isValid;
         }
     }
 }

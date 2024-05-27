@@ -13,8 +13,6 @@ using System.Windows.Input;
 using System.Windows.Media;
 using System.Windows.Media.Imaging;
 using System.Windows.Shapes;
-using ProjWithDB.Data;
-using ProjWithDB.Data.Users;
 
 namespace ProjWithDB.Windows
 {
@@ -31,7 +29,7 @@ namespace ProjWithDB.Windows
             this.DataContext = _selectedChild;
             MoveInDate_TB.Text = _selectedChild.MoveInDate.ToString();
 
-            if (_user.Guest.Count > 0)
+            if (_user.Role_Id == 1)
             {
                 LoadImgBtn.IsEnabled = false;
                 Info_SP.IsEnabled = false;

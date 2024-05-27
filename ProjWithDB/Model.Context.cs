@@ -20,6 +20,11 @@ namespace ProjWithDB
             : base("name=ChildrenHomeEntities")
         {
         }
+    
+        protected override void OnModelCreating(DbModelBuilder modelBuilder)
+        {
+            throw new UnintentionalCodeFirstException();
+        }
 
         public static ChildrenHomeEntities GetContext()
         {
@@ -27,15 +32,9 @@ namespace ProjWithDB
                 _context = new ChildrenHomeEntities();
             return _context;
         }
-    
-        protected override void OnModelCreating(DbModelBuilder modelBuilder)
-        {
-            throw new UnintentionalCodeFirstException();
-        }
-    
-        public virtual DbSet<Admin> Admin { get; set; }
+
         public virtual DbSet<Child> Child { get; set; }
-        public virtual DbSet<Guest> Guest { get; set; }
+        public virtual DbSet<Role> Role { get; set; }
         public virtual DbSet<sysdiagrams> sysdiagrams { get; set; }
         public virtual DbSet<User> User { get; set; }
     }

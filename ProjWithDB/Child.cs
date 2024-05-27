@@ -20,7 +20,7 @@ namespace ProjWithDB
         public string Patronymic { get; set; }
         public string Gender { get; set; }
         public Nullable<int> Age { get; set; }
-        public string PhotoLink { get; set; }
+        public byte[] Photo { get; set; }
         public Nullable<int> RoomNumber { get; set; }
         public Nullable<System.DateTime> MoveInDate { get; set; }
     }

@@ -1,5 +1,4 @@
-﻿using ProjWithDB.Data.Users;
-using ProjWithDB.Data;
+﻿
 using System;
 using System.Collections.Generic;
 using System.Linq;
@@ -27,17 +26,16 @@ namespace ProjWithDB
         private List<Child> _people;
         private List<Child> _listView;
         private List<Child> _searchList = new List<Child>();
-        private List<string> _genders;
         private TextChangedEventArgs _searchInput;
         private List<string> _sortLetters = new List<string>() { "От А до Я", "От Я до А" };
         private List<string> _sortNumbers = new List<string>() { "По возрастанию", "По убыванию" };
+        private List<string> _genders = new List<string>() { "М", "Ж" };
         public MainWindow(User user)
         {
             InitializeComponent();
 
             _user = user;
             _people = ChildrenHomeEntities.GetContext().Child.ToList(); ;
-            _genders = Data.DataContext.Genders;
             _listView = _people;
 
             LstView.ItemsSource = _listView;
@@ -49,7 +47,7 @@ namespace ProjWithDB
             RoomNumberFilter.ItemsSource = _sortNumbers;
             MoveInDateFilter.ItemsSource = _sortNumbers;
 
-            if (_user.Guest.Count > 0)
+            if (_user.Role_Id == 1)
                 ContextM.Items.Remove(Delete_MI);
         }
 

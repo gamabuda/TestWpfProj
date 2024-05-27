@@ -16,7 +16,7 @@
             <PasswordBox x:Name="PasswordTextBox" Height="25" Margin="0,0,0,10" PasswordChar="*"/>
             <Label Content="Подтвердите пароль" Padding="0, 4" />
             <PasswordBox x:Name="ConfirmPasswordTextBox" Height="25" Margin="0,0,0,10" PasswordChar="*"/>
-            <Button x:Name="LoginButton" Height="25" Margin="0,0,0,10" Content="Зарегестрироваться" Click="LoginButton_Click"/>
+            <Button x:Name="SignUpButton" Height="25" Margin="0,0,0,10" Content="Зарегестрироваться" Click="SignUpButton_Click"/>
             <StackPanel Orientation="Horizontal" HorizontalAlignment="Center">
                 <Button x:Name="ReturnButton" Height="25" Margin="15,0" Content="Вернуться на страницу входа" Click="ReturnButton_Click" Background="{x:Null}" BorderBrush="{x:Null}" Foreground="#FF0500FF"/>
                 <Button x:Name="GuestButton" Height="25" Margin="5,0" Content="Войти как гость" Background="{x:Null}" BorderBrush="{x:Null}" Foreground="#FF0500FF" Click="GuestButton_Click"/>

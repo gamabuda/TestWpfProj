@@ -14,20 +14,11 @@ namespace ProjWithDB
     
     public partial class User
     {
-        [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2214:DoNotCallOverridableMethodsInConstructors")]
-        public User()
-        {
-            this.Admin = new HashSet<Admin>();
-            this.Guest = new HashSet<Guest>();
-        }
-    
         public int Id { get; set; }
         public string Login { get; set; }
         public string Password { get; set; }
+        public Nullable<int> Role_Id { get; set; }
     
-        [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2227:CollectionPropertiesShouldBeReadOnly")]
-        public virtual ICollection<Admin> Admin { get; set; }
-        [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2227:CollectionPropertiesShouldBeReadOnly")]
-        public virtual ICollection<Guest> Guest { get; set; }
+        public virtual Role Role { get; set; }
     }
 }

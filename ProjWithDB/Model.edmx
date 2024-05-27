@@ -5,13 +5,6 @@
     <!-- SSDL content -->
     <edmx:StorageModels>
       <Schema Namespace="Хранилище ChildrenHomeModel" Provider="System.Data.SqlClient" ProviderManifestToken="2012" Alias="Self" xmlns:store="http://schemas.microsoft.com/ado/2007/12/edm/EntityStoreSchemaGenerator" xmlns:customannotation="http://schemas.microsoft.com/ado/2013/11/edm/customannotation" xmlns="http://schemas.microsoft.com/ado/2009/11/edm/ssdl">
-        <EntityType Name="Admin">
-          <Key>
-            <PropertyRef Name="Id" />
-          </Key>
-          <Property Name="Id" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
-          <Property Name="Id_user" Type="int" />
-        </EntityType>
         <EntityType Name="Child">
           <Key>
             <PropertyRef Name="Id" />
@@ -22,16 +15,16 @@
           <Property Name="Patronymic" Type="varchar" MaxLength="30" />
           <Property Name="Gender" Type="char" MaxLength="1" />
           <Property Name="Age" Type="int" />
-          <Property Name="PhotoLink" Type="varchar" MaxLength="100" />
+          <Property Name="Photo" Type="image" />
           <Property Name="RoomNumber" Type="int" />
           <Property Name="MoveInDate" Type="date" />
         </EntityType>
-        <EntityType Name="Guest">
+        <EntityType Name="Role">
           <Key>
             <PropertyRef Name="Id" />
           </Key>
           <Property Name="Id" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
-          <Property Name="Id_user" Type="int" />
+          <Property Name="Title" Type="varchar" MaxLength="30" />
         </EntityType>
         <EntityType Name="sysdiagrams">
           <Key>
@@ -50,44 +43,28 @@
           <Property Name="Id" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
           <Property Name="Login" Type="varchar" MaxLength="30" />
           <Property Name="Password" Type="varchar" MaxLength="100" />
+          <Property Name="Role_Id" Type="int" />
         </EntityType>
-        <Association Name="FK_Admin_User">
-          <End Role="User" Type="Self.User" Multiplicity="0..1" />
-          <End Role="Admin" Type="Self.Admin" Multiplicity="*" />
+        <Association Name="FK_User_Role">
+          <End Role="Role" Type="Self.Role" Multiplicity="0..1" />
+          <End Role="User" Type="Self.User" Multiplicity="*" />
           <ReferentialConstraint>
-            <Principal Role="User">
+            <Principal Role="Role">
               <PropertyRef Name="Id" />
             </Principal>
-            <Dependent Role="Admin">
-              <PropertyRef Name="Id_user" />
-            </Dependent>
-          </ReferentialConstraint>
-        </Association>
-        <Association Name="FK_Guest_User">
-          <End Role="User" Type="Self.User" Multiplicity="0..1" />
-          <End Role="Guest" Type="Self.Guest" Multiplicity="*" />
-          <ReferentialConstraint>
-            <Principal Role="User">
-              <PropertyRef Name="Id" />
-            </Principal>
-            <Dependent Role="Guest">
-              <PropertyRef Name="Id_user" />
+            <Dependent Role="User">
+              <PropertyRef Name="Role_Id" />
             </Dependent>
           </ReferentialConstraint>
         </Association>
         <EntityContainer Name="Хранилище ChildrenHomeModelContainer">
-          <EntitySet Name="Admin" EntityType="Self.Admin" Schema="dbo" store:Type="Tables" />
           <EntitySet Name="Child" EntityType="Self.Child" Schema="dbo" store:Type="Tables" />
-          <EntitySet Name="Guest" EntityType="Self.Guest" Schema="dbo" store:Type="Tables" />
+          <EntitySet Name="Role" EntityType="Self.Role" Schema="dbo" store:Type="Tables" />
           <EntitySet Name="sysdiagrams" EntityType="Self.sysdiagrams" Schema="dbo" store:Type="Tables" />
           <EntitySet Name="User" EntityType="Self.User" Schema="dbo" store:Type="Tables" />
-          <AssociationSet Name="FK_Admin_User" Association="Self.FK_Admin_User">
+          <AssociationSet Name="FK_User_Role" Association="Self.FK_User_Role">
+            <End Role="Role" EntitySet="Role" />
             <End Role="User" EntitySet="User" />
-            <End Role="Admin" EntitySet="Admin" />
-          </AssociationSet>
-          <AssociationSet Name="FK_Guest_User" Association="Self.FK_Guest_User">
-            <End Role="User" EntitySet="User" />
-            <End Role="Guest" EntitySet="Guest" />
           </AssociationSet>
         </EntityContainer>
       </Schema>
@@ -95,14 +72,6 @@
     <!-- CSDL content -->
     <edmx:ConceptualModels>
       <Schema Namespace="ChildrenHomeModel" Alias="Self" annotation:UseStrongSpatialTypes="false" xmlns:annotation="http://schemas.microsoft.com/ado/2009/02/edm/annotation" xmlns:customannotation="http://schemas.microsoft.com/ado/2013/11/edm/customannotation" xmlns="http://schemas.microsoft.com/ado/2009/11/edm">
-        <EntityType Name="Admin">
-          <Key>
-            <PropertyRef Name="Id" />
-          </Key>
-          <Property Name="Id" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
-          <Property Name="Id_user" Type="Int32" />
-          <NavigationProperty Name="User" Relationship="Self.FK_Admin_User" FromRole="Admin" ToRole="User" />
-        </EntityType>
         <EntityType Name="Child">
           <Key>
             <PropertyRef Name="Id" />
@@ -113,17 +82,17 @@
           <Property Name="Patronymic" Type="String" MaxLength="30" FixedLength="false" Unicode="false" />
           <Property Name="Gender" Type="String" MaxLength="1" FixedLength="true" Unicode="false" />
           <Property Name="Age" Type="Int32" />
-          <Property Name="PhotoLink" Type="String" MaxLength="100" FixedLength="false" Unicode="false" />
+          <Property Name="Photo" Type="Binary" MaxLength="Max" FixedLength="false" />
           <Property Name="RoomNumber" Type="Int32" />
           <Property Name="MoveInDate" Type="DateTime" Precision="0" />
         </EntityType>
-        <EntityType Name="Guest">
+        <EntityType Name="Role">
           <Key>
             <PropertyRef Name="Id" />
           </Key>
           <Property Name="Id" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
-          <Property Name="Id_user" Type="Int32" />
-          <NavigationProperty Name="User" Relationship="Self.FK_Guest_User" FromRole="Guest" ToRole="User" />
+          <Property Name="Title" Type="String" MaxLength="30" FixedLength="false" Unicode="false" />
+          <NavigationProperty Name="User" Relationship="Self.FK_User_Role" FromRole="Role" ToRole="User" />
         </EntityType>
         <EntityType Name="sysdiagrams">
           <Key>
@@ -142,46 +111,29 @@
           <Property Name="Id" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
           <Property Name="Login" Type="String" MaxLength="30" FixedLength="false" Unicode="false" />
           <Property Name="Password" Type="String" MaxLength="100" FixedLength="false" Unicode="false" />
-          <NavigationProperty Name="Admin" Relationship="Self.FK_Admin_User" FromRole="User" ToRole="Admin" />
-          <NavigationProperty Name="Guest" Relationship="Self.FK_Guest_User" FromRole="User" ToRole="Guest" />
+          <Property Name="Role_Id" Type="Int32" />
+          <NavigationProperty Name="Role" Relationship="Self.FK_User_Role" FromRole="User" ToRole="Role" />
         </EntityType>
-        <Association Name="FK_Admin_User">
-          <End Role="User" Type="Self.User" Multiplicity="0..1" />
-          <End Role="Admin" Type="Self.Admin" Multiplicity="*" />
+        <Association Name="FK_User_Role">
+          <End Role="Role" Type="Self.Role" Multiplicity="0..1" />
+          <End Role="User" Type="Self.User" Multiplicity="*" />
           <ReferentialConstraint>
-            <Principal Role="User">
+            <Principal Role="Role">
               <PropertyRef Name="Id" />
             </Principal>
-            <Dependent Role="Admin">
-              <PropertyRef Name="Id_user" />
-            </Dependent>
-          </ReferentialConstraint>
-        </Association>
-        <Association Name="FK_Guest_User">
-          <End Role="User" Type="Self.User" Multiplicity="0..1" />
-          <End Role="Guest" Type="Self.Guest" Multiplicity="*" />
-          <ReferentialConstraint>
-            <Principal Role="User">
-              <PropertyRef Name="Id" />
-            </Principal>
-            <Dependent Role="Guest">
-              <PropertyRef Name="Id_user" />
+            <Dependent Role="User">
+              <PropertyRef Name="Role_Id" />
             </Dependent>
           </ReferentialConstraint>
         </Association>
         <EntityContainer Name="ChildrenHomeEntities" annotation:LazyLoadingEnabled="true">
-          <EntitySet Name="Admin" EntityType="Self.Admin" />
           <EntitySet Name="Child" EntityType="Self.Child" />
-          <EntitySet Name="Guest" EntityType="Self.Guest" />
+          <EntitySet Name="Role" EntityType="Self.Role" />
           <EntitySet Name="sysdiagrams" EntityType="Self.sysdiagrams" />
           <EntitySet Name="User" EntityType="Self.User" />
-          <AssociationSet Name="FK_Admin_User" Association="Self.FK_Admin_User">
+          <AssociationSet Name="FK_User_Role" Association="Self.FK_User_Role">
+            <End Role="Role" EntitySet="Role" />
             <End Role="User" EntitySet="User" />
-            <End Role="Admin" EntitySet="Admin" />
-          </AssociationSet>
-          <AssociationSet Name="FK_Guest_User" Association="Self.FK_Guest_User">
-            <End Role="User" EntitySet="User" />
-            <End Role="Guest" EntitySet="Guest" />
           </AssociationSet>
         </EntityContainer>
       </Schema>
@@ -190,14 +142,6 @@
     <edmx:Mappings>
       <Mapping Space="C-S" xmlns="http://schemas.microsoft.com/ado/2009/11/mapping/cs">
         <EntityContainerMapping StorageEntityContainer="Хранилище ChildrenHomeModelContainer" CdmEntityContainer="ChildrenHomeEntities">
-          <EntitySetMapping Name="Admin">
-            <EntityTypeMapping TypeName="ChildrenHomeModel.Admin">
-              <MappingFragment StoreEntitySet="Admin">
-                <ScalarProperty Name="Id" ColumnName="Id" />
-                <ScalarProperty Name="Id_user" ColumnName="Id_user" />
-              </MappingFragment>
-            </EntityTypeMapping>
-          </EntitySetMapping>
           <EntitySetMapping Name="Child">
             <EntityTypeMapping TypeName="ChildrenHomeModel.Child">
               <MappingFragment StoreEntitySet="Child">
@@ -207,17 +151,17 @@
                 <ScalarProperty Name="Patronymic" ColumnName="Patronymic" />
                 <ScalarProperty Name="Gender" ColumnName="Gender" />
                 <ScalarProperty Name="Age" ColumnName="Age" />
-                <ScalarProperty Name="PhotoLink" ColumnName="PhotoLink" />
+                <ScalarProperty Name="Photo" ColumnName="Photo" />
                 <ScalarProperty Name="RoomNumber" ColumnName="RoomNumber" />
                 <ScalarProperty Name="MoveInDate" ColumnName="MoveInDate" />
               </MappingFragment>
             </EntityTypeMapping>
           </EntitySetMapping>
-          <EntitySetMapping Name="Guest">
-            <EntityTypeMapping TypeName="ChildrenHomeModel.Guest">
-              <MappingFragment StoreEntitySet="Guest">
+          <EntitySetMapping Name="Role">
+            <EntityTypeMapping TypeName="ChildrenHomeModel.Role">
+              <MappingFragment StoreEntitySet="Role">
                 <ScalarProperty Name="Id" ColumnName="Id" />
-                <ScalarProperty Name="Id_user" ColumnName="Id_user" />
+                <ScalarProperty Name="Title" ColumnName="Title" />
               </MappingFragment>
             </EntityTypeMapping>
           </EntitySetMapping>
@@ -238,6 +182,7 @@
                 <ScalarProperty Name="Id" ColumnName="Id" />
                 <ScalarProperty Name="Login" ColumnName="Login" />
                 <ScalarProperty Name="Password" ColumnName="Password" />
+                <ScalarProperty Name="Role_Id" ColumnName="Role_Id" />
               </MappingFragment>
             </EntityTypeMapping>
           </EntitySetMapping>
