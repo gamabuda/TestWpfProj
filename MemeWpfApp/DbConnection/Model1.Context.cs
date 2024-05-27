@@ -13,10 +13,10 @@ namespace MemeWpfApp.DbConnection
     using System.Data.Entity;
     using System.Data.Entity.Infrastructure;
     
-    public partial class MemesDbEntities : DbContext
+    public partial class Memesdb1Entities : DbContext
     {
-        public MemesDbEntities()
-            : base("name=MemesDbEntities")
+        public Memesdb1Entities()
+            : base("name=Memesdb1Entities")
         {
         }
     
@@ -28,7 +28,6 @@ namespace MemeWpfApp.DbConnection
         public virtual DbSet<Meme> Meme { get; set; }
         public virtual DbSet<MemeType> MemeType { get; set; }
         public virtual DbSet<Role> Role { get; set; }
-        public virtual DbSet<sysdiagrams> sysdiagrams { get; set; }
         public virtual DbSet<User> User { get; set; }
     }
 }

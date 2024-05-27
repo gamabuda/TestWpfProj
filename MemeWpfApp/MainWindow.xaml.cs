@@ -16,6 +16,7 @@ using System.Windows.Media;
 using System.Windows.Media.Imaging;
 using System.Windows.Navigation;
 using System.Windows.Shapes;
+using MemeWpfApp.MainPages;
 
 namespace MemeWpfApp
 {
@@ -31,64 +32,29 @@ namespace MemeWpfApp
 
             _memes = DataBaseManager.GetMemes();
 
-            MemeLv.DataContext = this;  
-            MemeLv.ItemsSource = _memes;
-        }
-
-        private void ChangeImageMI_Click(object sender, RoutedEventArgs e)
-        {
-            var selectMeme = MemeLv.SelectedItem as Meme;
-            if (selectMeme != null)
-                LoadImg(selectMeme);
+            // проверка по роли
+            if(UserContext.AuthUser.RoleId == 1)
+                TypeMemePageBtn.Visibility = Visibility.Visible; 
             else
-                MessageBox.Show("Somthing wrong :(");
+                TypeMemePageBtn.Visibility = Visibility.Collapsed;
 
-            
-            MemeLv.Items.Refresh();
+            MainFrame.NavigationService.Navigate(new MainPage());
         }
 
-        private void LoadImg(Meme meme)
+        // навигация
+        private void Button_Click(object sender, RoutedEventArgs e)
         {
-            OpenFileDialog op = new OpenFileDialog();
-            op.Title = "Select a photo";
-            op.Filter = "All supported graphics|*.jpg;*.jpeg;*.png|" +
-              "JPEG (*.jpg;*.jpeg)|*.jpg;*.jpeg|" +
-              "Portable Network Graphic (*.png)|*.png";
-            if (op.ShowDialog() == true)
-            {
-                meme.Image = File2Byte(op.FileName);
-                DataBaseManager.UpdateDatabase();
-            }
+            MainFrame.NavigationService.Navigate(new MainPage());
         }
 
-        public Byte[] File2Byte(string filePath)
+        private void TypeMemePageBtn_Click(object sender, RoutedEventArgs e)
         {
-            if (!string.IsNullOrEmpty(filePath) && File.Exists(filePath))
-            {
-                return File.ReadAllBytes(filePath);
-            }
-            return null;
+            MainFrame.NavigationService.Navigate(new MemeTypePage());
         }
 
-        private void CopyMI_Click(object sender, RoutedEventArgs e)
+        private void Button_Click_1(object sender, RoutedEventArgs e)
         {
-            var selectMeme = MemeLv.SelectedItem as Meme;
-            if (selectMeme != null)
-            {
-                var temp = selectMeme;
-                temp.Id = 0;
-                DataBaseManager.AddMeme(temp);
-                DataBaseManager.UpdateDatabase();
-            }
-            else
-                MessageBox.Show("Somthing wrong :(");
-        }
-
-        private void UpdateMI_Click(object sender, RoutedEventArgs e)
-        {
-            _memes = DataBaseManager.GetMemes();
-            MemeLv.ItemsSource = _memes;
-            MemeLv.Items.Refresh();
+            MainFrame.NavigationService.Navigate(new Profile());
         }
     }
 }

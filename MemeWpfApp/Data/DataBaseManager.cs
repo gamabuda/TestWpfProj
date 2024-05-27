@@ -9,7 +9,7 @@ namespace MemeWpfApp.Data
 {
     internal static class DataBaseManager
     {
-        private static MemesDbEntities _dbConnection = new MemesDbEntities();
+        private static Memesdb1Entities _dbConnection = new Memesdb1Entities();
 
         public static bool UpdateDatabase()
         {

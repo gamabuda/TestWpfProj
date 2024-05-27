@@ -35,8 +35,8 @@ namespace MemeWpfApp.Windows
             }
 
             // reg or auth choose what u want
-            if (Reg(LoginTb.Text, PasswordPb.Password))
-            //if (Auth(LoginTb.Text, PasswordPb.Password))
+            //if (Reg(LoginTb.Text, PasswordPb.Password))
+            if (Auth(LoginTb.Text, PasswordPb.Password))
             {
                 new MainWindow().Show();
                 this.Close();
@@ -51,7 +51,10 @@ namespace MemeWpfApp.Windows
                 FirstOrDefault(x => x.Login == login && x.Password == password);
 
             if(user != null)
+            {
+                UserContext.AuthUser = user;
                 return true;
+            }
             else 
                 return false;
         }

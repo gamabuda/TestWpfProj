@@ -13,34 +13,18 @@
             <RowDefinition Height="auto"/>
         </Grid.RowDefinitions>
 
-        <ListView x:Name="MemeLv" Grid.Row="1" FontSize="16">
-            <ListView.View>
-                <GridView>
-                    <GridViewColumn DisplayMemberBinding="{Binding Path=Id}">Id</GridViewColumn>
-                    <GridViewColumn DisplayMemberBinding="{Binding Path=Title}" Width="100">Title</GridViewColumn>
-                    <GridViewColumn DisplayMemberBinding="{Binding Path=MemeType.Title}" Width="100">Type</GridViewColumn>
-                    <GridViewColumn DisplayMemberBinding="{Binding Path=Description}" Width="100">Description</GridViewColumn>
-                    <GridViewColumn DisplayMemberBinding="{Binding Path=User.Login}" Width="100">Owner</GridViewColumn>
-                    <GridViewColumn DisplayMemberBinding="{Binding Path=DatePublishing}" Width="100">DatePublishing</GridViewColumn>
-                    <GridViewColumn Width="100" Header="Image">
-                        <GridViewColumn.CellTemplate>
-                            <DataTemplate>
-                                <Image Source="{Binding Image}"/>
-                            </DataTemplate>
-                        </GridViewColumn.CellTemplate>
-                    </GridViewColumn>
-                </GridView>
-            </ListView.View>
-            <ListView.ContextMenu>
-                <ContextMenu>
-                    <MenuItem Header="View" />
-                    <MenuItem Header="Update list" Click="UpdateMI_Click"/>
-                    <MenuItem Header="Copy" Click="CopyMI_Click"/>
-                    <MenuItem Header="Edit object" />
-                    <MenuItem Header="Upload new image" Click="ChangeImageMI_Click"/>
-                    <MenuItem x:Name="DeleteMI" Header="Delete" />
-                </ContextMenu>
-            </ListView.ContextMenu>
-        </ListView>
+        <Grid Grid.Row="0">
+            <Grid.ColumnDefinitions>
+                <ColumnDefinition />
+                <ColumnDefinition/>
+                <ColumnDefinition/>
+            </Grid.ColumnDefinitions>
+            
+            <Button Content="Memes" Grid.Column="0" Click="Button_Click"/>
+            <Button x:Name="TypeMemePageBtn" Content="Type of memes" Grid.Column="1" Click="TypeMemePageBtn_Click"/>
+            <Button Content="Profile" Grid.Column="2" Click="Button_Click_1"/>
+        </Grid>
+
+        <Frame x:Name="MainFrame" Grid.Row="1" NavigationUIVisibility="Hidden" />
     </Grid>
 </Window>
