@@ -41,7 +41,7 @@ namespace BooksProj.Pages
             {
                 CurrentUser.currentUser = user;
 
-                new MainWindow(_w).Show();
+                new MainWindow().Show();
                 Window w = Window.GetWindow(this);
                 w.Close();
             }

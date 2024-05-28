@@ -32,7 +32,7 @@
             </WrapPanel>
             <WrapPanel>
                 <Label Content="Type:"></Label>
-                <Label Content="{Binding BookGenre.Title}"></Label>
+                <Label Content="{Binding BookGenres.Title}"></Label>
             </WrapPanel>
             <WrapPanel>
                 <Label Content="Price:"></Label>

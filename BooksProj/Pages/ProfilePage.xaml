@@ -9,6 +9,17 @@
       Title="ProfilePage">
 
     <Grid>
-        
+        <StackPanel>
+            <WrapPanel Orientation="Vertical">
+                <Label FontSize="18">Login</Label>
+                <Label FontSize="18" Content="{Binding Login}"></Label>
+            </WrapPanel>
+            <WrapPanel Orientation="Vertical">
+                <Label FontSize="18" Content="Password"/>
+                <Label FontSize="18" Content="{Binding Password}"/>
+            </WrapPanel>
+        </StackPanel>
+
+        <Button Height="50" FontSize="18" Margin="10,390,586,10" Click="ProfileEditBTN">Редактировать</Button>
     </Grid>
 </Page>

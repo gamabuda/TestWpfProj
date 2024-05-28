@@ -1,0 +1,28 @@
+﻿<Window x:Class="BooksProj.Windows.EditProfileWindow"
+        xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+        xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+        xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
+        xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
+        xmlns:local="clr-namespace:BooksProj.Windows"
+        mc:Ignorable="d"
+        Title="EditProfileWindow" Height="450" Width="800">
+    <Grid>
+        <StackPanel Margin="10">
+            <WrapPanel Orientation="Vertical">
+                <Label FontSize="18" Content="Login"/>
+                <TextBox x:Name="oldLogin" FontSize="18"/>
+            </WrapPanel>
+            <WrapPanel Orientation="Vertical">
+                <Label FontSize="18" Content="Password"/>
+                <TextBox x:Name="oldPass"  FontSize="18"/>
+            </WrapPanel>
+            <WrapPanel Orientation="Vertical">
+                <Label FontSize="18" Content="Confirm Password" />
+                <TextBox x:Name="repPass" FontSize="18" />
+            </WrapPanel>
+        </StackPanel>
+
+        <Button Height="50" FontSize="18" Margin="10,374,586,10" Click="SaveChangesBTN">Сохранить</Button>
+        <Button Height="50" FontSize="18" Margin="260,374,336,10" Click="CancelChangesBTN">Отмена</Button>
+    </Grid>
+</Window>

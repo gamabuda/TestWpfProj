@@ -26,13 +26,11 @@ namespace BooksProj
     /// </summary>
     public partial class MainWindow : Window
     {
-        private Window _w;
-        public MainWindow(Window w)
+        public MainWindow()
         {
             InitializeComponent();
 
             var _user = CurrentUser.currentUser;
-            _w = w;
 
             MainFrame.NavigationService.Navigate(new MainListPage());
 
