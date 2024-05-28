@@ -1,4 +1,4 @@
-﻿using BooksProj.DbConnections;
+﻿using BooksProj.DbConnection;
 using System;
 using System.Collections.Generic;
 using System.Data.Entity;
@@ -17,6 +17,7 @@ using System.Windows.Shapes;
 using BooksProj.Windows;
 using BooksProj.Data;
 using BooksProj.Pages;
+using System.Runtime.CompilerServices;
 
 namespace BooksProj
 {
@@ -26,15 +27,21 @@ namespace BooksProj
     public partial class MainWindow : Window
     {
         private Window _w;
-        public MainWindow(User user, Window w)
+        public MainWindow(Window w)
         {
             InitializeComponent();
 
+            var _user = CurrentUser.currentUser;
             _w = w;
 
-            MainFrame.NavigationService.Navigate(new MainListPage(this));
+            MainFrame.NavigationService.Navigate(new MainListPage());
 
-            MessageBox.Show($"Добро пожаловать, {user.Login}!");
+            MessageBox.Show($"Добро пожаловать, {_user.Login}!");
+
+            if (_user.ID_Role == 1)
+            {
+                genresBTN.Visibility = Visibility.Collapsed;
+            }
         }
 
         private void MenuBTN(object sender, RoutedEventArgs e)
@@ -54,17 +61,17 @@ namespace BooksProj
 
         private void ProfileBTN(object sender, RoutedEventArgs e)
         {
-
+            MainFrame.NavigationService.Navigate(new ProfilePage());
         }
 
         private void GenresBTN(object sender, RoutedEventArgs e)
         {
-
+            MainFrame.NavigationService.Navigate(new GenrePage());
         }
 
         private void TableBTN(object sender, RoutedEventArgs e)
         {
-
+            MainFrame.NavigationService.Navigate(new MainListPage());
         }
     }
 }

@@ -11,7 +11,7 @@ using System.Windows.Input;
 using System.Windows.Media;
 using System.Windows.Media.Imaging;
 using System.Windows.Shapes;
-using BooksProj.DbConnections;
+using BooksProj.DbConnection;
 using BooksProj.Pages;
 
 namespace BooksProj.Windows

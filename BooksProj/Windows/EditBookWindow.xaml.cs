@@ -12,7 +12,7 @@ using System.Windows.Input;
 using System.Windows.Media;
 using System.Windows.Media.Imaging;
 using System.Windows.Shapes;
-using BooksProj.DbConnections;
+using BooksProj.DbConnection;
 
 namespace BooksProj.Windows
 {
@@ -42,13 +42,14 @@ namespace BooksProj.Windows
                 _editBook.Title = Title.Text;
                 _editBook.Price = Convert.ToInt32(Price.Text);
                 _editBook.Writer = Writer.Text;
+
+
+                Close();
             }
             else
             {
                 MessageBox.Show("Некорректная информация.");
             }
-
-            Close();
         }
     }
 }

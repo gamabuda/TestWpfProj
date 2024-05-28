@@ -64,27 +64,40 @@
       <Generator>MSBuild:Compile</Generator>
       <SubType>Designer</SubType>
     </ApplicationDefinition>
-    <Compile Include="Data\CurrentUser.cs" />
+    <Compile Include="Data\UserContext.cs" />
     <Compile Include="Data\DBManager.cs" />
-    <Compile Include="DbConnections\BoodDB.cs">
+    <Compile Include="DbConnection\Book.cs">
+      <DependentUpon>bookDataBase.tt</DependentUpon>
+    </Compile>
+    <Compile Include="DbConnection\bookDataBase.Context.cs">
       <AutoGen>True</AutoGen>
       <DesignTime>True</DesignTime>
-      <DependentUpon>BoodDB.tt</DependentUpon>
+      <DependentUpon>bookDataBase.Context.tt</DependentUpon>
     </Compile>
-    <Compile Include="DbConnections\Book.cs">
-      <DependentUpon>BoodDB.tt</DependentUpon>
+    <Compile Include="DbConnection\bookDataBase.cs">
+      <AutoGen>True</AutoGen>
+      <DesignTime>True</DesignTime>
+      <DependentUpon>bookDataBase.tt</DependentUpon>
     </Compile>
-    <Compile Include="DbConnections\BookGenres.cs">
-      <DependentUpon>BoodDB.tt</DependentUpon>
+    <Compile Include="DbConnection\bookDataBase.Designer.cs">
+      <AutoGen>True</AutoGen>
+      <DesignTime>True</DesignTime>
+      <DependentUpon>bookDataBase.edmx</DependentUpon>
     </Compile>
-    <Compile Include="DbConnections\Sorts.cs">
-      <DependentUpon>BoodDB.tt</DependentUpon>
+    <Compile Include="DbConnection\BookGenres.cs">
+      <DependentUpon>bookDataBase.tt</DependentUpon>
     </Compile>
-    <Compile Include="DbConnections\sysdiagrams.cs">
-      <DependentUpon>BoodDB.tt</DependentUpon>
+    <Compile Include="DbConnection\Role.cs">
+      <DependentUpon>bookDataBase.tt</DependentUpon>
     </Compile>
-    <Compile Include="DbConnections\User.cs">
-      <DependentUpon>BoodDB.tt</DependentUpon>
+    <Compile Include="DbConnection\Sorts.cs">
+      <DependentUpon>bookDataBase.tt</DependentUpon>
+    </Compile>
+    <Compile Include="DbConnection\sysdiagrams.cs">
+      <DependentUpon>bookDataBase.tt</DependentUpon>
+    </Compile>
+    <Compile Include="DbConnection\User.cs">
+      <DependentUpon>bookDataBase.tt</DependentUpon>
     </Compile>
     <Compile Include="Pages\AuthPage.xaml.cs">
       <DependentUpon>AuthPage.xaml</DependentUpon>
@@ -116,16 +129,6 @@
     <Compile Include="App.xaml.cs">
       <DependentUpon>App.xaml</DependentUpon>
       <SubType>Code</SubType>
-    </Compile>
-    <Compile Include="DbConnections\BoodDB.Context.cs">
-      <AutoGen>True</AutoGen>
-      <DesignTime>True</DesignTime>
-      <DependentUpon>BoodDB.Context.tt</DependentUpon>
-    </Compile>
-    <Compile Include="DbConnections\BoodDB.Designer.cs">
-      <AutoGen>True</AutoGen>
-      <DesignTime>True</DesignTime>
-      <DependentUpon>BoodDB.edmx</DependentUpon>
     </Compile>
     <Page Include="Pages\AuthPage.xaml">
       <SubType>Designer</SubType>
@@ -182,13 +185,13 @@
       <Generator>ResXFileCodeGenerator</Generator>
       <LastGenOutput>Resources.Designer.cs</LastGenOutput>
     </EmbeddedResource>
-    <EntityDeploy Include="DbConnections\BoodDB.edmx">
-      <Generator>EntityModelCodeGenerator</Generator>
-      <LastGenOutput>BoodDB.Designer.cs</LastGenOutput>
-    </EntityDeploy>
     <None Include="App.Config" />
-    <None Include="DbConnections\BoodDB.edmx.diagram">
-      <DependentUpon>BoodDB.edmx</DependentUpon>
+    <EntityDeploy Include="DbConnection\bookDataBase.edmx">
+      <Generator>EntityModelCodeGenerator</Generator>
+      <LastGenOutput>bookDataBase.Designer.cs</LastGenOutput>
+    </EntityDeploy>
+    <None Include="DbConnection\bookDataBase.edmx.diagram">
+      <DependentUpon>bookDataBase.edmx</DependentUpon>
     </None>
     <None Include="packages.config" />
     <None Include="Properties\Settings.settings">
@@ -196,17 +199,16 @@
       <LastGenOutput>Settings.Designer.cs</LastGenOutput>
     </None>
   </ItemGroup>
-  <ItemGroup />
   <ItemGroup>
-    <Content Include="DbConnections\BoodDB.Context.tt">
+    <Content Include="DbConnection\bookDataBase.Context.tt">
       <Generator>TextTemplatingFileGenerator</Generator>
-      <LastGenOutput>BoodDB.Context.cs</LastGenOutput>
-      <DependentUpon>BoodDB.edmx</DependentUpon>
+      <DependentUpon>bookDataBase.edmx</DependentUpon>
+      <LastGenOutput>bookDataBase.Context.cs</LastGenOutput>
     </Content>
-    <Content Include="DbConnections\BoodDB.tt">
+    <Content Include="DbConnection\bookDataBase.tt">
       <Generator>TextTemplatingFileGenerator</Generator>
-      <DependentUpon>BoodDB.edmx</DependentUpon>
-      <LastGenOutput>BoodDB.cs</LastGenOutput>
+      <DependentUpon>bookDataBase.edmx</DependentUpon>
+      <LastGenOutput>bookDataBase.cs</LastGenOutput>
     </Content>
   </ItemGroup>
   <ItemGroup>

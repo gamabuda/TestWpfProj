@@ -1,4 +1,4 @@
-﻿using BooksProj.DbConnections;
+﻿using BooksProj.DbConnection;
 using System;
 using System.Collections.Generic;
 using System.Linq;
@@ -23,11 +23,9 @@ namespace BooksProj.Pages
     public partial class AuthPage : Page
     {
         private Window _w;
-        private List<User> _user;
         public AuthPage(Window w)
         {
             _w = w;
-            _user = DBManager.GetUsers();
 
             InitializeComponent();
         }
@@ -37,11 +35,13 @@ namespace BooksProj.Pages
             string login = Login.Text;
             string password = Password.Password;
 
-            var user = new User(login, password);
+            var user = DBManager.GetUsers().FirstOrDefault(x => x.Login == login && x.Password == password);
 
-            if (_user.Exists(x => x.Login == login && x.Password == password))
+            if (user != null) 
             {
-                new MainWindow(user, _w).Show();
+                CurrentUser.currentUser = user;
+
+                new MainWindow(_w).Show();
                 Window w = Window.GetWindow(this);
                 w.Close();
             }

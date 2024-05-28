@@ -7,23 +7,18 @@
 // </auto-generated>
 //------------------------------------------------------------------------------
 
-namespace BooksProj.DbConnections
+namespace BooksProj.DbConnection
 {
     using System;
     using System.Collections.Generic;
     
-    public partial class BookGenres
+    public partial class User
     {
-        [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2214:DoNotCallOverridableMethodsInConstructors")]
-        public BookGenres()
-        {
-            this.Book = new HashSet<Book>();
-        }
+        public int ID_User { get; set; }
+        public string Login { get; set; }
+        public string Password { get; set; }
+        public int ID_Role { get; set; }
     
-        public int ID_BookGenre { get; set; }
-        public string Title { get; set; }
-    
-        [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2227:CollectionPropertiesShouldBeReadOnly")]
-        public virtual ICollection<Book> Book { get; set; }
+        public virtual Role Role { get; set; }
     }
 }

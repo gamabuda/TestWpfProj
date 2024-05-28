@@ -9,7 +9,11 @@
       Title="MainListPage">
 
     <Grid>
-        <Grid VerticalAlignment="Top" HorizontalAlignment="Center" Margin="0,-43,0,0">
+        <Grid.ColumnDefinitions>
+            <ColumnDefinition Width="123*"/>
+            <ColumnDefinition Width="277*"/>
+        </Grid.ColumnDefinitions>
+        <Grid VerticalAlignment="Top" HorizontalAlignment="Left" Margin="67,-1,0,0" Grid.ColumnSpan="2">
             <Grid.ColumnDefinitions>
                 <ColumnDefinition Width="auto"/>
                 <ColumnDefinition Width="auto"/>
@@ -25,17 +29,17 @@
             </WrapPanel>
             <WrapPanel Grid.Column="2" Margin="6" HorizontalAlignment="Center">
                 <Label Content="Сортировка:"/>
-                <ComboBox Width="125" x:Name="SortCB" Cursor="Hand" SelectionChanged="SortCB_SelectionChanged" DisplayMemberPath="SortTitle" ></ComboBox>
+                <ComboBox Width="125" x:Name="SortCB" Cursor="Hand" SelectionChanged="SortCB_SelectionChanged" DisplayMemberPath="Title" ></ComboBox>
             </WrapPanel>
         </Grid>
 
-        <ListView Name="LstView" Grid.Row="1">
+        <ListView Name="LstView" Margin="0,42,0,0" Grid.ColumnSpan="2">
             <ListView.View>
                 <GridView>
-                    <GridViewColumn DisplayMemberBinding="{Binding Path=Id}">Номер</GridViewColumn>
+                    <GridViewColumn DisplayMemberBinding="{Binding Path=ID_Book}">Номер</GridViewColumn>
                     <GridViewColumn DisplayMemberBinding="{Binding Path=Title}">Название</GridViewColumn>
                     <GridViewColumn DisplayMemberBinding="{Binding Path=Price}" Width="100">Цена</GridViewColumn>
-                    <GridViewColumn DisplayMemberBinding="{Binding Path=BookGenre.Title}">Жанр</GridViewColumn>
+                    <GridViewColumn DisplayMemberBinding="{Binding Path=BookGenres.Title}">Жанр</GridViewColumn>
                     <GridViewColumn DisplayMemberBinding="{Binding Path=Writer}">Автор</GridViewColumn>
                 </GridView>
             </ListView.View>

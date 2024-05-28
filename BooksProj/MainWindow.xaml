@@ -6,7 +6,7 @@
         xmlns:local="clr-namespace:BooksProj"
         mc:Ignorable="d"
         WindowStartupLocation="CenterScreen"
-        Title="MainWindow" Height="450" Width="1000">
+        Title="MainWindow" Height="650" Width="1000">
     <Grid Background="Lavender">
         <Grid.RowDefinitions>
             <RowDefinition Height="auto"/>
@@ -16,8 +16,8 @@
 
         <StackPanel Orientation="Horizontal">
             <Button Grid.Row="0" Margin="20 2" Width="150" Click="TableBTN">Таблица книг</Button>
-            <Button Grid.Row="0" Margin="20 2" Width="150" Click="GenresBTN">Жанры</Button>
-            <Button Grid.Row="0" Margin="20 2" Width="150" Click="ProfileBTN">Профиль</Button>
+            <Button Grid.Row="0" Margin="20 2" Width="150" x:Name="genresBTN" Click="GenresBTN">Жанры</Button>
+            <Button Grid.Row="0" Margin="20 2" Width="150" x:Name="profileBTN" Click="ProfileBTN">Профиль</Button>
             <Button Grid.Row="0" Margin="20 2" Width="150" Click="MenuBTN">Меню входа</Button>
         </StackPanel>
 

@@ -1,4 +1,4 @@
-﻿using BooksProj.DbConnections;
+﻿using BooksProj.DbConnection;
 using System;
 using System.Collections.Generic;
 using System.Linq;
@@ -23,13 +23,11 @@ namespace BooksProj.Pages
     /// </summary>
     public partial class RegPage : Page
     {
-        private List<User> _user;
         private Window _w;
 
         public RegPage(Window w)
         {
             _w = w;
-            _user = DBManager.GetUsers();
 
             InitializeComponent();
         }
@@ -42,7 +40,7 @@ namespace BooksProj.Pages
             Regex nums = new Regex(@"\d");
             Regex spec = new Regex(@"[:graph:]");
 
-            if (_user.Exists(x => x.Login == login))
+            if (DBManager.GetUsers().Exists(x => x.Login == login))
             {
                 MessageBox.Show("Аккаунт с таким именем уже существует.", "Ошибка создания.", MessageBoxButton.OK, MessageBoxImage.Warning);
             }
@@ -54,9 +52,9 @@ namespace BooksProj.Pages
                 && nums.IsMatch(Login.Text.Substring(1))
                 && !spec.IsMatch(Login.Text))
             {
-                var user = new User(login, password);
-                _user.Add(user);
-                new MainWindow(user, _w).Show();
+                var newUser = new User();
+                DBManager.AddUser(newUser);
+                new MainWindow(_w).Show();
                 Window w = Window.GetWindow(this);
                 w.Close();
             }

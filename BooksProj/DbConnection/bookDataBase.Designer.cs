@@ -1,4 +1,4 @@
-﻿// Создание кода T4 для модели "C:\Users\212226\Source\Repos\TestWpfProj\BooksProj\DbConnections\BoodDB.edmx" включено. 
+﻿// Создание кода T4 для модели "C:\Users\Артем\source\repos\TestWpfProj\BooksProj\DbConnection\bookDataBase.edmx" включено. 
 // Чтобы включить формирование кода прежних версий, измените значение свойства "Стратегия создания кода" конструктора
 // на "Legacy ObjectContext". Это свойство доступно в окне "Свойства", если модель
 // открыта в конструкторе.

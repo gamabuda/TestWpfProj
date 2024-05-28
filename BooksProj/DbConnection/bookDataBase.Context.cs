@@ -7,16 +7,16 @@
 // </auto-generated>
 //------------------------------------------------------------------------------
 
-namespace BooksProj.DbConnections
+namespace BooksProj.DbConnection
 {
     using System;
     using System.Data.Entity;
     using System.Data.Entity.Infrastructure;
     
-    public partial class bookDataBaseEntities : DbContext
+    public partial class bookDataBaseEntity : DbContext
     {
-        public bookDataBaseEntities()
-            : base("name=bookDataBaseEntities")
+        public bookDataBaseEntity()
+            : base("name=bookDataBaseEntity")
         {
         }
     
@@ -27,6 +27,7 @@ namespace BooksProj.DbConnections
     
         public virtual DbSet<Book> Book { get; set; }
         public virtual DbSet<BookGenres> BookGenres { get; set; }
+        public virtual DbSet<Role> Role { get; set; }
         public virtual DbSet<Sorts> Sorts { get; set; }
         public virtual DbSet<sysdiagrams> sysdiagrams { get; set; }
         public virtual DbSet<User> User { get; set; }

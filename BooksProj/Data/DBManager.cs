@@ -1,4 +1,4 @@
-﻿using BooksProj.DbConnections;
+﻿using BooksProj.DbConnection;
 using System;
 using System.Collections.Generic;
 using System.Data;
@@ -10,7 +10,7 @@ namespace BooksProj.Data
 {
     internal class DBManager
     {
-        private static bookDataBaseEntities _dbConnection = new bookDataBaseEntities();
+        private static bookDataBaseEntity _dbConnection = new bookDataBaseEntity();
 
         public static bool UpdateDatabase()
         {
@@ -84,9 +84,9 @@ namespace BooksProj.Data
             }
         }
 
-        //public static List<Role> GetRoles()
-        //{
-        //    return _dbConnection.Role.ToList();
-        //}
+        public static List<Role> GetRoles()
+        {
+            return _dbConnection.Role.ToList();
+        }
     }
 }

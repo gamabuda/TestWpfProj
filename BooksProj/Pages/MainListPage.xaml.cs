@@ -1,5 +1,5 @@
 ﻿using BooksProj.Data;
-using BooksProj.DbConnections;
+using BooksProj.DbConnection;
 using System;
 using System.Collections.Generic;
 using System.Linq;
@@ -27,10 +27,9 @@ namespace BooksProj.Pages
         private List<BookGenres> _bookGenres;
         private List<Sorts> _sortTypes;
 
-        private Window _w;
-        public MainListPage(Window w)
+        public MainListPage()
         {
-            _w = w;
+            var _user = CurrentUser.currentUser;
 
             InitializeComponent();
 
@@ -41,6 +40,13 @@ namespace BooksProj.Pages
             LstView.ItemsSource = _books;
             FilterCB.ItemsSource = _bookGenres;
             SortCB.ItemsSource = _sortTypes;
+
+
+            if (_user.ID_Role == 1)
+            {
+                editForAdm.Visibility = Visibility.Collapsed;
+                deleteForAdm.Visibility = Visibility.Collapsed;
+            }
         }
 
         private void DeleteMI_Click(object sender, RoutedEventArgs e)
@@ -111,7 +117,7 @@ namespace BooksProj.Pages
 
             if (type.Title != "Отображение по умолчанию")
             {
-                filter = filter.Where(x => x.BookGenres.ID_BookGenre == type.ID_BookGenre).ToList();
+                filter = filter.Where(x => x.BookGenres.ID_Genre == type.ID_Genre).ToList();
             }
             else
             {

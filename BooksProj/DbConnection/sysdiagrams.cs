@@ -7,19 +7,17 @@
 // </auto-generated>
 //------------------------------------------------------------------------------
 
-namespace BooksProj.DbConnections
+namespace BooksProj.DbConnection
 {
     using System;
     using System.Collections.Generic;
     
-    public partial class Book
+    public partial class sysdiagrams
     {
-        public int ID_Book { get; set; }
-        public string Title { get; set; }
-        public int ID_BookGenre { get; set; }
-        public decimal Price { get; set; }
-        public string Writer { get; set; }
-    
-        public virtual BookGenres BookGenres { get; set; }
+        public string name { get; set; }
+        public int principal_id { get; set; }
+        public int diagram_id { get; set; }
+        public Nullable<int> version { get; set; }
+        public byte[] definition { get; set; }
     }
 }
