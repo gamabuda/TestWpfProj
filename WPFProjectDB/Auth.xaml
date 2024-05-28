@@ -20,7 +20,7 @@
 
         <!-- Username Label and TextBox -->
         <Label Grid.Row="0" Grid.Column="0" VerticalAlignment="Center" Content="Login:"/>
-        <TextBox Grid.Row="0" Grid.Column="1" Name="UsernameTextBox" Margin="5"/>
+        <TextBox Grid.Row="0" Grid.Column="1" Name="LoginTextBox" Margin="5"/>
 
         <!-- Password Label and PasswordBox -->
         <Label Grid.Row="1" Grid.Column="0" VerticalAlignment="Center" Content="Password:"/>

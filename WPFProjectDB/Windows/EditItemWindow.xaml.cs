@@ -3,24 +3,24 @@ using System.IO;
 using System.Windows;
 using System.Windows.Media.Imaging;
 using Microsoft.Win32;
-using TestWpfProj.Data;
+using WPFProjectDB.DataBaseConnection;
 
 namespace TestWpfProj.Windows
 {
     public partial class EditItemWindow : Window
     {
-        private Language _language;
+        private Languages _language;
         private byte[] _img = new byte[0];
 
-        public EditItemWindow(Language lang)
+        public EditItemWindow(Languages lang)
         {
             InitializeComponent();
             _language = lang;
             this.DataContext = _language;
 
-            if (_language.ImageData != null && _language.ImageData.Length > 0)
+            if (_language.Image != null && _language.Image.Length > 0)
             {
-                ObjectImg.Source = ByteArrayToImage(_language.ImageData);
+                ObjectImg.Source = ByteArrayToImage(_language.Image);
             }
         }
 
@@ -41,7 +41,7 @@ namespace TestWpfProj.Windows
 
         private void SaveBtn_Click(object sender, RoutedEventArgs e)
         {
-            _language.ImageData = _img;
+            _language.Image = _img;
             this.DialogResult = true;
             this.Close();
         }

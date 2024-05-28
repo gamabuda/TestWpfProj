@@ -1,30 +1,32 @@
-﻿using System;
+﻿using Microsoft.Win32;
+using System;
 using System.Collections.Generic;
-using System.IO;
 using System.Linq;
 using System.Text;
 using System.Windows;
 using System.Windows.Controls;
-using Microsoft.Win32;
-using TestWpfProj.Data;
 using TestWpfProj.Windows;
+using WPFProjectDB.Data;
+using WPFProjectDB.DataBaseConnection;
+using System.IO;
 
-namespace TestWpfProj
+namespace WPFProjectDB
 {
     public partial class MainWindow : Window
     {
-        private List<Language> _languages;
+        Users CurrentUser;
+        private List<Languages> _languages;
         private List<LanguageType> _languageTypes;
-        private User _authorizedUser;
-        public MainWindow(User user)
+
+        public MainWindow(Users user)
         {
             InitializeComponent();
 
-            _authorizedUser = user;
-            UserTB.Text = _authorizedUser.Name;
+            CurrentUser = user;
+            UserTB.Text = CurrentUser.Username;
 
-            _languages = Data.DataContext.Languages;
-            _languageTypes = Data.DataContext.LanguageTypes;
+            _languageTypes = DataBaseManager.GetLanguageTypes();
+            _languages = DataBaseManager.GetLanguages();
 
             LstView.ItemsSource = _languages;
             FilterCB.ItemsSource = _languageTypes;
@@ -32,7 +34,7 @@ namespace TestWpfProj
 
         private void DeleteMI_Click(object sender, RoutedEventArgs e)
         {
-            Language selectedLang = (Language)LstView.SelectedItem;
+            Languages selectedLang = (Languages)LstView.SelectedItem;
 
             if (selectedLang == null)
             {
@@ -44,20 +46,27 @@ namespace TestWpfProj
 
             if (result == MessageBoxResult.Yes)
             {
-                _languages.Remove(selectedLang);
-                UpdateListView();
+                if (DataBaseManager.RemoveLanguage(selectedLang))
+                {
+                    _languages.Remove(selectedLang);
+                    UpdateListView();
+                }
+                else
+                {
+                    MessageBox.Show("Ошибка при удалении элемента.", "Ошибка", MessageBoxButton.OK, MessageBoxImage.Error);
+                }
             }
         }
 
         private void ViewMI_Click(object sender, RoutedEventArgs e)
         {
-            Language selectedLang = (Language)LstView.SelectedItem;
+            Languages selectedLang = (Languages)LstView.SelectedItem;
             new ViewItemWindow(selectedLang).ShowDialog();
         }
 
         private void EditMI_Click(object sender, RoutedEventArgs e)
         {
-            Language selectedLang = (Language)LstView.SelectedItem;
+            Languages selectedLang = (Languages)LstView.SelectedItem;
             if (new EditItemWindow(selectedLang).ShowDialog() == true)
             {
                 UpdateListView();
@@ -66,6 +75,7 @@ namespace TestWpfProj
 
         private void RefreshBtn_Click(object sender, RoutedEventArgs e)
         {
+            _languages = DataBaseManager.GetLanguages();
             UpdateListView();
         }
 
@@ -108,7 +118,7 @@ namespace TestWpfProj
             var type = (LanguageType)FilterCB.SelectedItem;
             if (type != null)
             {
-                tempLst = tempLst.Where(x => x.LanguageType.Id == type.Id);
+                tempLst = tempLst.Where(x => x.LanguageType_Id == type.LanguageType_Id);
             }
 
             if (SortCB.SelectedItem != null)
@@ -145,20 +155,20 @@ namespace TestWpfProj
 
             if (saveFileDialog.ShowDialog() == true)
             {
-                var selectedLanguages = LstView.ItemsSource as List<Language>;
+                var selectedLanguages = LstView.ItemsSource as List<Languages>;
                 ExportToCSV(selectedLanguages, saveFileDialog.FileName);
                 MessageBox.Show("Экспорт завершен успешно!", "Информация", MessageBoxButton.OK, MessageBoxImage.Information);
             }
         }
 
-        private void ExportToCSV(List<Language> languages, string filePath)
+        private void ExportToCSV(List<Languages> languages, string filePath)
         {
             var csv = new StringBuilder();
-            csv.AppendLine("Id,Title,Type,Price");
+            csv.AppendLine("Language_Id,Title,LanguageType,Price");
 
             foreach (var lang in languages)
             {
-                csv.AppendLine($"{lang.Id},{lang.Title},{lang.LanguageType.Title},{lang.Price}");
+                csv.AppendLine($"{lang.Language_Id},{lang.Title},{lang.LanguageType.Title},{lang.Price}");
             }
 
             File.WriteAllText(filePath, csv.ToString());

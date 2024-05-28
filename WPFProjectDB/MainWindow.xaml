@@ -1,9 +1,9 @@
-﻿<Window x:Class="TestWpfProj.MainWindow"
+﻿<Window x:Class="WPFProjectDB.MainWindow"
         xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
         xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
         xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
         xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
-        xmlns:local="clr-namespace:TestWpfProj"
+        xmlns:local="clr-namespace:WPFProjectDB"
         mc:Ignorable="d"
         Title="MainWindow" Height="450" Width="800">
     <Grid Background="Lavender">
@@ -21,7 +21,7 @@
                 <ColumnDefinition Width="auto"/>
                 <ColumnDefinition Width="auto"/>
             </Grid.ColumnDefinitions>
-            
+
             <WrapPanel Grid.Column="0" Margin="6" HorizontalAlignment="Center">
                 <Label Content="Search:"/>
                 <TextBox x:Name="SerchTB" Width="175" TextChanged="SerchTB_TextChanged"></TextBox>
@@ -48,7 +48,7 @@
                     </StackPanel>
                     <Button Width="125px" Margin="6px" HorizontalAlignment="Right" Click="Button_Click_1">RemainSort</Button>
                 </StackPanel>
-                
+
 
             </WrapPanel>
             <WrapPanel Grid.Column="3" Margin="6" HorizontalAlignment="Center">
