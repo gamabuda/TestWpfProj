@@ -19,7 +19,7 @@ namespace ProjWithDB.Pages
     public partial class SignUpPage : Page
     {
         private User _user;
-        private List<User> _users = ChildrenHomeEntities.GetContext().User.ToList();
+        private List<User> _users = DBManager.GetUsers();
         private Dictionary<string, List<char>> _symbols = new Dictionary<string, List<char>>() { };
         public SignUpPage()
         {
@@ -60,7 +60,7 @@ namespace ProjWithDB.Pages
 
         private void GuestButton_Click(object sender, RoutedEventArgs e)
         {
-            new MainWindow((User)ChildrenHomeEntities.GetContext().User.Where(x => x.Role_Id == 1)).Show();
+            new MainWindow((User)DBManager.GetUsers().Where(x => x.Role_Id == 1)).Show();
             Window ownerWindow = Window.GetWindow(this);
             ownerWindow.Close();
         }
@@ -68,7 +68,7 @@ namespace ProjWithDB.Pages
         private void SignUpButton_Click(object sender, RoutedEventArgs e)
         {
             string login = LoginTextBox.Text;
-            string password = PasswordTextBox.Password;
+            string password = PasswordBox.Password;
 
             if (String.IsNullOrEmpty(login) || String.IsNullOrEmpty(password))
             {
@@ -91,7 +91,7 @@ namespace ProjWithDB.Pages
         public bool CheckLogin()
         {
             string login = LoginTextBox.Text;
-            string password = PasswordTextBox.Password;
+            string password = PasswordBox.Password;
 
             foreach (var user in _users)
             {
@@ -120,8 +120,8 @@ namespace ProjWithDB.Pages
         public bool CheckPassword()
         {
             string login = LoginTextBox.Text;
-            string password = PasswordTextBox.Password;
-            string passwordConfirm = ConfirmPasswordTextBox.Password;
+            string password = PasswordBox.Password;
+            string passwordConfirm = ConfirmPasswordBox.Password;
 
             bool hasUpperCase = password.Any(c => _symbols["lettersUpper"].Contains(c));
             bool hasNumber = password.Any(c => _symbols["numbers"].Contains(c));

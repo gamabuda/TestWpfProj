@@ -4,10 +4,9 @@
   <edmx:Designer xmlns="http://schemas.microsoft.com/ado/2009/11/edmx">
     <!-- Diagram content (shape and connector positions) -->
     <edmx:Diagrams>
-      <Diagram DiagramId="eb8816ca9dc74f808ac858b6d3d3e1ed" Name="Diagram1">
+      <Diagram DiagramId="a928ef05f24b4bbfac5ef278075d1f92" Name="Diagram1">
         <EntityTypeShape EntityType="ChildrenHomeModel.Child" Width="1.5" PointX="0.75" PointY="3.75" IsExpanded="true" />
         <EntityTypeShape EntityType="ChildrenHomeModel.Role" Width="1.5" PointX="0.75" PointY="1.125" IsExpanded="true" />
-        <EntityTypeShape EntityType="ChildrenHomeModel.sysdiagrams" Width="1.5" PointX="2.75" PointY="3.75" IsExpanded="true" />
         <EntityTypeShape EntityType="ChildrenHomeModel.User" Width="1.5" PointX="3" PointY="0.875" IsExpanded="true" />
         <AssociationConnector Association="ChildrenHomeModel.FK_User_Role" ManuallyRouted="false" />
       </Diagram>

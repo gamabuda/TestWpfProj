@@ -13,6 +13,6 @@
             <RowDefinition Height="*"/>
         </Grid.RowDefinitions>
         <TextBlock Text="АВТОРИЗАЦИЯ" FontSize="36" HorizontalAlignment="Center"/>
-        <Frame x:Name="MainFrame" Grid.Row="1" NavigationUIVisibility="Hidden"/>
+        <Frame x:Name="MainFrame" Grid.Row="1" NavigationUIVisibility="Hidden" Width="350"/>
     </Grid>
 </Window>

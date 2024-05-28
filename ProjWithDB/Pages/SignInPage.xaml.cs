@@ -1,4 +1,5 @@
-﻿using System;
+﻿using ProjWithDB.Data;
+using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Text;
@@ -18,11 +19,10 @@ namespace ProjWithDB.Pages
     public partial class SignInPage : Page
     {
         private User _user;
-        private List<User> _users = ChildrenHomeEntities.GetContext().User.ToList();
+        private List<User> _users = DBManager.GetUsers();
         public SignInPage()
         {
             InitializeComponent();
-            ;
         }
 
         private void RegisterButton_Click(object sender, RoutedEventArgs e)
@@ -32,7 +32,7 @@ namespace ProjWithDB.Pages
 
         private void GuestButton_Click(object sender, RoutedEventArgs e)
         {
-            foreach (var u in ChildrenHomeEntities.GetContext().User)
+            foreach (var u in DBManager.GetUsers())
             {
                 if (u.Login == "guest")
                 {
@@ -49,7 +49,7 @@ namespace ProjWithDB.Pages
         private void LoginButton_Click(object sender, RoutedEventArgs e)
         {
             string login = LoginTextBox.Text;
-            string password = PasswordTextBox.Password;
+            string password = PasswordBox.Password;
             _user = new User();
 
             if (String.IsNullOrEmpty(login) || String.IsNullOrEmpty(password))
@@ -60,7 +60,7 @@ namespace ProjWithDB.Pages
 
             if (CheckLogin() && CheckPassword())
             {
-                foreach (var u in ChildrenHomeEntities.GetContext().User)
+                foreach (var u in DBManager.GetUsers())
                 {
                     if (u.Login == login.ToLower().Trim())
                     {
@@ -97,7 +97,7 @@ namespace ProjWithDB.Pages
         private bool CheckPassword()
         {
             bool isValid = false;
-            string password = PasswordTextBox.Password;
+            string password = PasswordBox.Password;
 
             if (password.Trim() == _user.Password)
                 isValid = true;

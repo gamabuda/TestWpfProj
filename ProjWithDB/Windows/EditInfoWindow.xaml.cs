@@ -1,4 +1,5 @@
 ﻿using Microsoft.Win32;
+using ProjWithDB.Data;
 using System;
 using System.Collections.Generic;
 using System.IO;
@@ -41,6 +42,12 @@ namespace ProjWithDB.Windows
             }
         }
 
+        private void DeletePhoto_Click(object sender, RoutedEventArgs e)
+        {
+            _img = null;
+            ObjectImg.Source = null;
+        }
+
         private void LoadImgBtn_Click(object sender, RoutedEventArgs e)
         {
             OpenFileDialog op = new OpenFileDialog();
@@ -51,26 +58,19 @@ namespace ProjWithDB.Windows
             if (op.ShowDialog() == true)
             {
                 var img = new BitmapImage(new Uri(op.FileName));
-                _img = Image2Byte(img);
+                _img = File2Byte(op.FileName);
                 ObjectImg.Source = img;
-                
                 LoadImgBtn.Background = Brushes.Lavender;
                 LoadImgBtn.BorderBrush = Brushes.Transparent;
             }
         }
 
-        public Byte[] Image2Byte(BitmapImage imageSource)
+        public Byte[] File2Byte(string filePath)
         {
-            Stream stream = imageSource.StreamSource;
-            Byte[] buffer = null;
-            if (stream != null && stream.Length > 0)
-            {
-                using (BinaryReader br = new BinaryReader(stream))
-                {
-                    buffer = br.ReadBytes((Int32)stream.Length);
-                }
-            }
-            return buffer;
+            if (!string.IsNullOrEmpty(filePath) && File.Exists(filePath))
+                return File.ReadAllBytes(filePath);
+
+            return null;
         }
 
         private void SaveBtn_Click(object sender, RoutedEventArgs e)
@@ -84,6 +84,7 @@ namespace ProjWithDB.Windows
             _selectedChild.Gender = Gender_TB.Text;
             _selectedChild.Age = Convert.ToInt32(Age_TB.Text);
             _selectedChild.RoomNumber = Convert.ToInt32(RoomNumber_TB.Text);
+            _selectedChild.Photo = _img;
             try
             {
                 _selectedChild.MoveInDate = DateTime.Parse(MoveInDate_TB.Text);
@@ -92,11 +93,12 @@ namespace ProjWithDB.Windows
                 MoveInDate_TB.Text = _selectedChild.MoveInDate.ToString();
                 return;
             }
-            
 
+            DBManager.UpdateDatabase();
             LoadImgBtn.IsEnabled = false;
             SaveBtn.IsEnabled = false;
             Info_SP.IsEnabled = false;
+            this.Close();
         }
 
         private void CloseBtn_Click(object sender, RoutedEventArgs e)
@@ -118,7 +120,7 @@ namespace ProjWithDB.Windows
                     MessageBoxButton.YesNo,
                     MessageBoxImage.Question) == MessageBoxResult.Yes)
             {
-                ChildrenHomeEntities.GetContext().Child.Remove(_selectedChild);
+                DBManager.RemoveChild(_selectedChild);
                 this.Close();
             }
         }

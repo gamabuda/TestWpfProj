@@ -15,7 +15,6 @@ namespace ProjWithDB
     
     public partial class ChildrenHomeEntities : DbContext
     {
-        private static ChildrenHomeEntities _context;
         public ChildrenHomeEntities()
             : base("name=ChildrenHomeEntities")
         {
@@ -25,17 +24,9 @@ namespace ProjWithDB
         {
             throw new UnintentionalCodeFirstException();
         }
-
-        public static ChildrenHomeEntities GetContext()
-        {
-            if (_context == null)
-                _context = new ChildrenHomeEntities();
-            return _context;
-        }
-
+    
         public virtual DbSet<Child> Child { get; set; }
         public virtual DbSet<Role> Role { get; set; }
-        public virtual DbSet<sysdiagrams> sysdiagrams { get; set; }
         public virtual DbSet<User> User { get; set; }
     }
 }

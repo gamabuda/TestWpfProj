@@ -8,13 +8,19 @@ namespace ProjWithDB.Data
 {
     internal class DBManager
     {
-        private static ChildrenHomeEntities _dbConnection = new ChildrenHomeEntities();
 
+        private static ChildrenHomeEntities _context = new ChildrenHomeEntities();
+        public static ChildrenHomeEntities GetContext()
+        {
+            if (_context == null)
+                _context = new ChildrenHomeEntities();
+            return _context;
+        }
         public static bool UpdateDatabase()
         {
             try
             {
-                _dbConnection.SaveChanges();
+                _context.SaveChanges();
                 return true;
             }
             catch
@@ -27,7 +33,8 @@ namespace ProjWithDB.Data
         {
             try
             {
-                _dbConnection.User.Remove(u);
+                _context.User.Remove(u);
+                UpdateDatabase();
                 return true;
             }
             catch
@@ -38,14 +45,15 @@ namespace ProjWithDB.Data
 
         public static List<User> GetUsers()
         {
-            return _dbConnection.User.ToList();
+            return _context.User.ToList();
         }
 
         public static bool AddUser(User u)
         {
             try
             {
-                _dbConnection.User.Add(u);
+                _context.User.Add(u);
+                UpdateDatabase();
                 return true;
             }
             catch
@@ -56,7 +64,26 @@ namespace ProjWithDB.Data
 
         public static List<Role> GetRoles()
         {
-            return _dbConnection.Role.ToList();
+            return _context.Role.ToList();
+        }
+
+        public static List<Child> GetChild()
+        {
+            return _context.Child.ToList();
+        }
+
+        public static bool RemoveChild(Child c)
+        {
+            try
+            {
+                _context.Child.Remove(c);
+                UpdateDatabase();
+                return true;
+            }
+            catch
+            {
+                return false;
+            }
         }
     }
 }

@@ -16,6 +16,9 @@ using System.Windows.Navigation;
 using System.Windows.Shapes;
 using ProjWithDB.Windows;
 using System.Data.Entity.Infrastructure;
+using ProjWithDB.Data;
+using ProjWithDB.Pages;
+using System.IO;
 
 namespace ProjWithDB
 {
@@ -23,273 +26,56 @@ namespace ProjWithDB
     {
 
         private User _user;
-        private List<Child> _people;
-        private List<Child> _listView;
-        private List<Child> _searchList = new List<Child>();
-        private TextChangedEventArgs _searchInput;
-        private List<string> _sortLetters = new List<string>() { "От А до Я", "От Я до А" };
-        private List<string> _sortNumbers = new List<string>() { "По возрастанию", "По убыванию" };
-        private List<string> _genders = new List<string>() { "М", "Ж" };
         public MainWindow(User user)
         {
             InitializeComponent();
-
             _user = user;
-            _people = ChildrenHomeEntities.GetContext().Child.ToList(); ;
-            _listView = _people;
+            MainFrame.Navigate(new MainPage());
 
-            LstView.ItemsSource = _listView;
-            SurnameFilter.ItemsSource = _sortLetters;
-            NameFilter.ItemsSource = _sortLetters;
-            PatronymicFilter.ItemsSource = _sortLetters;
-            GenderFilter.ItemsSource = _genders;
-            AgeFilter.ItemsSource = _sortNumbers;
-            RoomNumberFilter.ItemsSource = _sortNumbers;
-            MoveInDateFilter.ItemsSource = _sortNumbers;
+            // ДОБАВЛЕНИЕ ФОТО ДЕТЕЙ
+            //foreach (var p in DBManager.GetChild())
+            //{
+            //    if (p.Gender.ToString() == "М")
+            //        p.Photo = File2Byte(@"../../img/people/boy.jpg");
+            //    else
+            //        p.Photo = File2Byte(@"../../img/people/girl.jpg");
+            //}
 
-            if (_user.Role_Id == 1)
-                ContextM.Items.Remove(Delete_MI);
+            // УДАЛЕНИЕ ФОТО ДЕТЕЙ
+            //foreach (var p in DBManager.GetChild())
+            //{
+            //    if (p.Gender.ToString() == "М")
+            //        p.Photo = null;
+            //    else
+            //        p.Photo = null;
+            //}
         }
-
-        private void DeletePerson_Click(object sender, RoutedEventArgs e)
+        public Byte[] File2Byte(string filePath)
         {
-            Child selectedPerson = (Child)LstView.SelectedItem;
+            if (!string.IsNullOrEmpty(filePath) && File.Exists(filePath))
+                return File.ReadAllBytes(filePath);
 
-            if (selectedPerson == null)
-                return;
-
-            if (MessageBox.Show("Вы действительно хотите удалить этого человека?",
-                    "Удаление информации",
-                    MessageBoxButton.YesNo,
-                    MessageBoxImage.Question) == MessageBoxResult.Yes)
-            {
-                _people.Remove(selectedPerson);
-            }
-
-            SearchTB_TextChanged(sender, _searchInput);
-            LstView.ItemsSource = _listView;
-            LstView.Items.Refresh();
+            return null;
         }
 
-        private void ViewPerson_Click(object sender, RoutedEventArgs e)
+        private void MainPageNavigateBtn_Click(object sender, RoutedEventArgs e)
         {
-            Child selectedPerson = (Child)LstView.SelectedItem;
-
-            if (selectedPerson == null)
-                return;
-
-            new EditInfoWindow(selectedPerson, _user).ShowDialog();
-
-            SearchTB_TextChanged(sender, _searchInput);
-            LstView.ItemsSource = _listView;
-            LstView.Items.Refresh();
+            MainFrame.Navigate(new MainPage());
         }
 
-        private void SearchTB_TextChanged(object sender, TextChangedEventArgs e)
+        private void ChildrenListPageNavigateBtn_Click(object sender, RoutedEventArgs e)
         {
-            _searchInput = e;
-
-            if (!String.IsNullOrEmpty(SearchTB.Text))
-                _searchList = _people.Where(x => x.Surname.ToLower().StartsWith(SearchTB.Text.ToLower()) || x.Name.ToLower().StartsWith(SearchTB.Text.ToLower()) || x.Patronymic.ToLower().StartsWith(SearchTB.Text.ToLower())).ToList();
-            else
-                _searchList.Clear();
-
-            if (_searchList.Count > 0)
-                _listView = _searchList;
-            else if (_searchList.Count == 0 && SearchTB.Text.Length != 0)
-                _listView.Clear();
-            else if (SearchTB.Text.Length == 0)
-                _listView = _people;
-
-            NameFilter_DropDownClosed(sender, e);
-            SurnameFilter_DropDownClosed(sender, e);
-            PatronymicFilter_DropDownClosed(sender, e);
-            GenderFilter_DropDownClosed(sender, e);
-            AgeFilter_DropDownClosed(sender, e);
-            RoomNumberFilter_DropDownClosed(sender, e);
-            MoveInDateFilter_DropDownClosed(sender, e);
-
-            LstView.ItemsSource = _listView;
-            LstView.Items.Refresh();
+            MainFrame.Navigate(new ChildrenListPage(_user));
         }
 
-        private void SurnameFilter_DropDownClosed(object sender, EventArgs e)
+        private void RoomsPageNavigateBtn_Click(object sender, RoutedEventArgs e)
         {
-            var type = SurnameFilter.SelectedItem;
-
-            if (type == null)
-                return;
-
-            if (type == "От А до Я")
-                _listView = _listView.OrderBy(x => x.Surname).ToList();
-            else if (type == "От Я до А")
-                _listView = _listView.OrderByDescending(x => x.Surname).ToList();
-
-            NameFilter.SelectedItem = null;
-            PatronymicFilter.SelectedItem = null;
-            AgeFilter.SelectedItem = null;
-            RoomNumberFilter.SelectedItem = null;
-            MoveInDateFilter.SelectedItem = null;
-
-            LstView.ItemsSource = _listView;
-            LstView.Items.Refresh();
+            MainFrame.Navigate(new RoomsPage());
         }
 
-        private void NameFilter_DropDownClosed(object sender, EventArgs e)
+        private void AccountPageNavigateBtn_Click(object sender, RoutedEventArgs e)
         {
-            var type = NameFilter.SelectedItem;
-
-            if (type == null)
-                return;
-
-            if (type == "От А до Я")
-                _listView = _listView.OrderBy(x => x.Name).ToList();
-            else if (type == "От Я до А")
-                _listView = _listView.OrderByDescending(x => x.Name).ToList();
-
-            SurnameFilter.SelectedItem = null;
-            PatronymicFilter.SelectedItem = null;
-            AgeFilter.SelectedItem = null;
-            RoomNumberFilter.SelectedItem = null;
-            MoveInDateFilter.SelectedItem = null;
-            LstView.ItemsSource = _listView;
-            LstView.Items.Refresh();
+            MainFrame.Navigate(new AccountPage(_user));
         }
-
-        private void PatronymicFilter_DropDownClosed(object sender, EventArgs e)
-        {
-            var type = PatronymicFilter.SelectedItem;
-
-            if (type == null)
-                return;
-
-            if (type == "От А до Я")
-                _listView = _listView.OrderBy(x => x.Patronymic).ToList();
-            else if (type == "От Я до А")
-                _listView = _listView.OrderByDescending(x => x.Patronymic).ToList();
-
-            SurnameFilter.SelectedItem = null;
-            NameFilter.SelectedItem = null;
-            AgeFilter.SelectedItem = null;
-            RoomNumberFilter.SelectedItem = null;
-            MoveInDateFilter.SelectedItem = null;
-            LstView.ItemsSource = _listView;
-            LstView.Items.Refresh();
-        }
-
-        private void GenderFilter_DropDownClosed(object sender, EventArgs e)
-        {
-            var type = GenderFilter.SelectedItem;
-
-            if (type == null)
-                return;
-
-            if (_searchList.Count > 0)
-                _listView = _searchList.Where(_people => _people.Gender == type).ToList();
-            else if (_searchList.Count == 0 && SearchTB.Text.Length != 0)
-                _listView.Clear();
-            else if (SearchTB.Text.Length == 0)
-                _listView = _people.Where(_people => _people.Gender == type).ToList();
-
-            NameFilter_DropDownClosed(sender, e);
-            SurnameFilter_DropDownClosed(sender, e);
-            PatronymicFilter_DropDownClosed(sender, e);
-            AgeFilter_DropDownClosed(sender, e);
-            RoomNumberFilter_DropDownClosed(sender, e);
-            MoveInDateFilter_DropDownClosed(sender, e);
-            LstView.ItemsSource = _listView;
-            LstView.Items.Refresh();
-        }
-
-
-        private void AgeFilter_DropDownClosed(object sender, EventArgs e)
-        {
-            var type = AgeFilter.SelectedItem;
-
-            if (type == null)
-                return;
-
-            if (type == "По возрастанию")
-                _listView = _listView.OrderBy(x => x.Age).ToList();
-            else if (type == "По убыванию")
-                _listView = _listView.OrderByDescending(x => x.Age).ToList();
-
-            SurnameFilter.SelectedItem = null;
-            NameFilter.SelectedItem = null;
-            PatronymicFilter.SelectedItem = null;
-            RoomNumberFilter.SelectedItem = null;
-            MoveInDateFilter.SelectedItem = null;
-            LstView.ItemsSource = _listView;
-            LstView.Items.Refresh();
-        }
-
-        private void RoomNumberFilter_DropDownClosed(object sender, EventArgs e)
-        {
-            var type = RoomNumberFilter.SelectedItem;
-
-            if (type == null)
-                return;
-
-            if (type == "По возрастанию")
-                _listView = _listView.OrderBy(x => x.RoomNumber).ToList();
-            else if (type == "По убыванию")
-                _listView = _listView.OrderByDescending(x => x.RoomNumber).ToList();
-
-            SurnameFilter.SelectedItem = null;
-            NameFilter.SelectedItem = null;
-            PatronymicFilter.SelectedItem = null;
-            AgeFilter.SelectedItem = null;
-            MoveInDateFilter.SelectedItem = null;
-            LstView.ItemsSource = _listView;
-            LstView.Items.Refresh();
-        }
-
-        private void MoveInDateFilter_DropDownClosed(object sender, EventArgs e)
-        {
-            var type = MoveInDateFilter.SelectedItem;
-
-            if (type == null)
-                return;
-
-            if (type == "По возрастанию")
-                _listView = _listView.OrderBy(x => x.MoveInDate).ToList();
-            else if (type == "По убыванию")
-                _listView = _listView.OrderByDescending(x => x.MoveInDate).ToList();
-
-            SurnameFilter.SelectedItem = null;
-            NameFilter.SelectedItem = null;
-            PatronymicFilter.SelectedItem = null;
-            AgeFilter.SelectedItem = null;
-            RoomNumberFilter.SelectedItem = null;
-            LstView.ItemsSource = _listView;
-            LstView.Items.Refresh();
-        }
-
-        private void ClearBtn_Click(object sender, RoutedEventArgs e)
-        {
-            SurnameFilter.SelectedItem = null;
-            NameFilter.SelectedItem = null;
-            PatronymicFilter.SelectedItem = null;
-            GenderFilter.SelectedItem = null;
-            AgeFilter.SelectedItem = null;
-            RoomNumberFilter.SelectedItem = null;
-            MoveInDateFilter.SelectedItem = null;
-
-            if (_searchList.Count > 0)
-                _listView = _searchList;
-            else
-                _listView = _people;
-
-            NameFilter_DropDownClosed(sender, e);
-            SurnameFilter_DropDownClosed(sender, e);
-            PatronymicFilter_DropDownClosed(sender, e);
-            GenderFilter_DropDownClosed(sender, e);
-            AgeFilter_DropDownClosed(sender, e);
-            RoomNumberFilter_DropDownClosed(sender, e);
-            MoveInDateFilter_DropDownClosed(sender, e);
-            LstView.ItemsSource = _listView;
-            LstView.Items.Refresh();
-        }
-
     }
 }
