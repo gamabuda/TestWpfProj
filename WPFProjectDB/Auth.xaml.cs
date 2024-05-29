@@ -54,10 +54,18 @@ namespace TestWpfProj.Windows
 
         private void ContinueAsAGuest_Click(object sender, RoutedEventArgs e)
         {
-            CurrentUser = null;
-            var mainWindow = new MainWindow(CurrentUser);
-            mainWindow.Show();
-            this.Close();
+
+            var user = DataBaseManager.GetUsers().
+                FirstOrDefault(x => x.Login == "Guest" && x.Password == "Guest");
+
+            if (user != null)
+            {
+                CurrentUser = user;
+                new MainWindow(CurrentUser).Show();
+                this.Close();
+            }
+            else
+                MessageBox.Show("The occured exeption with auth with Guest account");
         }
     }
 }

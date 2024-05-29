@@ -4,7 +4,7 @@
   <edmx:Designer xmlns="http://schemas.microsoft.com/ado/2009/11/edmx">
     <!-- Diagram content (shape and connector positions) -->
     <edmx:Diagrams>
-      <Diagram DiagramId="4882c26e868246c59bf011e9b2030086" Name="Diagram1" ZoomLevel="47">
+      <Diagram DiagramId="85bb633f0a994564a11021ae494de613" Name="Diagram1">
         <EntityTypeShape EntityType="WPFProjectDBModel.Languages" Width="1.5" PointX="3" PointY="0.875" IsExpanded="true" />
         <EntityTypeShape EntityType="WPFProjectDBModel.LanguageType" Width="1.5" PointX="0.75" PointY="1.25" IsExpanded="true" />
         <EntityTypeShape EntityType="WPFProjectDBModel.sysdiagrams" Width="1.5" PointX="0.75" PointY="4.75" IsExpanded="true" />

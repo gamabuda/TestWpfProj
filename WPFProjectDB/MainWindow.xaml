@@ -48,12 +48,10 @@
                     </StackPanel>
                     <Button Width="125px" Margin="6px" HorizontalAlignment="Right" Click="Button_Click_1">RemainSort</Button>
                 </StackPanel>
-
-
             </WrapPanel>
             <WrapPanel Grid.Column="3" Margin="6" HorizontalAlignment="Center">
                 <Label Content="Welcome"/>
-                <TextBlock  Margin="5" x:Name="UserTB" Width="100"></TextBlock>
+                <TextBlock Margin="5" x:Name="UserTB" Width="100" MouseLeftButtonDown="UserTB_MouseLeftButtonDown"></TextBlock>
             </WrapPanel>
         </Grid>
 
@@ -64,6 +62,13 @@
                     <GridViewColumn DisplayMemberBinding="{Binding Path=Title}" Width="100">Title</GridViewColumn>
                     <GridViewColumn DisplayMemberBinding="{Binding Path=LanguageType.Title}" Width="100">Type</GridViewColumn>
                     <GridViewColumn DisplayMemberBinding="{Binding Path=Price}" Width="100">Price</GridViewColumn>
+                    <GridViewColumn Width="100" Header="Image">
+                        <GridViewColumn.CellTemplate>
+                            <DataTemplate>
+                                <Image Source="{Binding Path=Image}"></Image>
+                            </DataTemplate>
+                        </GridViewColumn.CellTemplate>
+                    </GridViewColumn>
                 </GridView>
             </ListView.View>
             <ListView.ContextMenu>

@@ -6,7 +6,7 @@ namespace WPFProjectDB.Data
 {
     internal static class DataBaseManager
     {
-        private static WPFProjectDBEntities _dataBase = new WPFProjectDBEntities();
+        private static WPFProjectDataBaseEntities _dataBase = new WPFProjectDataBaseEntities();
 
         public static List<Users> GetUsers()
         {

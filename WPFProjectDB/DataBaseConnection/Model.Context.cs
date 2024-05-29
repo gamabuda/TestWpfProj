@@ -13,10 +13,10 @@ namespace WPFProjectDB.DataBaseConnection
     using System.Data.Entity;
     using System.Data.Entity.Infrastructure;
     
-    public partial class WPFProjectDBEntities : DbContext
+    public partial class WPFProjectDataBaseEntities : DbContext
     {
-        public WPFProjectDBEntities()
-            : base("name=WPFProjectDBEntities")
+        public WPFProjectDataBaseEntities()
+            : base("name=WPFProjectDataBaseEntities")
         {
         }
     

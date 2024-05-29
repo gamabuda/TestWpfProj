@@ -32,6 +32,12 @@ namespace WPFProjectDB
             FilterCB.ItemsSource = _languageTypes;
         }
 
+        private void UserTB_MouseLeftButtonDown(object sender, System.Windows.Input.MouseButtonEventArgs e)
+        {
+            ProfileWindow profileWindow = new ProfileWindow(CurrentUser);
+            profileWindow.ShowDialog();
+        }
+
         private void DeleteMI_Click(object sender, RoutedEventArgs e)
         {
             Languages selectedLang = (Languages)LstView.SelectedItem;

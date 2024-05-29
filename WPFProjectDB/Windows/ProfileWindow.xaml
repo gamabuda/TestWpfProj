@@ -1,16 +1,16 @@
-﻿<Window x:Class="TestWpfProj.Windows.ViewItemWindow"
+﻿<Window x:Class="WPFProjectDB.ProfileWindow"
         xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
         xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
         xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
         xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
-        xmlns:local="clr-namespace:TestWpfProj.Windows"
+        xmlns:local="clr-namespace:WPFProjectDB"
         mc:Ignorable="d"
-        WindowStartupLocation="CenterOwner"
-        Title="ViewItemWindow" Height="400" Width="450">
+        Title="ProfileWindow" Height="450" Width="800">
     <Border Margin="12" CornerRadius="50">
         <Grid Background="LightGray">
             <Grid.RowDefinitions>
                 <RowDefinition/>
+                <RowDefinition Height="auto"/>
                 <RowDefinition Height="auto"/>
             </Grid.RowDefinitions>
             <Grid.ColumnDefinitions>
@@ -19,29 +19,30 @@
             </Grid.ColumnDefinitions>
 
             <Border Grid.Column="0" Grid.Row="0" CornerRadius="25" Margin="15">
-                <Image x:Name="ObjectImg" Stretch="Uniform"/>
+                <Image x:Name="ObjectImg" Source="{Binding Path=UserImage}" Stretch="Uniform"/>
             </Border>
 
             <StackPanel Grid.Column="1" Grid.Row="0" Margin="15" Orientation="Vertical" VerticalAlignment="Center">
                 <WrapPanel>
-                    <Label Content="Id:"/>
-                    <Label Content="{Binding Id}"/>
+                    <Label Content="ID пользователя:"/>
+                    <TextBlock Text="{Binding User_id}"/>
                 </WrapPanel>
                 <WrapPanel>
-                    <Label Content="Title:"/>
-                    <Label Content="{Binding Title}"/>
+                    <Label Content="Имя пользователя:"/>
+                    <TextBlock Text="{Binding Username}"/>
                 </WrapPanel>
                 <WrapPanel>
-                    <Label Content="Type:"/>
-                    <Label Content="{Binding LanguageType.Title}"/>
+                    <Label Content="Логин:"/>
+                    <TextBlock Text="{Binding Login}"/>
                 </WrapPanel>
                 <WrapPanel>
-                    <Label Content="Price:"/>
-                    <Label Content="{Binding Price}"/>
+                    <Label Content="Пароль:"/>
+                    <TextBlock Text="{Binding Password}"/>
                 </WrapPanel>
             </StackPanel>
 
-            <Button x:Name="CloseBtn"  Grid.ColumnSpan="2" Grid.Row="2" Content="Close" Click="CloseBtn_Click"/>
+            <Button x:Name="CloseBtn" Grid.ColumnSpan="2" Grid.Row="2" Content="Закрыть" Click="CloseBtn_Click"/>
+            <Button x:Name="SetImgBtn" Grid.ColumnSpan="2" Grid.Row="1" Content="Установить фотографию" Click="SetImgBtn_Click"/>
         </Grid>
     </Border>
 </Window>
