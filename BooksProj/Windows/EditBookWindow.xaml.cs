@@ -27,6 +27,11 @@ namespace BooksProj.Windows
             InitializeComponent();
 
             this.DataContext = _editBook = book;
+
+            Type.Text = book.Genre.Title;
+            Title.Text = book.Title;
+            Price.Text = book.Price.ToString();
+            Writer.Text = book.Writer;
         }
 
         private void CloseBtn_Click(object sender, RoutedEventArgs e)
@@ -38,7 +43,7 @@ namespace BooksProj.Windows
         {
             if (!(String.IsNullOrEmpty(Type.Text) || String.IsNullOrEmpty(Title.Text) || String.IsNullOrEmpty(Price.Text) || String.IsNullOrEmpty(Writer.Text)))
             {
-                _editBook.BookGenres.Title = Type.Text;
+                _editBook.Genre.Title = Type.Text;
                 _editBook.Title = Title.Text;
                 _editBook.Price = Convert.ToInt32(Price.Text);
                 _editBook.Writer = Writer.Text;

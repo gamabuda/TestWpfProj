@@ -39,7 +39,7 @@
                     <GridViewColumn DisplayMemberBinding="{Binding Path=ID_Book}">Номер</GridViewColumn>
                     <GridViewColumn DisplayMemberBinding="{Binding Path=Title}">Название</GridViewColumn>
                     <GridViewColumn DisplayMemberBinding="{Binding Path=Price}" Width="100">Цена</GridViewColumn>
-                    <GridViewColumn DisplayMemberBinding="{Binding Path=BookGenres.Title}">Жанр</GridViewColumn>
+                    <GridViewColumn DisplayMemberBinding="{Binding Path=Genre.Title}">Жанр</GridViewColumn>
                     <GridViewColumn DisplayMemberBinding="{Binding Path=Writer}">Автор</GridViewColumn>
                 </GridView>
             </ListView.View>

@@ -12,10 +12,10 @@ namespace BooksProj.DbConnection
     using System;
     using System.Collections.Generic;
     
-    public partial class BookGenres
+    public partial class Genre
     {
         [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2214:DoNotCallOverridableMethodsInConstructors")]
-        public BookGenres()
+        public Genre()
         {
             this.Book = new HashSet<Book>();
         }

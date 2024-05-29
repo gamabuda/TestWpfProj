@@ -9,17 +9,17 @@
           <Key>
             <PropertyRef Name="ID_Book" />
           </Key>
-          <Property Name="ID_Book" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+          <Property Name="ID_Book" Type="int" Nullable="false" />
           <Property Name="Title" Type="nvarchar" MaxLength="50" Nullable="false" />
           <Property Name="Price" Type="decimal" Precision="7" Scale="2" Nullable="false" />
           <Property Name="Writer" Type="nvarchar" MaxLength="50" Nullable="false" />
           <Property Name="ID_Genre" Type="int" Nullable="false" />
         </EntityType>
-        <EntityType Name="BookGenres">
+        <EntityType Name="Genre">
           <Key>
             <PropertyRef Name="ID_Genre" />
           </Key>
-          <Property Name="ID_Genre" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+          <Property Name="ID_Genre" Type="int" Nullable="false" />
           <Property Name="Title" Type="nvarchar" MaxLength="50" Nullable="false" />
         </EntityType>
         <EntityType Name="Role">
@@ -33,8 +33,8 @@
           <Key>
             <PropertyRef Name="ID_Sort" />
           </Key>
-          <Property Name="ID_Sort" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
-          <Property Name="Title" Type="nvarchar" MaxLength="50" Nullable="false" />
+          <Property Name="ID_Sort" Type="int" Nullable="false" />
+          <Property Name="Title" Type="nvarchar" MaxLength="50" />
         </EntityType>
         <EntityType Name="sysdiagrams">
           <Key>
@@ -50,16 +50,16 @@
           <Key>
             <PropertyRef Name="ID_User" />
           </Key>
-          <Property Name="ID_User" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+          <Property Name="ID_User" Type="int" Nullable="false" />
           <Property Name="Login" Type="nvarchar" MaxLength="50" Nullable="false" />
           <Property Name="Password" Type="nvarchar" MaxLength="50" Nullable="false" />
           <Property Name="ID_Role" Type="int" Nullable="false" />
         </EntityType>
-        <Association Name="FK_Book_BookGenres">
-          <End Role="BookGenres" Type="Self.BookGenres" Multiplicity="1" />
+        <Association Name="FK_Book_Genre">
+          <End Role="Genre" Type="Self.Genre" Multiplicity="1" />
           <End Role="Book" Type="Self.Book" Multiplicity="*" />
           <ReferentialConstraint>
-            <Principal Role="BookGenres">
+            <Principal Role="Genre">
               <PropertyRef Name="ID_Genre" />
             </Principal>
             <Dependent Role="Book">
@@ -81,13 +81,13 @@
         </Association>
         <EntityContainer Name="Хранилище bookDataBaseModelContainer">
           <EntitySet Name="Book" EntityType="Self.Book" Schema="dbo" store:Type="Tables" />
-          <EntitySet Name="BookGenres" EntityType="Self.BookGenres" Schema="dbo" store:Type="Tables" />
+          <EntitySet Name="Genre" EntityType="Self.Genre" Schema="dbo" store:Type="Tables" />
           <EntitySet Name="Role" EntityType="Self.Role" Schema="dbo" store:Type="Tables" />
           <EntitySet Name="Sorts" EntityType="Self.Sorts" Schema="dbo" store:Type="Tables" />
           <EntitySet Name="sysdiagrams" EntityType="Self.sysdiagrams" Schema="dbo" store:Type="Tables" />
           <EntitySet Name="User" EntityType="Self.User" Schema="dbo" store:Type="Tables" />
-          <AssociationSet Name="FK_Book_BookGenres" Association="Self.FK_Book_BookGenres">
-            <End Role="BookGenres" EntitySet="BookGenres" />
+          <AssociationSet Name="FK_Book_Genre" Association="Self.FK_Book_Genre">
+            <End Role="Genre" EntitySet="Genre" />
             <End Role="Book" EntitySet="Book" />
           </AssociationSet>
           <AssociationSet Name="FK_User_Role" Association="Self.FK_User_Role">
@@ -104,20 +104,20 @@
           <Key>
             <PropertyRef Name="ID_Book" />
           </Key>
-          <Property Name="ID_Book" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+          <Property Name="ID_Book" Type="Int32" Nullable="false" />
           <Property Name="Title" Type="String" MaxLength="50" FixedLength="false" Unicode="true" Nullable="false" />
           <Property Name="Price" Type="Decimal" Precision="7" Scale="2" Nullable="false" />
           <Property Name="Writer" Type="String" MaxLength="50" FixedLength="false" Unicode="true" Nullable="false" />
           <Property Name="ID_Genre" Type="Int32" Nullable="false" />
-          <NavigationProperty Name="BookGenres" Relationship="Self.FK_Book_BookGenres" FromRole="Book" ToRole="BookGenres" />
+          <NavigationProperty Name="Genre" Relationship="Self.FK_Book_Genre" FromRole="Book" ToRole="Genre" />
         </EntityType>
-        <EntityType Name="BookGenres">
+        <EntityType Name="Genre">
           <Key>
             <PropertyRef Name="ID_Genre" />
           </Key>
-          <Property Name="ID_Genre" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+          <Property Name="ID_Genre" Type="Int32" Nullable="false" />
           <Property Name="Title" Type="String" MaxLength="50" FixedLength="false" Unicode="true" Nullable="false" />
-          <NavigationProperty Name="Book" Relationship="Self.FK_Book_BookGenres" FromRole="BookGenres" ToRole="Book" />
+          <NavigationProperty Name="Book" Relationship="Self.FK_Book_Genre" FromRole="Genre" ToRole="Book" />
         </EntityType>
         <EntityType Name="Role">
           <Key>
@@ -131,8 +131,8 @@
           <Key>
             <PropertyRef Name="ID_Sort" />
           </Key>
-          <Property Name="ID_Sort" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
-          <Property Name="Title" Type="String" MaxLength="50" FixedLength="false" Unicode="true" Nullable="false" />
+          <Property Name="ID_Sort" Type="Int32" Nullable="false" />
+          <Property Name="Title" Type="String" MaxLength="50" FixedLength="false" Unicode="true" />
         </EntityType>
         <EntityType Name="sysdiagrams">
           <Key>
@@ -148,17 +148,17 @@
           <Key>
             <PropertyRef Name="ID_User" />
           </Key>
-          <Property Name="ID_User" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+          <Property Name="ID_User" Type="Int32" Nullable="false" />
           <Property Name="Login" Type="String" MaxLength="50" FixedLength="false" Unicode="true" Nullable="false" />
           <Property Name="Password" Type="String" MaxLength="50" FixedLength="false" Unicode="true" Nullable="false" />
           <Property Name="ID_Role" Type="Int32" Nullable="false" />
           <NavigationProperty Name="Role" Relationship="Self.FK_User_Role" FromRole="User" ToRole="Role" />
         </EntityType>
-        <Association Name="FK_Book_BookGenres">
-          <End Role="BookGenres" Type="Self.BookGenres" Multiplicity="1" />
+        <Association Name="FK_Book_Genre">
+          <End Role="Genre" Type="Self.Genre" Multiplicity="1" />
           <End Role="Book" Type="Self.Book" Multiplicity="*" />
           <ReferentialConstraint>
-            <Principal Role="BookGenres">
+            <Principal Role="Genre">
               <PropertyRef Name="ID_Genre" />
             </Principal>
             <Dependent Role="Book">
@@ -178,15 +178,15 @@
             </Dependent>
           </ReferentialConstraint>
         </Association>
-        <EntityContainer Name="bookDataBaseEntity" annotation:LazyLoadingEnabled="true">
+        <EntityContainer Name="bookDBEntity" annotation:LazyLoadingEnabled="true">
           <EntitySet Name="Book" EntityType="Self.Book" />
-          <EntitySet Name="BookGenres" EntityType="Self.BookGenres" />
+          <EntitySet Name="Genre" EntityType="Self.Genre" />
           <EntitySet Name="Role" EntityType="Self.Role" />
           <EntitySet Name="Sorts" EntityType="Self.Sorts" />
           <EntitySet Name="sysdiagrams" EntityType="Self.sysdiagrams" />
           <EntitySet Name="User" EntityType="Self.User" />
-          <AssociationSet Name="FK_Book_BookGenres" Association="Self.FK_Book_BookGenres">
-            <End Role="BookGenres" EntitySet="BookGenres" />
+          <AssociationSet Name="FK_Book_Genre" Association="Self.FK_Book_Genre">
+            <End Role="Genre" EntitySet="Genre" />
             <End Role="Book" EntitySet="Book" />
           </AssociationSet>
           <AssociationSet Name="FK_User_Role" Association="Self.FK_User_Role">
@@ -199,7 +199,7 @@
     <!-- C-S mapping content -->
     <edmx:Mappings>
       <Mapping Space="C-S" xmlns="http://schemas.microsoft.com/ado/2009/11/mapping/cs">
-        <EntityContainerMapping StorageEntityContainer="Хранилище bookDataBaseModelContainer" CdmEntityContainer="bookDataBaseEntity">
+        <EntityContainerMapping StorageEntityContainer="Хранилище bookDataBaseModelContainer" CdmEntityContainer="bookDBEntity">
           <EntitySetMapping Name="Book">
             <EntityTypeMapping TypeName="bookDataBaseModel.Book">
               <MappingFragment StoreEntitySet="Book">
@@ -211,9 +211,9 @@
               </MappingFragment>
             </EntityTypeMapping>
           </EntitySetMapping>
-          <EntitySetMapping Name="BookGenres">
-            <EntityTypeMapping TypeName="bookDataBaseModel.BookGenres">
-              <MappingFragment StoreEntitySet="BookGenres">
+          <EntitySetMapping Name="Genre">
+            <EntityTypeMapping TypeName="bookDataBaseModel.Genre">
+              <MappingFragment StoreEntitySet="Genre">
                 <ScalarProperty Name="ID_Genre" ColumnName="ID_Genre" />
                 <ScalarProperty Name="Title" ColumnName="Title" />
               </MappingFragment>

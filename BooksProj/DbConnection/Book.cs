@@ -20,6 +20,6 @@ namespace BooksProj.DbConnection
         public string Writer { get; set; }
         public int ID_Genre { get; set; }
     
-        public virtual BookGenres BookGenres { get; set; }
+        public virtual Genre Genre { get; set; }
     }
 }

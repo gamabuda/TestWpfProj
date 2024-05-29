@@ -10,7 +10,7 @@ namespace BooksProj.Data
 {
     internal class DBManager
     {
-        private static bookDataBaseEntity _dbConnection = new bookDataBaseEntity();
+        private static bookDBEntity _dbConnection = new bookDBEntity();
 
         public static bool UpdateDatabase()
         {
@@ -56,9 +56,9 @@ namespace BooksProj.Data
             }
         }
 
-        public static List<BookGenres> GetGenres()
+        public static List<Genre> GetGenres()
         {
-            return _dbConnection.BookGenres.ToList();
+            return _dbConnection.Genre.ToList();
         }
 
         public static List<Sorts> GetSorts()

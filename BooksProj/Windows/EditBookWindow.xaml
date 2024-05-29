@@ -29,19 +29,19 @@
             </WrapPanel>
             <WrapPanel>
                 <Label Width="35" Content="Title:"/>
-                <TextBox x:Name="Title"  Width="200" Text="{Binding Title}"/>
+                <TextBox x:Name="Title"  Width="200" Text=""/>
             </WrapPanel>
             <WrapPanel>
                 <Label Width="35" Content="Type:"/>
-                <TextBox x:Name="Type" Width="200" Text="{Binding BookGenre.Title}"/>
+                <TextBox x:Name="Type" Width="200" Text=""/>
             </WrapPanel>
             <WrapPanel>
                 <Label Width="35" Content="Price:"/>
-                <TextBox x:Name="Price" Width="200" Text="{Binding Price}"/>
+                <TextBox x:Name="Price" Width="200" Text=""/>
             </WrapPanel>
             <WrapPanel>
                 <Label Width="35" Content="Writer:"/>
-                <TextBox x:Name="Writer" Width="200" Text="{Binding Writer}"/>
+                <TextBox x:Name="Writer" Width="200" Text=""/>
             </WrapPanel>
         </StackPanel>
 

@@ -67,37 +67,37 @@
     <Compile Include="Data\UserContext.cs" />
     <Compile Include="Data\DBManager.cs" />
     <Compile Include="DbConnection\Book.cs">
-      <DependentUpon>bookDataBase.tt</DependentUpon>
+      <DependentUpon>bookDB.tt</DependentUpon>
     </Compile>
-    <Compile Include="DbConnection\bookDataBase.Context.cs">
+    <Compile Include="DbConnection\bookDB.Context.cs">
       <AutoGen>True</AutoGen>
       <DesignTime>True</DesignTime>
-      <DependentUpon>bookDataBase.Context.tt</DependentUpon>
+      <DependentUpon>bookDB.Context.tt</DependentUpon>
     </Compile>
-    <Compile Include="DbConnection\bookDataBase.cs">
+    <Compile Include="DbConnection\bookDB.cs">
       <AutoGen>True</AutoGen>
       <DesignTime>True</DesignTime>
-      <DependentUpon>bookDataBase.tt</DependentUpon>
+      <DependentUpon>bookDB.tt</DependentUpon>
     </Compile>
-    <Compile Include="DbConnection\bookDataBase.Designer.cs">
+    <Compile Include="DbConnection\bookDB.Designer.cs">
       <AutoGen>True</AutoGen>
       <DesignTime>True</DesignTime>
-      <DependentUpon>bookDataBase.edmx</DependentUpon>
+      <DependentUpon>bookDB.edmx</DependentUpon>
     </Compile>
-    <Compile Include="DbConnection\BookGenres.cs">
-      <DependentUpon>bookDataBase.tt</DependentUpon>
+    <Compile Include="DbConnection\Genre.cs">
+      <DependentUpon>bookDB.tt</DependentUpon>
     </Compile>
     <Compile Include="DbConnection\Role.cs">
-      <DependentUpon>bookDataBase.tt</DependentUpon>
+      <DependentUpon>bookDB.tt</DependentUpon>
     </Compile>
     <Compile Include="DbConnection\Sorts.cs">
-      <DependentUpon>bookDataBase.tt</DependentUpon>
+      <DependentUpon>bookDB.tt</DependentUpon>
     </Compile>
     <Compile Include="DbConnection\sysdiagrams.cs">
-      <DependentUpon>bookDataBase.tt</DependentUpon>
+      <DependentUpon>bookDB.tt</DependentUpon>
     </Compile>
     <Compile Include="DbConnection\User.cs">
-      <DependentUpon>bookDataBase.tt</DependentUpon>
+      <DependentUpon>bookDB.tt</DependentUpon>
     </Compile>
     <Compile Include="Pages\AuthPage.xaml.cs">
       <DependentUpon>AuthPage.xaml</DependentUpon>
@@ -193,12 +193,12 @@
       <LastGenOutput>Resources.Designer.cs</LastGenOutput>
     </EmbeddedResource>
     <None Include="App.Config" />
-    <EntityDeploy Include="DbConnection\bookDataBase.edmx">
+    <EntityDeploy Include="DbConnection\bookDB.edmx">
       <Generator>EntityModelCodeGenerator</Generator>
-      <LastGenOutput>bookDataBase.Designer.cs</LastGenOutput>
+      <LastGenOutput>bookDB.Designer.cs</LastGenOutput>
     </EntityDeploy>
-    <None Include="DbConnection\bookDataBase.edmx.diagram">
-      <DependentUpon>bookDataBase.edmx</DependentUpon>
+    <None Include="DbConnection\bookDB.edmx.diagram">
+      <DependentUpon>bookDB.edmx</DependentUpon>
     </None>
     <None Include="packages.config" />
     <None Include="Properties\Settings.settings">
@@ -207,19 +207,20 @@
     </None>
   </ItemGroup>
   <ItemGroup>
-    <Content Include="DbConnection\bookDataBase.Context.tt">
-      <Generator>TextTemplatingFileGenerator</Generator>
-      <DependentUpon>bookDataBase.edmx</DependentUpon>
-      <LastGenOutput>bookDataBase.Context.cs</LastGenOutput>
-    </Content>
-    <Content Include="DbConnection\bookDataBase.tt">
-      <Generator>TextTemplatingFileGenerator</Generator>
-      <DependentUpon>bookDataBase.edmx</DependentUpon>
-      <LastGenOutput>bookDataBase.cs</LastGenOutput>
-    </Content>
-  </ItemGroup>
-  <ItemGroup>
     <Service Include="{508349B6-6B84-4DF5-91F0-309BEEBAD82D}" />
+  </ItemGroup>
+  <ItemGroup />
+  <ItemGroup>
+    <Content Include="DbConnection\bookDB.Context.tt">
+      <Generator>TextTemplatingFileGenerator</Generator>
+      <DependentUpon>bookDB.edmx</DependentUpon>
+      <LastGenOutput>bookDB.Context.cs</LastGenOutput>
+    </Content>
+    <Content Include="DbConnection\bookDB.tt">
+      <Generator>TextTemplatingFileGenerator</Generator>
+      <DependentUpon>bookDB.edmx</DependentUpon>
+      <LastGenOutput>bookDB.cs</LastGenOutput>
+    </Content>
   </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
 </Project>

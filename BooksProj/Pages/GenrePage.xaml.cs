@@ -1,4 +1,6 @@
-﻿using System;
+﻿using BooksProj.Data;
+using BooksProj.DbConnection;
+using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Text;
@@ -20,9 +22,15 @@ namespace BooksProj.Pages
     /// </summary>
     public partial class GenrePage : Page
     {
+        private List<Genre> _bookGenre;
         public GenrePage()
         {
             InitializeComponent();
+
+            _bookGenre = DBManager.GetGenres();
+
+            _bookGenre.Remove(_bookGenre.ElementAt(0));
+            LstView.ItemsSource = _bookGenre;
         }
     }
 }

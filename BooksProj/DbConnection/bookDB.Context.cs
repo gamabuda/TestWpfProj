@@ -13,10 +13,10 @@ namespace BooksProj.DbConnection
     using System.Data.Entity;
     using System.Data.Entity.Infrastructure;
     
-    public partial class bookDataBaseEntity : DbContext
+    public partial class bookDBEntity : DbContext
     {
-        public bookDataBaseEntity()
-            : base("name=bookDataBaseEntity")
+        public bookDBEntity()
+            : base("name=bookDBEntity")
         {
         }
     
@@ -26,7 +26,7 @@ namespace BooksProj.DbConnection
         }
     
         public virtual DbSet<Book> Book { get; set; }
-        public virtual DbSet<BookGenres> BookGenres { get; set; }
+        public virtual DbSet<Genre> Genre { get; set; }
         public virtual DbSet<Role> Role { get; set; }
         public virtual DbSet<Sorts> Sorts { get; set; }
         public virtual DbSet<sysdiagrams> sysdiagrams { get; set; }

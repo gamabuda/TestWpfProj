@@ -24,7 +24,7 @@ namespace BooksProj.Pages
     public partial class MainListPage : Page
     {
         private List<Book> _books;
-        private List<BookGenres> _bookGenres;
+        private List<Genre> _bookGenres;
         private List<Sorts> _sortTypes;
 
         public MainListPage()
@@ -110,14 +110,14 @@ namespace BooksProj.Pages
         {
             var filter = _books;
 
-            var type = (BookGenres)FilterCB.SelectedItem;
+            var type = (Genre)FilterCB.SelectedItem;
 
             if (type == null)
                 return;
 
             if (type.Title != "Отображение по умолчанию")
             {
-                filter = filter.Where(x => x.BookGenres.ID_Genre == type.ID_Genre).ToList();
+                filter = filter.Where(x => x.Genre.ID_Genre == type.ID_Genre).ToList();
             }
             else
             {
