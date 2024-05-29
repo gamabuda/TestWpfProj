@@ -23,45 +23,40 @@ namespace Meme_Accounting
     /// </summary>
     public partial class MainWindow : Window
     {
-        private List<Meme> _memes;
-        private List<MemeType> _memeTypes;
-        private List<SortType> _sortTypes;
+        List<Meme> _memes = new List<Meme>();
         public MainWindow()
         {
             InitializeComponent();
 
-            _memes = Data.DataContext.Memes;
-            _memeTypes = Data.DataContext.MemeTypes;
-            _sortTypes = Data.DataContext.SortTypes;
-
-            LstView.ItemsSource = _memes;
-            FilterCB.ItemsSource = _memeTypes;
-            SortCB.ItemsSource = _sortTypes;
+            _memes = Data.DataBase.GetMemes();
+            MemeLV.DataContext = this;
+            MemeLV.ItemsSource = _memes;
+            
         }
 
         private void DeleteMI_Click(object sender, RoutedEventArgs e)
         {
-            Meme selectedMeme = (Meme)LstView.SelectedItem;
+            Meme selectedMeme = (Meme)MemeLV.SelectedItem;
             _memes.Remove(selectedMeme);
 
-            LstView.ItemsSource = _memes;
-            LstView.Items.Refresh();
+            MemeLV.ItemsSource = _memes;
+            MemeLV.Items.Refresh();
         }
 
         private void ViewMI_Click(object sender, RoutedEventArgs e)
         {
-            Meme selectedMeme = (Meme)LstView.SelectedItem;
+            Meme selectedMeme = (Meme)MemeLV.SelectedItem;
             new ViewWindow(selectedMeme).ShowDialog();
         }
 
         private void RefreshBtn_Click(object sender, RoutedEventArgs e)
         {
-            LstView.ItemsSource = _memes;
-            LstView.Items.Refresh();
+            MemeLV.ItemsSource = _memes;
+            MemeLV.Items.Refresh();
         }
         private void EditMI_Click(object sender, RoutedEventArgs e)
         {
-            Meme selectedMeme = (Meme)LstView.SelectedItem;
+            Meme selectedMeme = (Meme)MemeLV.SelectedItem;
             new EditWindow(selectedMeme).ShowDialog();
         }
 
@@ -74,8 +69,8 @@ namespace Meme_Accounting
                 tempLst = _memes.Where(x => x.Title.Contains(SerchTB.Text)).ToList();
             }
 
-            LstView.ItemsSource = tempLst;
-            LstView.Items.Refresh();
+            MemeLV.ItemsSource = tempLst;
+            MemeLV.Items.Refresh();
         }
 
         private void FilterCB_SelectionChanged(object sender, SelectionChangedEventArgs e)
@@ -88,8 +83,8 @@ namespace Meme_Accounting
                 return;
 
             filter = filter.Where(x => x.MemeType.Id == type.Id).ToList();
-            LstView.ItemsSource = filter;
-            LstView.Items.Refresh();
+            MemeLV.ItemsSource = filter;
+            MemeLV.Items.Refresh();
         }
 
         private void FilterCB_DropDownClosed(object sender, EventArgs e)
@@ -109,7 +104,7 @@ namespace Meme_Accounting
         private void ComboBox_SelectionChanged(object sender, SelectionChangedEventArgs e)
         {
             var sort = _memes;
-            var SortType = Data.DataContext.SortTypes[SortCB.SelectedIndex].Title;
+            var SortType = Data.DataBase.SortTypes[SortCB.SelectedIndex].Title;
 
             switch (SortType)
             {

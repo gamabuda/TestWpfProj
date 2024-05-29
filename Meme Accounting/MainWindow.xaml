@@ -34,7 +34,7 @@
             </WrapPanel>
         </Grid>
 
-        <ListView Name="LstView" Grid.Row="1">
+        <ListView Name="MemeLV" Grid.Row="1">
             <ListView.View>
                 <GridView>
                     <GridViewColumn DisplayMemberBinding="{Binding Path=Id}">Id</GridViewColumn>
