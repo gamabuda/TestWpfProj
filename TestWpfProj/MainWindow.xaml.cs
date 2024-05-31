@@ -19,7 +19,7 @@ namespace TestWpfProj
 {
     public partial class MainWindow : Window
     {
-        private List<RetroGame> _games;
+        private List<Game> _games;
         private List<GameType> _gameTypes;
 
         public MainWindow(User user)
@@ -62,7 +62,7 @@ namespace TestWpfProj
 
         private void DeleteMI_Click(object sender, RoutedEventArgs e)
         {
-            RetroGame selectedGame = (RetroGame)LstView.SelectedItem;
+            Game selectedGame = (Game)LstView.SelectedItem;
             _games.Remove(selectedGame);
 
             LstView.ItemsSource = _games;
@@ -71,13 +71,13 @@ namespace TestWpfProj
 
         private void ViewMI_Click(object sender, RoutedEventArgs e)
         {
-            RetroGame selectedGame = (RetroGame)LstView.SelectedItem;
+            Game selectedGame = (Game)LstView.SelectedItem;
             new ViewItemWindow1(selectedGame).ShowDialog();
         }
 
         private void EditMI_Click(object sender, RoutedEventArgs e)
         {
-            RetroGame selectedGame = (RetroGame)LstView.SelectedItem;
+            Game selectedGame = (Game)LstView.SelectedItem;
             new EditItemWindow1(selectedGame).ShowDialog();
         }
 

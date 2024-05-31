@@ -6,22 +6,22 @@ using System.Threading.Tasks;
 
 namespace TestWpfProj.Data
 {
-    public class RetroGame
+    public class Game
     {
-        public RetroGame(string title)
+        public Game(string title)
         {
             Id = Guid.NewGuid().ToString();
             Title = title;
         }
 
-        public RetroGame(string title, GameType type)
+        public Game(string title, GameType type)
         {
             Id = Guid.NewGuid().ToString();
             Title = title;
             GameType = type;
         }
 
-        public RetroGame(string title, GameType type, decimal price)
+        public Game(string title, GameType type, decimal price)
         {
             Id = Guid.NewGuid().ToString();
             Title = title;

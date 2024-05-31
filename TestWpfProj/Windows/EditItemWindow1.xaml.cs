@@ -17,9 +17,9 @@ namespace TestWpfProj.Windows
 {
     public partial class EditItemWindow1 : Window
     {
-        private RetroGame _game;
+        private Game _game;
 
-        public EditItemWindow1(RetroGame game)
+        public EditItemWindow1(Game game)
         {
             InitializeComponent();
             _game = game;
