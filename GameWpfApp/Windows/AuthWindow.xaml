@@ -1,0 +1,16 @@
+﻿<Window x:Class="GameWpfApp.Windows.AuthWindow"
+        xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+        xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+        xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
+        xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
+        xmlns:local="clr-namespace:GameWpfApp.Windows"
+        mc:Ignorable="d"
+        Title="AuthWindow" Height="450" Width="800">
+    <Grid>
+        <StackPanel Orientation="Vertical" VerticalAlignment="Center">
+            <TextBox Margin="12" Background="LightGray" x:Name="LoginTb"/>
+            <PasswordBox Margin="12" Background="LightGray" x:Name="PasswordPb"/>
+            <Button x:Name="AuthBtn" Margin="12" Content="Sign in" Click="AuthBtn_Click"/>
+        </StackPanel>
+    </Grid>
+</Window>

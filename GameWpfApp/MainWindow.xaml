@@ -1,0 +1,34 @@
+﻿<Window x:Class="GameWpfApp.MainWindow"
+        xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+        xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+        xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
+        xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
+        xmlns:local="clr-namespace:GameWpfApp"
+        mc:Ignorable="d"
+        Title="MainWindow" Height="450" Width="800">
+    <Grid>
+        <Grid.RowDefinitions>
+            <RowDefinition Height="auto"/>
+            <RowDefinition/>
+            <RowDefinition Height="auto"/>
+        </Grid.RowDefinitions>
+
+        <Grid Grid.Row="0">
+            <Grid.ColumnDefinitions>
+                <ColumnDefinition Width="auto"/>
+                <ColumnDefinition Width="auto"/>
+                <ColumnDefinition />
+                <ColumnDefinition/>
+                <ColumnDefinition/>
+            </Grid.ColumnDefinitions>
+
+            <Button Content="Back" Grid.Column="0" Click="Button_Click_2"/>
+            <Button Content="Forward" Grid.Column="1" Click="Button_Click_3"/>
+            <Button Content="Games" Grid.Column="2" Click="Button_Click"/>
+            <Button x:Name="TypeGamePageBtn" Content="Type of games" Grid.Column="3" Click="TypeGamePageBtn_Click"/>
+            <Button Content="Profile" Grid.Column="4" Click="Button_Click_1"/>
+        </Grid>
+
+        <Frame x:Name="MainFrame" Grid.Row="1" NavigationUIVisibility="Hidden" />
+    </Grid>
+</Window>
