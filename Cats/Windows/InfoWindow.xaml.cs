@@ -26,14 +26,10 @@ namespace Cats
         {
             InitializeComponent();
             NameTb.Text = cat.Name;
-            //var uri = new Uri($"pack://application:,,,/TestWpfProj;component/Data/Images/{cat.Image}",
-            //    UriKind.Absolute);
-            //var img = new BitmapImage(uri);
-            //ImageB.Source = img;
             IdTb.Text = cat.ID;
             GenderTb.Text = cat.Gender;
             BirthdayTb.Text = cat.Birthday.ToShortDateString();
-            ImageB.Source = ByteImageConverter.ByteToImage(cat.Image);
+            if (cat.Image != null) ImageB.Source = ByteImageConverter.ByteToImage(cat.Image);
         }
     }
 }

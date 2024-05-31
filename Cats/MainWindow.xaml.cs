@@ -5,6 +5,8 @@ using System.Linq;
 using System.Windows;
 using System.Windows.Controls;
 using Cats.Core;
+using Cats.Pages;
+using Cats.Service;
 using Cats.Windows;
 
 namespace Cats
@@ -14,132 +16,36 @@ namespace Cats
     /// </summary>
     public partial class MainWindow : Window
     {
-        private List<Cat> _Cats;
-        private List<CatType> _currentFilter;
-        private Sort _currentSort;
-        private bool isReversed;
+        private MainPage _mainPage;
+        private ProfilePage _profilePage;
+
         public MainWindow()
         {
             InitializeComponent();
-            _currentFilter = [];
+
+            _mainPage = new MainPage();
+            _profilePage = new ProfilePage();
+
+            MainFrame.NavigationService.Navigate(_mainPage);
+
             if (UserContext.CurrentUser.ID == "GUEST")
-            {
-                AddBtn.Visibility = Visibility.Collapsed;
-            }
-            if (UserContext.CurrentUser.isAdmin != true)
-            {
-                AddTypeBtn.Visibility = Visibility.Collapsed;
-                EditMI.Visibility = Visibility.Collapsed;
-                DeleteMI.Visibility = Visibility.Collapsed;
-            }
+                ProfilePageBtn.IsEnabled = false;
 
-            _Cats = DataBaseManager.GetAllCats();
-
-            LstView.ItemsSource = _Cats;
-
-            UserLabel.Content = UserContext.CurrentUser.Nickname;
+            Application.Current.MainWindow = this;
         }
 
-        private void DeleteMI_Click(object sender, RoutedEventArgs e)
+        private void MainPageBtn_OnClick(object sender, RoutedEventArgs e)
         {
-            Cat selectedCat = (Cat)LstView.SelectedItem;
-            if (selectedCat == null) return;
-            DeleteWindow deleteWindow = new DeleteWindow(selectedCat);
-            deleteWindow.ShowDialog();
-            if (deleteWindow.DialogResult == true)
-            {
-                DataBaseManager.RemoveCat(selectedCat);
-                _Cats = DataBaseManager.GetAllCats();
-                LstView.ItemsSource = _Cats;
-                LstView.Items.Refresh();
-            }
+            MainPageBtn.Style = (Style)Resources["OpenedPageBtn"];
+            ProfilePageBtn.Style = (Style)Resources["ClosedPageBtn"];
+            MainFrame.NavigationService.Navigate(_mainPage);
         }
 
-        private void ViewMI_Click(object sender, RoutedEventArgs e)
+        private void ProfilePageBtn_Click(object sender, RoutedEventArgs e)
         {
-            Cat selectedCat = (Cat)LstView.SelectedItem;
-            if (selectedCat == null) return;
-            InfoWindow infoWindow = new InfoWindow(selectedCat);
-            infoWindow.ShowDialog();
-        }
-
-        private void SerchTB_TextChanged(object sender, TextChangedEventArgs e)
-        {
-            Filter();
-        }
-
-        private List<Cat> Search(List<Cat> source)
-        {
-            if (!String.IsNullOrEmpty(SerchTB.Text))
-            {
-                source = source.Where(x => x.Name.ToLower().Contains(SerchTB.Text.ToLower()) 
-                                           || x.CatType.Title.ToLower().Contains(SerchTB.Text.ToLower()) 
-                                           || x.Birthday.ToShortDateString().ToLower().Contains(SerchTB.Text.ToLower())
-                                           || x.User.Nickname.ToLower().Contains(SerchTB.Text.ToLower())).ToList();
-            }
-            return source;
-        }
-
-        private void EditMI_Click(object sender, RoutedEventArgs e)
-        {
-            Cat selectedCat = (Cat)LstView.SelectedItem;
-            if (selectedCat == null) return;
-            AddWindow editWindow = new AddWindow(selectedCat);
-            editWindow.ShowDialog();
-            if (editWindow.DialogResult == true)
-            {
-                DataBaseManager.EditCat(editWindow.NewCat);
-                LstView.Items.Refresh();
-            }
-        }
-
-        private void AddBtn_OnClick(object sender, RoutedEventArgs e)
-        {
-            AddWindow addWindow = new AddWindow();
-            addWindow.ShowDialog();
-            if (addWindow.DialogResult == false) return;
-            DataBaseManager.AddCat(addWindow.NewCat);
-            _Cats = DataBaseManager.GetAllCats();
-            LstView.ItemsSource = _Cats;
-            LstView.Items.Refresh();
-        }
-
-        private void FilterBtn_OnClick(object sender, RoutedEventArgs e)
-        {
-            FilterWindow filterWindow = new FilterWindow(_currentFilter, _currentSort, isReversed);
-            filterWindow.ShowDialog();
-            if(filterWindow.DialogResult == false) return;
-            _currentFilter = filterWindow.CatTypes;
-            _currentSort = filterWindow.Sort;
-            isReversed = filterWindow.Reversed;
-            Filter();
-        }
-
-        private void Filter()
-        {
-            var lst = DataBaseManager.GetAllCats();
-            lst = lst.Where(x => _currentFilter.Count == 0 || _currentFilter.Any(s => s == x.CatType)).ToList();
-            if (_currentSort != null) lst = _currentSort.SortingFunc(lst);
-            if (isReversed) lst.Reverse();
-            LstView.ItemsSource = Search(lst);
-            LstView.Items.Refresh();
-
-        }
-
-        private void AddTypeBtn_OnClick(object sender, RoutedEventArgs e)
-        {
-            AddTypeWindow addWindow = new AddTypeWindow();
-            addWindow.ShowDialog();
-            if(addWindow.DialogResult == false) return;
-            DataBaseManager.AddCatType(addWindow.NewType);
-        }
-
-        private void LogOutBtn_Click(object sender, RoutedEventArgs e)
-        {
-            UserContext.CurrentUser = null;
-            AuthorisationWindow authorisationWindow = new AuthorisationWindow();
-            authorisationWindow.Show();
-            Close();
+            MainPageBtn.Style = (Style)Resources["ClosedPageBtn"];
+            ProfilePageBtn.Style = (Style)Resources["OpenedPageBtn"];
+            MainFrame.NavigationService.Navigate(_profilePage);
         }
     }
 }

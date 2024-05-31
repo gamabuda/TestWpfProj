@@ -1,0 +1,42 @@
+﻿<Page x:Class="Cats.Pages.ProfilePage"
+      xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+      xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+      xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006" 
+      xmlns:d="http://schemas.microsoft.com/expression/blend/2008" 
+      xmlns:local="clr-namespace:Cats.Pages"
+      mc:Ignorable="d" 
+      d:DesignHeight="450" d:DesignWidth="800"
+      Title="Profile">
+
+    <Grid>
+        <Grid HorizontalAlignment="Center" VerticalAlignment="Center">
+            <Border BorderBrush="Black" BorderThickness="1">
+                <Grid Background="White">
+
+                    <Grid.ColumnDefinitions>
+                        <ColumnDefinition/>
+                        <ColumnDefinition/>
+                    </Grid.ColumnDefinitions>
+
+                    <StackPanel Grid.Column="1">
+                        <StackPanel Orientation="Horizontal">
+                            <Label x:Name="NickLbl" Width="70" Content="Nickname: "></Label>
+                            <Label x:Name="NicknameLbl" Content="{Binding UserName}" Width="150"></Label>
+                            <TextBox x:Name="NicknameTb" Text="{Binding UserName}" Width="150" Visibility="Collapsed" VerticalContentAlignment="Center"></TextBox>
+                            <Button x:Name="NicknameChangeBtn" Margin="5 0 0 0" Padding="5 0" Content="Change" Background="White" BorderBrush="Black" Click="NicknameChangeBtn_Click"></Button>
+                        </StackPanel>
+                        <StackPanel Orientation="Horizontal">
+                            <Label Content="Password: " Width="70"></Label>
+                            <Label x:Name="PasswordLbl" Content="{Binding Password}" Width="150"></Label>
+                            <TextBox x:Name="PasswordTb" Text="{Binding Password, UpdateSourceTrigger=PropertyChanged, Mode=OneWay}" Width="150" Visibility="Collapsed" VerticalContentAlignment="Center"></TextBox>
+                            <Button x:Name="PasswordChangeBtn" Margin="5 0 0 0" Padding="5 0" Content="Change" Background="White" BorderBrush="Black" Click="PasswordChangeBtn_Click"></Button>
+                        </StackPanel>
+                        <CheckBox HorizontalAlignment="Center" Content="Show password" x:Name="ShowPass" Click="ShowPass_OnClick" VerticalAlignment="Center" Margin="5 0"></CheckBox>
+                    </StackPanel>
+                </Grid>
+            </Border>
+            
+            
+        </Grid>
+    </Grid>
+</Page>

@@ -9,6 +9,7 @@ using System.Threading.Tasks;
 using System.Windows;
 using System.Windows.Controls;
 using Cats.Core;
+using Cats.Service;
 using Microsoft.Win32;
 
 namespace Cats
@@ -90,12 +91,18 @@ namespace Cats
             SaveChanges();
         }
 
-        public static void EditCat(Cat NewCat)
+        public static void UpdateCat(Cat NewCat)
         {
             _dataBase.Cat.AddOrUpdate(NewCat);
             SaveChanges();
         }
 
+        public static void UpdateUser(User user)
+        {
+            _dataBase.User.AddOrUpdate(user);
+            SaveChanges();
+            UserContext.Update();
+        }
         public static void SaveChanges()
         {
             try
@@ -118,6 +125,11 @@ namespace Cats
 
                 throw new DbEntityValidationException("Fail: " + sb.ToString(), ex);
             }
+        }
+
+        public static bool IsNicknameExists(string nickName)
+        {
+            return _dataBase.User.Any(x => x.Nickname.ToLower() == nickName.ToLower());
         }
     }
 }

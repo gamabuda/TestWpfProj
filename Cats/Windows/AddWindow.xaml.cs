@@ -15,6 +15,7 @@ using System.Windows.Media.Imaging;
 using System.Windows.Shapes;
 using Cats.Core;
 using Cats.Data;
+using Cats.Service;
 using Microsoft.Win32;
 
 namespace Cats

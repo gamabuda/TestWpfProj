@@ -4,74 +4,38 @@
         xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
         xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
         xmlns:local="clr-namespace:Cats"
+        xmlns:materialDesign="http://materialdesigninxaml.net/winfx/xaml/themes"
         mc:Ignorable="d"
-        Title="MainWindow" Height="450" Width="800"
-        WindowStartupLocation="CenterScreen">
-    <Grid Background="Lavender">
+        Width="800" Height="450">
+    <Window.Resources>
+        <Style x:Key="OpenedPageBtn" x:Name="OpenedPageBtn" TargetType="Button">
+            <Setter Property="Width" Value="75"></Setter>
+            <Setter Property="FontSize" Value="16"></Setter>
+            <Setter Property="FontWeight" Value="Bold"></Setter>
+            <Setter Property="Background" Value="LavenderBlush"></Setter>
+        </Style>
+        <Style x:Key="ClosedPageBtn" TargetType="Button">
+            <Setter Property="Width" Value="75"></Setter>
+            <Setter Property="FontSize" Value="16"></Setter>
+            <Setter Property="FontWeight" Value="Bold"></Setter>
+            <Setter Property="Background" Value="Lavender"></Setter>
+        </Style>
+    </Window.Resources>
+    <Grid>
+        <Grid.Background>
+            <ImageBrush ImageSource="/ФОН.jpg"/>
+        </Grid.Background>
         <Grid.RowDefinitions>
-            <RowDefinition Height="auto"/>
-            <RowDefinition Height="1*"/>
-            <RowDefinition Height="auto"/>
+            <RowDefinition Height="Auto"/>
+            <RowDefinition/>
         </Grid.RowDefinitions>
-
-        
-
-        <Grid Grid.Row="0" VerticalAlignment="Center" HorizontalAlignment="Center">
-            <Grid.ColumnDefinitions>
-                <ColumnDefinition Width="auto"/>
-                <ColumnDefinition Width="auto"/>
-                <ColumnDefinition Width="auto"/>
-                <ColumnDefinition Width="auto"/>
-                <ColumnDefinition Width="auto"/>
-                <ColumnDefinition Width="Auto"/>
-            </Grid.ColumnDefinitions>
-            <WrapPanel Grid.Column="0" Margin="6" HorizontalAlignment="Center">
-                <Label Content="Search:"/>
-                <TextBox x:Name="SerchTB" Width="150" TextChanged="SerchTB_TextChanged"></TextBox>
-            </WrapPanel>
-            <Button x:Name="FilterBtn" Margin="6" Grid.Column="3" Padding="10 0" Click="FilterBtn_OnClick">Filters and sorts</Button>
-            <Button x:Name="AddBtn" Margin="6" Grid.Column="4" Padding="10 0" Click="AddBtn_OnClick">Add</Button>
-            <Button x:Name="AddTypeBtn" Margin="6" Grid.Column="5" Padding="10 0" Click="AddTypeBtn_OnClick">Add Type</Button>
-        </Grid>
-        <Grid HorizontalAlignment="Right" Margin="6">
-            <StackPanel Orientation="Horizontal">
-                <Label x:Name="UserLabel"></Label>
-                <Button x:Name="LogOutBtn" Padding="5 0" Click="LogOutBtn_Click">Log out</Button>
-            </StackPanel>
-            
-        </Grid>
-        <ListView Name="LstView" Grid.Row="1">
-            <ListView.ItemContainerStyle>
-                <Style TargetType="ListViewItem">
-                    <Setter Property="HorizontalContentAlignment" Value="Center"/>
-                </Style>
-            </ListView.ItemContainerStyle>
-            <ListView.View>
-                <GridView>
-                    <GridViewColumn DisplayMemberBinding="{Binding Path=ID}">Id</GridViewColumn>
-                    <GridViewColumn DisplayMemberBinding="{Binding Path=Name}" Width="100">Name</GridViewColumn>
-                    <GridViewColumn DisplayMemberBinding="{Binding Path=CatType.Title}" Width="100">Порода</GridViewColumn>
-                    <GridViewColumn DisplayMemberBinding="{Binding Birthday, StringFormat=\{0:d\}}" Width="100">День рождения</GridViewColumn>
-                    <GridViewColumn DisplayMemberBinding="{Binding Path=Gender}" Width="50">Пол</GridViewColumn>
-                    <GridViewColumn Width="100" Header="Photo">
-                        <GridViewColumn.CellTemplate>
-                            <DataTemplate>
-                                <Image Source="{Binding Image}"/>
-                            </DataTemplate>
-                        </GridViewColumn.CellTemplate>
-                    </GridViewColumn>
-                    <GridViewColumn DisplayMemberBinding="{Binding Path=User.Nickname}">Added by</GridViewColumn>
-                </GridView>
-            </ListView.View>
-            <ListView.ContextMenu>
-                <ContextMenu>
-                    <MenuItem Header="View" Click="ViewMI_Click"/>
-                    <MenuItem x:Name="EditMI" Header="Edit" Click="EditMI_Click"/>
-                    <MenuItem x:Name="DeleteMI" Header="Delete" Click="DeleteMI_Click"/>
-                </ContextMenu>
-            </ListView.ContextMenu>
-        </ListView>
-
-        
+        <Grid Grid.Row="0" VerticalAlignment="Top" Height="25">
+                <StackPanel Orientation="Horizontal" HorizontalAlignment="Center">
+                    <Button x:Name="MainPageBtn" Style="{StaticResource OpenedPageBtn}" Click="MainPageBtn_OnClick">Main</Button>
+                    <Button x:Name="ProfilePageBtn" Style="{StaticResource ClosedPageBtn}" Click="ProfilePageBtn_Click">Profile</Button>
+                </StackPanel>
+            </Grid>
+            <Frame Grid.Row="1" x:Name="MainFrame" NavigationUIVisibility="Hidden">
+        </Frame>
     </Grid>
 </Window>
