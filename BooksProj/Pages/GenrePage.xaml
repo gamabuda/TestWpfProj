@@ -8,7 +8,17 @@
       d:DesignHeight="450" d:DesignWidth="800"
       Title="GenrePage">
 
-    <Grid>
-        
+
+    <Grid Margin="10">
+        <ListView Name="LstView" Margin="0,42,0,0" Grid.ColumnSpan="2">
+            <ListView.View>
+                <GridView>
+                    <GridViewColumn DisplayMemberBinding="{Binding Path=ID_Genre}">Номер</GridViewColumn>
+                    <GridViewColumn DisplayMemberBinding="{Binding Path=Title}">Название</GridViewColumn>
+                </GridView>
+            </ListView.View>
+        </ListView>
+
+        <Button Width="150" Height="auto" Margin="0,0,630,408" Click="AddGenreBTN">Добавить жанр</Button>
     </Grid>
 </Page>

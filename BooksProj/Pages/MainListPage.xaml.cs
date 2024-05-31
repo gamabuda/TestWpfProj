@@ -166,5 +166,11 @@ namespace BooksProj.Pages
             LstView.ItemsSource = sortList;
             LstView.Items.Refresh();
         }
+
+        private void AddBookBTN(object sender, RoutedEventArgs e)
+        {
+            AddBookWindow addBook = new AddBookWindow();
+            addBook.ShowDialog();
+        }
     }
 }

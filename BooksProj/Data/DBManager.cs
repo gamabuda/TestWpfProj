@@ -43,6 +43,19 @@ namespace BooksProj.Data
             }
         }
 
+        public static bool AddGenre(Genre g)
+        {
+            try
+            {
+                _dbConnection.Genres.Add(g);
+                return true;
+            }
+            catch
+            {
+                return false;
+            }
+        }
+
         public static bool RemoveBook(Book b)
         {
             try
