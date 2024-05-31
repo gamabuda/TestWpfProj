@@ -67,6 +67,20 @@ namespace ProjWithDB.Data
             return _context.Role.ToList();
         }
 
+        public static bool AddRole(Role r)
+        {
+            try
+            {
+                _context.Role.Add(r);
+                UpdateDatabase();
+                return true;
+            }
+            catch
+            {
+                return false;
+            }
+        }
+
         public static List<Child> GetChild()
         {
             return _context.Child.ToList();

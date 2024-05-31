@@ -7,7 +7,7 @@
       mc:Ignorable="d" 
       d:DesignHeight="800" d:DesignWidth="1700"
       Title="ChildrenListPage" 
-      Background="White">
+      Background ="snow">
 
     <Page.Resources>
         <Style x:Key="FocusVisual">
@@ -213,14 +213,14 @@
 
         </Grid>
 
-        <ListView Name="LstView" Grid.Row="1" BorderBrush="{x:Null}">
+        <ListView Name="LstView" Grid.Row="1" BorderBrush="{x:Null}" Background="snow">
             <ListView.View>
                 <GridView>
                     <GridViewColumn DisplayMemberBinding="{Binding Path=Id}" Width="150">Идентификатор</GridViewColumn>
-                    <GridViewColumn Width="250" Header="Фото">
+                    <GridViewColumn Width="250" Header="Фото" >
                         <GridViewColumn.CellTemplate>
                             <DataTemplate>
-                                <Image x:Name="ObjectImg" Source="{Binding Photo}" Width="100" Height="100"/>
+                                <Image x:Name="ObjectImg" Source="{Binding Photo}" Width="100" Height="100" HorizontalAlignment="Center" VerticalAlignment="Center"/>
                             </DataTemplate>
                         </GridViewColumn.CellTemplate>
                     </GridViewColumn>
@@ -230,7 +230,7 @@
                     <GridViewColumn DisplayMemberBinding="{Binding Path=Gender}" Width="150">Пол</GridViewColumn>
                     <GridViewColumn DisplayMemberBinding="{Binding Path=Age}" Width="150">Возраст</GridViewColumn>
                     <GridViewColumn DisplayMemberBinding="{Binding Path=RoomNumber}" Width="150">Комната</GridViewColumn>
-                    <GridViewColumn DisplayMemberBinding="{Binding Path=MoveInDate}" Width="150">Дата заселения</GridViewColumn>
+                    <GridViewColumn DisplayMemberBinding="{Binding Path=MoveInDate, StringFormat='{}{0:d}'}" Width="150">Дата заселения</GridViewColumn>
                 </GridView>
             </ListView.View>
             <ListView.ContextMenu>

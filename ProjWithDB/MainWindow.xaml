@@ -4,14 +4,6 @@
         xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
         xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
         xmlns:local="clr-namespace:ProjWithDB"
-        xmlns:materialDesign="http://materialdesigninxaml.net/winfx/xaml/themes"
-        TextElement.Foreground="{DynamicResource MaterialDesignBody}"
-        TextElement.FontWeight="Regular"
-        TextElement.FontSize="13"
-        TextOptions.TextFormattingMode="Ideal"
-        TextOptions.TextRenderingMode="Auto"
-        Background="{DynamicResource MaterialDesignPaper}"
-        FontFamily="{DynamicResource MaterialDesignFont}"
         mc:Ignorable="d"
         Title="Детский дом" Height="800" Width="1700" WindowStartupLocation="CenterScreen">
 
@@ -164,12 +156,9 @@
 
         <Frame x:Name="MainFrame" Grid.Row="0" NavigationUIVisibility="Hidden" Grid.RowSpan="2"/>
         <WrapPanel Grid.Row="1" HorizontalAlignment="Center" VerticalAlignment="Center">
-            <WrapPanel VerticalAlignment="Center">
-                <Button x:Name="MainPageNavigateBtn" Content="Главная" Margin="0,0,20,0" Padding="30,4,30,4" Click="MainPageNavigateBtn_Click" Background="#FFB7DBFF" BorderBrush="#FF001457" />
-                <Button x:Name="ChildrenListPageNavigateBtn" Content="Дети" Margin="0,0,20,0" Padding="30,4,30,4" Click="ChildrenListPageNavigateBtn_Click" Background="#FFB7DBFF" BorderBrush="#FF001457" />
-                <Button x:Name="RoomsPageNavigateBtn" Content="Комнаты" Padding="30,4,30,4" Click="RoomsPageNavigateBtn_Click" Background="#FFB7DBFF" BorderBrush="#FF001457"></Button>
-            </WrapPanel>
-            
+            <Button x:Name="MainPageNavigateBtn" Content="Главная" Margin="0,0,20,0" Padding="30,4,30,4" Click="MainPageNavigateBtn_Click" Background="#FFB7DBFF" BorderBrush="#FF001457" />
+            <Button x:Name="ChildrenListPageNavigateBtn" Content="Дети" Margin="0,0,20,0" Padding="30,4,30,4" Click="ChildrenListPageNavigateBtn_Click" Background="#FFB7DBFF" BorderBrush="#FF001457" />
+            <Button x:Name="UsersPageNavigateBtn" Content="Пользователи" Padding="30,4,30,4" Click="UsersPageNavigateBtn_Click" Background="#FFB7DBFF" BorderBrush="#FF001457"></Button>
         </WrapPanel>
 
         <StackPanel Grid.Row="1" HorizontalAlignment="Right" VerticalAlignment="Center">

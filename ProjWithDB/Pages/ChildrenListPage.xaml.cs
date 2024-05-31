@@ -297,9 +297,15 @@ namespace ProjWithDB.Pages
 
         private void ExitBtn_Click(object sender, RoutedEventArgs e)
         {
-            _user = null;
-            new AuthorizationWindow().Show();
-            Window.GetWindow(this).Close();
+            if (MessageBox.Show("Вы действительно хотите выйти?",
+                    "Выход из аккаунта",
+                    MessageBoxButton.YesNo,
+                    MessageBoxImage.Question) == MessageBoxResult.Yes)
+            {
+                _user = null;
+                new AuthorizationWindow().Show();
+                Window.GetWindow(this).Close();
+            }
         }
     }
 }

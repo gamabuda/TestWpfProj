@@ -28,7 +28,8 @@ namespace ProjWithDB.Windows
             _user = user;
             _selectedChild = selectedPerson;
             this.DataContext = _selectedChild;
-            MoveInDate_TB.Text = _selectedChild.MoveInDate.ToString();
+            MoveInDate_TB.Text = _selectedChild.MoveInDate.Value.ToString("d");
+            _img = _selectedChild.Photo;
 
             if (_user.Role_Id == 1)
             {

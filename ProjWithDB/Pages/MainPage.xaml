@@ -162,6 +162,6 @@
         <Grid.Background>
             <ImageBrush ImageSource="/img/photos/house.jpg" Stretch="UniformToFill"/>
         </Grid.Background>
-        <Label Content="Детский дом «Мамина радость»" HorizontalAlignment="Center" FontSize="36" FontWeight="Bold" BorderBrush="{x:Null}" VerticalAlignment="Top" Background="{x:Null}" Foreground="#FFFFFE86" />
+        <Label Content="Детский дом «Мамина радость»" HorizontalAlignment="Center" FontSize="60" FontWeight="Bold" BorderBrush="{x:Null}" VerticalAlignment="Top" Background="{x:Null}" Foreground="#FFFFFE55" Margin="0,20,0,0" />
     </Grid>
 </Page>

@@ -18,6 +18,7 @@ namespace ProjWithDB
         public string Login { get; set; }
         public string Password { get; set; }
         public Nullable<int> Role_Id { get; set; }
+        public byte[] Photo { get; set; }
     
         public virtual Role Role { get; set; }
     }

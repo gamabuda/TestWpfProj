@@ -1,5 +1,4 @@
-﻿
-using System;
+﻿using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Reflection;
@@ -31,23 +30,29 @@ namespace ProjWithDB
             InitializeComponent();
             _user = user;
             MainFrame.Navigate(new MainPage());
+            DBManager.UpdateDatabase();
+            if (_user.Role_Id == 1)
+                UsersPageNavigateBtn.Visibility = Visibility.Collapsed;
 
             // ДОБАВЛЕНИЕ ФОТО ДЕТЕЙ
             //foreach (var p in DBManager.GetChild())
             //{
             //    if (p.Gender.ToString() == "М")
-            //        p.Photo = File2Byte(@"../../img/people/boy.jpg");
+            //        p.Photo = File2Byte(@"../../img/icons/boyIcon.png");
             //    else
-            //        p.Photo = File2Byte(@"../../img/people/girl.jpg");
+            //        p.Photo = File2Byte(@"../../img/icons/girlIcon.png");
             //}
 
             // УДАЛЕНИЕ ФОТО ДЕТЕЙ
             //foreach (var p in DBManager.GetChild())
             //{
-            //    if (p.Gender.ToString() == "М")
             //        p.Photo = null;
-            //    else
-            //        p.Photo = null;
+            //}
+
+            // ДОБАВЛЕНИЕ ФОТО ПОЛЬЗОВАТЕЛЕЙ
+            //foreach (var p in DBManager.GetUsers())
+            //{
+            //    p.Photo = File2Byte(@"../../img/icons/userNeon.png");
             //}
         }
         public Byte[] File2Byte(string filePath)
@@ -68,14 +73,17 @@ namespace ProjWithDB
             MainFrame.Navigate(new ChildrenListPage(_user));
         }
 
-        private void RoomsPageNavigateBtn_Click(object sender, RoutedEventArgs e)
+        private void UsersPageNavigateBtn_Click(object sender, RoutedEventArgs e)
         {
-            MainFrame.Navigate(new RoomsPage());
+            MainFrame.Navigate(new UsersPage(_user));
         }
 
         private void AccountPageNavigateBtn_Click(object sender, RoutedEventArgs e)
         {
-            MainFrame.Navigate(new AccountPage(_user));
+            if (_user.Role_Id == 1)
+                MainFrame.Navigate(new GuestAccountPage());
+            else
+                MainFrame.Navigate(new AccountPage(_user));
         }
     }
 }

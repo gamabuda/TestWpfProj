@@ -32,17 +32,7 @@ namespace ProjWithDB.Pages
 
         private void GuestButton_Click(object sender, RoutedEventArgs e)
         {
-            foreach (var u in DBManager.GetUsers())
-            {
-                if (u.Login == "guest")
-                {
-                    _user = u;
-                    new MainWindow(_user).Show();
-                    Window.GetWindow(this).Close();
-                    return;
-                }
-            }
-            new MainWindow(_user).Show();
+            new MainWindow(_users[0]).Show();
             Window.GetWindow(this).Close();
         }
 

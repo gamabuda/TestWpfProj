@@ -84,6 +84,7 @@ namespace ProjWithDB.Pages
                 _user.Role_Id = 1;
                 DBManager.AddUser(_user);
                 DBManager.UpdateDatabase();
+                MessageBox.Show("Регистрация прошла успешно!", "Регистрация", MessageBoxButton.OK, MessageBoxImage.Information);
                 NavigationService.Navigate(new SignInPage());
             }
         }
