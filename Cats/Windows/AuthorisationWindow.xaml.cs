@@ -24,18 +24,12 @@ namespace Cats.Windows
         public AuthorisationWindow()
         {
             InitializeComponent();
+            LoginTb.Focus();
         }
 
         private void LoginBtn_Click(object sender, RoutedEventArgs e)
         {
-            User user;
-            if (DataBaseManager.CanLogin(LoginTb.Text, PasswordTb.Password, out user))
-            {
-                UserContext.CurrentUser = user;
-                MainWindow mainWindow = new MainWindow();
-                mainWindow.Show();
-                Close();
-            }
+            Login();
         }
 
         private void CreateAccountBtn_Click(object sender, RoutedEventArgs e)
@@ -57,6 +51,25 @@ namespace Cats.Windows
             MainWindow mainWindow = new MainWindow();
             mainWindow.Show();
             Close();
+        }
+
+        private void PasswordTb_OnKeyDown(object sender, KeyEventArgs e)
+        {
+            if(e.Key != Key.Enter) return;
+
+            Login();
+        }
+
+        private void Login()
+        {
+            User user;
+            if (DataBaseManager.CanLogin(LoginTb.Text, PasswordTb.Password, out user))
+            {
+                UserContext.CurrentUser = user;
+                MainWindow mainWindow = new MainWindow();
+                mainWindow.Show();
+                Close();
+            }
         }
     }
 }

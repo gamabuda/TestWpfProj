@@ -17,7 +17,7 @@
             <Label Content="Login" FontSize="20" HorizontalContentAlignment="Center" FontWeight="bold"></Label>
             <TextBox x:Name="LoginTb" FontSize="20" HorizontalContentAlignment="Center"></TextBox>
             <Label Content="Password" FontSize="20" HorizontalContentAlignment="Center" FontWeight="bold"></Label>
-            <PasswordBox PasswordChar="ฅ" x:Name="PasswordTb" FontSize="20" HorizontalContentAlignment="Center"></PasswordBox>
+            <PasswordBox PasswordChar="ฅ" x:Name="PasswordTb" FontSize="20" HorizontalContentAlignment="Center" KeyDown="PasswordTb_OnKeyDown"></PasswordBox>
         </StackPanel>
 
         <StackPanel Grid.Row="1" Orientation="Vertical" HorizontalAlignment="Center" Margin="25">

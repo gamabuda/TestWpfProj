@@ -26,9 +26,9 @@ namespace Cats
         {
             InitializeComponent();
             NameTb.Text = cat.Name;
-            IdTb.Text = cat.ID;
             GenderTb.Text = cat.Gender;
             BirthdayTb.Text = cat.Birthday.ToShortDateString();
+            CatTypeTb.Text = cat.CatType.Title;
             if (cat.Image != null) ImageB.Source = ByteImageConverter.ByteToImage(cat.Image);
         }
     }

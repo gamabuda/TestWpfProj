@@ -23,15 +23,15 @@
                             <Label x:Name="NickLbl" Width="70" Content="Nickname: "></Label>
                             <Label x:Name="NicknameLbl" Content="{Binding UserName}" Width="150"></Label>
                             <TextBox x:Name="NicknameTb" Text="{Binding UserName}" Width="150" Visibility="Collapsed" VerticalContentAlignment="Center"></TextBox>
-                            <Button x:Name="NicknameChangeBtn" Margin="5 0 0 0" Padding="5 0" Content="Change" Background="White" BorderBrush="Black" Click="NicknameChangeBtn_Click"></Button>
+                            <Button x:Name="NicknameChangeBtn" Margin="5 0 0 0" Padding="5 0" Content="Change" Style="{StaticResource ButtonStyle}" Click="NicknameChangeBtn_Click"></Button>
                         </StackPanel>
                         <StackPanel Orientation="Horizontal">
                             <Label Content="Password: " Width="70"></Label>
                             <Label x:Name="PasswordLbl" Content="{Binding Password}" Width="150"></Label>
                             <TextBox x:Name="PasswordTb" Text="{Binding Password, UpdateSourceTrigger=PropertyChanged, Mode=OneWay}" Width="150" Visibility="Collapsed" VerticalContentAlignment="Center"></TextBox>
-                            <Button x:Name="PasswordChangeBtn" Margin="5 0 0 0" Padding="5 0" Content="Change" Background="White" BorderBrush="Black" Click="PasswordChangeBtn_Click"></Button>
+                            <Button x:Name="PasswordChangeBtn" Margin="5 0 0 0" Padding="5 0" Content="Change" Style="{StaticResource ButtonStyle}" Click="PasswordChangeBtn_Click"></Button>
                         </StackPanel>
-                        <CheckBox HorizontalAlignment="Center" Content="Show password" x:Name="ShowPass" Click="ShowPass_OnClick" VerticalAlignment="Center" Margin="5 0"></CheckBox>
+                        <CheckBox Margin="0 0 0 10"  HorizontalAlignment="Center" Content="Show password" x:Name="ShowPass" Click="ShowPass_OnClick" VerticalAlignment="Center"></CheckBox>
                     </StackPanel>
                 </Grid>
             </Border>

@@ -16,8 +16,9 @@ namespace Cats
     /// </summary>
     public partial class MainWindow : Window
     {
-        private MainPage _mainPage;
-        private ProfilePage _profilePage;
+        public MainPage _mainPage;
+        public ProfilePage _profilePage;
+        public TypesPage _typesPage;
 
         public MainWindow()
         {
@@ -25,6 +26,9 @@ namespace Cats
 
             _mainPage = new MainPage();
             _profilePage = new ProfilePage();
+            _typesPage = new TypesPage();
+
+            DataContext = UserContext.AppViewModel;
 
             MainFrame.NavigationService.Navigate(_mainPage);
 
@@ -32,12 +36,15 @@ namespace Cats
                 ProfilePageBtn.IsEnabled = false;
 
             Application.Current.MainWindow = this;
+            if (UserContext.CurrentUser.isAdmin == false)
+                CatTypesPageBtn.Visibility = Visibility.Collapsed;
         }
 
         private void MainPageBtn_OnClick(object sender, RoutedEventArgs e)
         {
             MainPageBtn.Style = (Style)Resources["OpenedPageBtn"];
             ProfilePageBtn.Style = (Style)Resources["ClosedPageBtn"];
+            CatTypesPageBtn.Style = (Style)Resources["ClosedPageBtn"];
             MainFrame.NavigationService.Navigate(_mainPage);
         }
 
@@ -45,7 +52,24 @@ namespace Cats
         {
             MainPageBtn.Style = (Style)Resources["ClosedPageBtn"];
             ProfilePageBtn.Style = (Style)Resources["OpenedPageBtn"];
+            CatTypesPageBtn.Style = (Style)Resources["ClosedPageBtn"];
             MainFrame.NavigationService.Navigate(_profilePage);
+        }
+
+        private void CatTypesPageBtn_OnClick(object sender, RoutedEventArgs e)
+        {
+            MainPageBtn.Style = (Style)Resources["ClosedPageBtn"];
+            ProfilePageBtn.Style = (Style)Resources["ClosedPageBtn"];
+            CatTypesPageBtn.Style = (Style)Resources["OpenedPageBtn"];
+            MainFrame.NavigationService.Navigate(_typesPage);
+        }
+
+        private void LogOutBtn_Click(object sender, RoutedEventArgs e)
+        {
+            UserContext.CurrentUser = null;
+            AuthorisationWindow authorisationWindow = new AuthorisationWindow();
+            authorisationWindow.Show();
+            Application.Current.MainWindow.Close();
         }
     }
 }

@@ -85,6 +85,17 @@ namespace Cats
             SaveChanges();
         }
 
+        public static void RemoveCatType(CatType catType)
+        {
+            _dataBase.CatType.Remove(catType);
+            SaveChanges();
+        }
+
+        public static void UpdateCatType(CatType catType)
+        {
+            _dataBase.CatType.AddOrUpdate(catType);
+            SaveChanges();
+        }
         public static void RemoveCat(Cat cat)
         {
             _dataBase.Cat.Remove(cat);

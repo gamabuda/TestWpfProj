@@ -61,15 +61,12 @@ namespace Cats
 
         private void OkBtn_Click(object sender, RoutedEventArgs e)
         {
-            //if (BirthdayDatePicker.SelectedDate == null || CatTypeCb.SelectedItem == null ||
-            //    GenderCb.Text == "" || NameTb.Text == "")
-            //{
-            //    MessageBox.Show("Заполните все поля!");
-            //    return;
-            //}
-            Random rnd = new Random();
-            CatTypeCb.SelectedItem = DataBaseManager.GetAllCatTypes()[rnd.Next(DataBaseManager.GetAllCatTypes().Count)];
-            GenderCb.SelectedItem = ((string[]) ["Кот", "Кошка"])[rnd.Next(1)];
+            if (BirthdayDatePicker.SelectedDate == null || CatTypeCb.SelectedItem == null ||
+                GenderCb.Text == "" || NameTb.Text == "")
+            {
+                MessageBox.Show("Заполните все поля!");
+                return;
+            }
             DialogResult = true;
             NewCat = new Cat()
             {
@@ -86,11 +83,13 @@ namespace Cats
 
         private void LoadImg()
         {
-            OpenFileDialog op = new OpenFileDialog();
-            op.Title = "Select a photo";
-            op.Filter = "All supported graphics|*.jpg;*.jpeg;*.png|" +
-                        "JPEG (*.jpg;*.jpeg)|*.jpg;*.jpeg|" +
-                        "Portable Network Graphic (*.png)|*.png";
+            OpenFileDialog op = new()
+            {
+                Title = "Select a photo",
+                Filter = "All supported graphics|*.jpg;*.jpeg;*.png|" +
+                         "JPEG (*.jpg;*.jpeg)|*.jpg;*.jpeg|" +
+                         "Portable Network Graphic (*.png)|*.png"
+            };
             if (op.ShowDialog() == true)
             {
                 Image = ByteImageConverter.File2Byte(op.FileName);

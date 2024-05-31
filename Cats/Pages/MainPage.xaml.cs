@@ -37,7 +37,6 @@ namespace Cats.Pages
             }
             if (UserContext.CurrentUser.isAdmin != true)
             {
-                AddTypeBtn.Visibility = Visibility.Collapsed;
                 EditMI.Visibility = Visibility.Collapsed;
                 DeleteMI.Visibility = Visibility.Collapsed;
             }
@@ -134,22 +133,6 @@ namespace Cats.Pages
             LstView.ItemsSource = Search(lst);
             LstView.Items.Refresh();
 
-        }
-
-        private void AddTypeBtn_OnClick(object sender, RoutedEventArgs e)
-        {
-            AddTypeWindow addWindow = new AddTypeWindow();
-            addWindow.ShowDialog();
-            if (addWindow.DialogResult == false) return;
-            DataBaseManager.AddCatType(addWindow.NewType);
-        }
-
-        private void LogOutBtn_Click(object sender, RoutedEventArgs e)
-        {
-            UserContext.CurrentUser = null;
-            AuthorisationWindow authorisationWindow = new AuthorisationWindow();
-            authorisationWindow.Show();
-            Application.Current.MainWindow.Close();
         }
     }
 }
