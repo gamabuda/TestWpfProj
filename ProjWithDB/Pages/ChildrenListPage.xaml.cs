@@ -6,6 +6,7 @@ using System.IO;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
+using System.Web.UI.WebControls;
 using System.Windows;
 using System.Windows.Controls;
 using System.Windows.Data;
@@ -51,7 +52,10 @@ namespace ProjWithDB.Pages
             MoveInDateFilter.ItemsSource = _sortNumbers;
 
             if (_user.Role_Id == 1)
+            {
                 ContextM.Items.Remove(Delete_MI);
+                AddBtn.Visibility = Visibility.Hidden;
+            }
         }
 
         private void DeletePerson_Click(object sender, RoutedEventArgs e)
@@ -295,17 +299,13 @@ namespace ProjWithDB.Pages
             LstView.Items.Refresh();
         }
 
-        private void ExitBtn_Click(object sender, RoutedEventArgs e)
+        private void AddBtn_Click(object sender, RoutedEventArgs e)
         {
-            if (MessageBox.Show("Вы действительно хотите выйти?",
-                    "Выход из аккаунта",
-                    MessageBoxButton.YesNo,
-                    MessageBoxImage.Question) == MessageBoxResult.Yes)
-            {
-                _user = null;
-                new AuthorizationWindow().Show();
-                Window.GetWindow(this).Close();
-            }
+            new AddChildWindow().ShowDialog();
+            DBManager.UpdateDatabase();
+            _listView = DBManager.GetChild();
+            LstView.ItemsSource = _listView;
+            LstView.Items.Refresh();
         }
     }
 }

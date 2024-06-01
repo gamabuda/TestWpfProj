@@ -174,11 +174,7 @@
             </Grid.ColumnDefinitions>
 
             <WrapPanel Grid.Column="0" Margin="6" HorizontalAlignment="Left">
-                <Button x:Name="ExitBtn" Style="{StaticResource ButtonWithoutBackgroundChange}" BorderBrush="{x:Null}" Padding="0,0,0,0" FontSize="20" Cursor="Hand" Width="28" Height="24" Click="ExitBtn_Click">
-                    <Button.Background>
-                        <ImageBrush Stretch="Uniform" ImageSource="/img/icons/exit.png"/>
-                    </Button.Background>
-                </Button>
+                <Button x:Name="AddBtn" Style="{StaticResource ButtonWithoutBackgroundChange}" Content="+" BorderBrush="{x:Null}" Padding="0,-15.1,0,0" FontSize="36" Cursor="Hand" Width="28" Height="27.4" Click="AddBtn_Click" Background="{x:Null}" FontWeight="Bold" Foreground="#FF001BFF" />
             </WrapPanel>
             <WrapPanel Grid.Column="1" Margin="65,6,6,6" HorizontalAlignment="Left" >
                 <Label Content="Поиск:" />

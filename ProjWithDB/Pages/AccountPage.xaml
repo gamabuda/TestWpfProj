@@ -208,7 +208,7 @@
             </Grid>
         </Border>
 
-        <Button x:Name="SaveBtn" Grid.Column="1" Grid.Row="2" Content="Сохранить изменения"  Cursor="Hand" Click="SaveBtn_Click" FontSize="30" Margin="0,0,100,0" VerticalAlignment="Center" Height="70" Background="#FF0061FF" Foreground="White" BorderBrush="#FF0061FF" FontWeight="Bold" />
+        <Button x:Name="SaveBtn" Grid.Column="1" Grid.Row="2" Content="Сохранить изменения"  Cursor="Hand" Click="SaveBtn_Click" FontSize="24" VerticalAlignment="Center" Height="50" Background="#FF0061FF" Foreground="White" BorderBrush="#FF0061FF" FontWeight="Bold" Width="700" HorizontalAlignment="Left" Margin="0,-20,0,0" />
 
     </Grid>
 </Page>

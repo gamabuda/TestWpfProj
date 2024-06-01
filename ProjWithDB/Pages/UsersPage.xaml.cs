@@ -18,9 +18,6 @@ using System.Windows.Shapes;
 
 namespace ProjWithDB.Pages
 {
-    /// <summary>
-    /// Логика взаимодействия для RoomsPage.xaml
-    /// </summary>
     public partial class UsersPage : Page
     {
         private User _user;
@@ -126,6 +123,14 @@ namespace ProjWithDB.Pages
 
             _listView = _listView.Where(x => x.Role_Id == type.Id).ToList();
 
+            if (_searchList.Count > 0)
+                _listView = _searchList.Where(x => x.Role_Id == type.Id).ToList();
+            else if (_searchList.Count == 0 && SearchTB.Text.Length != 0)
+                _listView.Clear();
+            else if (SearchTB.Text.Length == 0)
+                _listView = DBManager.GetUsers().Where(x => x.Role_Id == type.Id).ToList();
+
+            LoginFilter_DropDownClosed(sender, e);
             LstView.ItemsSource = _listView;
             LstView.Items.Refresh();
         }
@@ -158,6 +163,15 @@ namespace ProjWithDB.Pages
                 new AuthorizationWindow().Show();
                 Window.GetWindow(this).Close();
             }
+        }
+
+        private void AddBtn_Click(object sender, RoutedEventArgs e)
+        {
+            new AddUserWindow().ShowDialog();
+            DBManager.UpdateDatabase();
+            _listView = DBManager.GetUsers();
+            LstView.ItemsSource = _listView;
+            LstView.Items.Refresh();
         }
     }
 }

@@ -17,30 +17,17 @@ using System.Windows.Shapes;
 
 namespace ProjWithDB.Windows
 {
-    public partial class EditInfoWindow : Window
+    public partial class AddChildWindow : Window
     {
+
         private User _user;
+        private Child _child;
         private byte[] _img = new byte[0];
-        private Child _selectedChild;
-        public EditInfoWindow(Child selectedPerson, User user)
+
+        public AddChildWindow()
         {
             InitializeComponent();
-            _user = user;
-            _selectedChild = selectedPerson;
-            this.DataContext = _selectedChild;
-            MoveInDate_TB.Text = _selectedChild.MoveInDate.Value.ToString("d");
-            _img = _selectedChild.Photo;
-
-            if (_user.Role_Id == 1)
-            {
-                LoadImgBtn.IsEnabled = false;
-                Info_SP.IsEnabled = false;
-                ID_SP.Visibility = Visibility.Hidden;
-                SaveBtn.Visibility = Visibility.Hidden;
-                CloseBtn.Visibility = Visibility.Hidden;
-                EditBtn.Visibility = Visibility.Hidden;
-                DeleteBtn.Visibility = Visibility.Hidden;
-            }
+            _child = new Child();
         }
 
         private void DeletePhoto_Click(object sender, RoutedEventArgs e)
@@ -84,54 +71,34 @@ namespace ProjWithDB.Windows
 
             try
             {
-                _selectedChild.Surname = Surname_TB.Text;
-                _selectedChild.Name = Name_TB.Text;
-                _selectedChild.Patronymic = Patronymic_TB.Text;
+                _child.Surname = Surname_TB.Text;
+                _child.Name = Name_TB.Text;
+                _child.Patronymic = Patronymic_TB.Text;
                 if (Gender_TB.Text.ToUpper() != "М" && Gender_TB.Text.ToUpper() != "Ж")
                 {
                     MessageBox.Show("Некорректный пол (М / Ж)!", "Ошибка сохранения", MessageBoxButton.OK, MessageBoxImage.Error);
                     return;
-                }
-                _selectedChild.Gender = Gender_TB.Text.ToUpper();
-                _selectedChild.Age = Convert.ToInt32(Age_TB.Text);
-                _selectedChild.RoomNumber = Convert.ToInt32(RoomNumber_TB.Text);
-                _selectedChild.Photo = _img;
-                _selectedChild.MoveInDate = DateTime.Parse(MoveInDate_TB.Text);
+                } 
+                _child.Gender = Gender_TB.Text.ToUpper();
+                _child.Age = Convert.ToInt32(Age_TB.Text);
+                _child.RoomNumber = Convert.ToInt32(RoomNumber_TB.Text);
+                _child.Photo = _img;
+                _child.MoveInDate = DateTime.Parse(MoveInDate_TB.Text);
 
+                DBManager.AddChild(_child);
                 DBManager.UpdateDatabase();
-                LoadImgBtn.IsEnabled = false;
-                SaveBtn.IsEnabled = false;
-                Info_SP.IsEnabled = false;
+                MessageBox.Show("Ребенок заселен!", "Заселение", MessageBoxButton.OK, MessageBoxImage.Information);
                 this.Close();
-            }
-            catch
+            } catch
             {
                 MessageBox.Show("Некорректные данные!", "Ошибка сохранения", MessageBoxButton.OK, MessageBoxImage.Error);
             }
+            
         }
 
         private void CloseBtn_Click(object sender, RoutedEventArgs e)
         {
             this.Close();
-        }
-
-        private void EditBtn_Click(object sender, RoutedEventArgs e)
-        {
-            LoadImgBtn.IsEnabled = true;
-            SaveBtn.IsEnabled = true;
-            Info_SP.IsEnabled = true;
-        }
-
-        private void DeleteBtn_Click(object sender, RoutedEventArgs e)
-        {
-            if (MessageBox.Show("Вы действительно хотите удалить этого человека?",
-                    "Удаление информации",
-                    MessageBoxButton.YesNo,
-                    MessageBoxImage.Question) == MessageBoxResult.Yes)
-            {
-                DBManager.RemoveChild(_selectedChild);
-                this.Close();
-            }
         }
     }
 }

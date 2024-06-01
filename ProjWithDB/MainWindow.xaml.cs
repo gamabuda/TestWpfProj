@@ -33,6 +33,8 @@ namespace ProjWithDB
             DBManager.UpdateDatabase();
             if (_user.Role_Id == 1)
                 UsersPageNavigateBtn.Visibility = Visibility.Collapsed;
+            //else
+                //GamePageNavigateBtn.Visibility = Visibility.Collapsed;
 
             // ДОБАВЛЕНИЕ ФОТО ДЕТЕЙ
             //foreach (var p in DBManager.GetChild())
@@ -43,17 +45,17 @@ namespace ProjWithDB
             //        p.Photo = File2Byte(@"../../img/icons/girlIcon.png");
             //}
 
-            // УДАЛЕНИЕ ФОТО ДЕТЕЙ
-            //foreach (var p in DBManager.GetChild())
-            //{
-            //        p.Photo = null;
-            //}
+                // УДАЛЕНИЕ ФОТО ДЕТЕЙ
+                //foreach (var p in DBManager.GetChild())
+                //{
+                //        p.Photo = null;
+                //}
 
-            // ДОБАВЛЕНИЕ ФОТО ПОЛЬЗОВАТЕЛЕЙ
-            //foreach (var p in DBManager.GetUsers())
-            //{
-            //    p.Photo = File2Byte(@"../../img/icons/userNeon.png");
-            //}
+                // ДОБАВЛЕНИЕ ФОТО ПОЛЬЗОВАТЕЛЕЙ
+                //foreach (var p in DBManager.GetUsers())
+                //{
+                //    p.Photo = File2Byte(@"../../img/icons/userNeon.png");
+                //}
         }
         public Byte[] File2Byte(string filePath)
         {
@@ -85,5 +87,10 @@ namespace ProjWithDB
             else
                 MainFrame.Navigate(new AccountPage(_user));
         }
+
+    //    private void GamePageNavigateBtn_Click(object sender, RoutedEventArgs e)
+    //    {
+    //        MainFrame.Navigate(new GamePage());
+    //    }
     }
 }

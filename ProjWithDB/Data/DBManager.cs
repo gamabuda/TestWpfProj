@@ -86,6 +86,20 @@ namespace ProjWithDB.Data
             return _context.Child.ToList();
         }
 
+        public static bool AddChild(Child c)
+        {
+            try
+            {
+                _context.Child.Add(c);
+                UpdateDatabase();
+                return true;
+            }
+            catch
+            {
+                return false;
+            }
+        }
+
         public static bool RemoveChild(Child c)
         {
             try
