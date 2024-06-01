@@ -68,10 +68,11 @@ namespace ProjWithDB.Pages
             if (selectedUser == null)
                 return;
 
-            return;
-            //new EditInfoWindow(selectedUser, _user).ShowDialog(); TODO Сделать окно редактирования юзера
+            new EditUserInfoWindow(selectedUser).ShowDialog();
 
             SearchTB_TextChanged(sender, _searchInput);
+            DBManager.UpdateDatabase();
+            _listView = DBManager.GetUsers();
             LstView.ItemsSource = _listView;
             LstView.Items.Refresh();
         }

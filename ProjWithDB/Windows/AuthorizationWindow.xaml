@@ -5,8 +5,9 @@
         xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
         xmlns:local="clr-namespace:ProjWithDB.Windows"
         mc:Ignorable="d"
+        Icon="/img/icons/logo.png"
         WindowStartupLocation="CenterScreen"
-        Title="AuthorizationWindow" Height="600" Width="800">
+        Title="Авторизация" Height="600" Width="800">
     <Grid HorizontalAlignment="Center" VerticalAlignment="Center">
         <Grid.RowDefinitions>
             <RowDefinition Height="Auto"/>

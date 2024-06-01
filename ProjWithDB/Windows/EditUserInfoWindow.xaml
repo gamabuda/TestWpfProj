@@ -1,11 +1,11 @@
-﻿<Window x:Class="ProjWithDB.Windows.EditInfoWindow"
+﻿<Window x:Class="ProjWithDB.Windows.EditUserInfoWindow"
         xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
         xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
         xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
         xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
         xmlns:local="clr-namespace:ProjWithDB.Windows"
         mc:Ignorable="d"
-        Title="Информация о ребенке" Height="400" Width="600" WindowStartupLocation="CenterScreen" Background="Lavender">
+            Title="Информация о пользователе" Height="400" Width="600" WindowStartupLocation="CenterScreen" Background="Lavender">
 
     <Window.Resources>
         <Style x:Key="FocusVisual">
@@ -177,8 +177,8 @@
         </StackPanel>
 
         <Border Grid.Column="0" Grid.Row="1" CornerRadius="25" >
-            <Button x:Name="LoadImgBtn" Click="LoadImgBtn_Click" BorderBrush="#FFC9C9C9" IsEnabled="False" Width="280" Height="274">
-                <Image x:Name="ObjectImg" Width="280" Height="274" Source="{Binding Photo}"/>
+            <Button x:Name="LoadImgBtn" Click="LoadImgBtn_Click" BorderBrush="#FFC9C9C9" IsEnabled="False" Width="280" Height="280">
+                <Image x:Name="ObjectImg" Width="280" Height="280" Source="{Binding Photo}"/>
                 <Button.ContextMenu>
                     <ContextMenu x:Name="ContextM" >
                         <MenuItem x:Name="LoadPhoto_MI" Header="Загрузить" Click="LoadImgBtn_Click"/>
@@ -196,23 +196,15 @@
                 </Grid.ColumnDefinitions>
 
                 <StackPanel Grid.Column="0" Margin="4,0,0,0">
-                    <Label Content="Фамилия:" FontSize="12" Height="25" />
-                    <Label Content="Имя:" FontSize="12" Height="25"/>
-                    <Label Content="Отчество:" FontSize="12" Height="25"/>
-                    <Label Content="Пол:" FontSize="12" Height="25" />
-                    <Label Content="Возраст:" FontSize="12" Height="25"/>
-                    <Label Content="Комната:" FontSize="12" Height="25"/>
-                    <Label Content="Дата заселения:" FontSize="12" Height="25"/>
+                    <Label Content="Логин:" FontSize="12" Height="25" />
+                    <Label Content="Пароль:" FontSize="12" Height="25"/>
+                    <Label Content="Роль:" FontSize="12" Height="25"/>
                 </StackPanel>
 
                 <StackPanel x:Name="Info_SP" Grid.Column="1" Margin="4,0,0,0" IsEnabled="False">
-                    <TextBox x:Name="Surname_TB" Text="{Binding Surname, UpdateSourceTrigger=Explicit}" VerticalAlignment="Center" FontSize="12" Height="25" Padding="0,5,0,0" Background="{x:Null}" BorderBrush="{x:Null}" />
-                    <TextBox x:Name="Name_TB" Text="{Binding Name, UpdateSourceTrigger=Explicit}" VerticalAlignment="Center" FontSize="12" Height="25" Padding="0,5,0,0" Background="{x:Null}" BorderBrush="{x:Null}"/>
-                    <TextBox x:Name="Patronymic_TB"  Text="{Binding Patronymic, UpdateSourceTrigger=Explicit}" VerticalAlignment="Center" FontSize="12" Height="25" Padding="0,5,0,0" BorderBrush="{x:Null}" Background="{x:Null}"/>
-                    <TextBox x:Name="Gender_TB" Text="{Binding Gender, UpdateSourceTrigger=Explicit}" VerticalAlignment="Center" FontSize="12" Height="25" Padding="0,5,0,0" BorderBrush="{x:Null}" Background="{x:Null}"/>
-                    <TextBox x:Name="Age_TB" Text="{Binding Age, UpdateSourceTrigger=Explicit}" VerticalAlignment="Center" FontSize="12" Height="25" Padding="0,5,0,0" BorderBrush="{x:Null}" Background="{x:Null}"/>
-                    <TextBox x:Name="RoomNumber_TB"  Text="{Binding RoomNumber, UpdateSourceTrigger=Explicit}" VerticalAlignment="Center" FontSize="12" Height="25" Padding="0,5,0,0" BorderBrush="{x:Null}" Background="{x:Null}"/>
-                    <TextBox x:Name="MoveInDate_TB" VerticalAlignment="Center" FontSize="12" Height="25"  Padding="0,5,0,0" BorderBrush="{x:Null}" Background="{x:Null}" Cursor="" />
+                    <TextBox x:Name="Login_TB" Text="{Binding Login, UpdateSourceTrigger=Explicit}" VerticalAlignment="Center" FontSize="12" Height="25" Padding="0,5,0,0" Background="{x:Null}" BorderBrush="{x:Null}" />
+                    <TextBox x:Name="Password_TB" Text="{Binding Password, UpdateSourceTrigger=Explicit}" VerticalAlignment="Center" FontSize="12" Height="25" Padding="0,5,0,0" Background="{x:Null}" BorderBrush="{x:Null}"/>
+                    <TextBox x:Name="Role_TB"  Text="{Binding Role.Title, UpdateSourceTrigger=Explicit}" VerticalAlignment="Center" FontSize="12" Height="25" Padding="0,5,0,0" BorderBrush="{x:Null}" Background="{x:Null}"/>
                 </StackPanel>
 
             </Grid>
