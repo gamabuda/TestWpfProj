@@ -26,51 +26,37 @@ namespace MemeWpfApp.Windows
             InitializeComponent();
         }
 
-        private void AuthBtn_Click(object sender, RoutedEventArgs e)
+        private void Button_Click(object sender, RoutedEventArgs e)
         {
-            if(String.IsNullOrEmpty(LoginTb.Text) || String.IsNullOrEmpty(PasswordPb.Password))
-            {
-                MessageBox.Show("Please fill all fields!");
+            var user = DataBaseManager.GetUsers().FirstOrDefault(x => x.Login == NameTextBox.Text && x.Password == PasswordBox.Password);
+
+            if (user == null)
                 return;
-            }
 
-            // reg or auth choose what u want
-            //if (Reg(LoginTb.Text, PasswordPb.Password))
-            if (Auth(LoginTb.Text, PasswordPb.Password))
-            {
-                new MainWindow().Show();
-                this.Close();
-            }
-            else
-                MessageBox.Show("This data is not correct!");
+            UserContext.AuthUser = user;
+
+            new MainWindow().Show();
+
+            this.Close();
         }
 
-        private bool Auth(string login, string password)
+        private void Button_Click_1(object sender, RoutedEventArgs e)
         {
-            var user = DataBaseManager.GetUsers().
-                FirstOrDefault(x => x.Login == login && x.Password == password);
-
-            if(user != null)
+            var user = new User()
             {
-                UserContext.AuthUser = user;
-                return true;
-            }
-            else 
-                return false;
-        }
+                Login = NameTextRegBox.Text,
+                Password = PasswordRegBox.Password,
+                Role = false
+            };
 
-        private bool Reg(string login, string password)
-        {
-            var newUser = new User();
-            newUser.Login = LoginTb.Text;
-            newUser.Password = PasswordPb.Password;
-            newUser.RoleId = 2;
-            newUser.Name = "Unkown";
-            newUser.Surname = "Unkown";
-            
-            DataBaseManager.AddUser(newUser);
+            DataBaseManager.AddUser(user);
             DataBaseManager.UpdateDatabase();
-            return true;
+
+            UserContext.AuthUser = user;
+
+            new MainWindow().Show();
+
+            this.Close();
         }
     }
 }

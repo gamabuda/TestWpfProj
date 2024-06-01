@@ -12,18 +12,24 @@ namespace MemeWpfApp.DbConnection
     using System;
     using System.Collections.Generic;
     
-    public partial class Role
+    public partial class HomeItem
     {
         [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2214:DoNotCallOverridableMethodsInConstructors")]
-        public Role()
+        public HomeItem()
         {
-            this.User = new HashSet<User>();
+            this.User_HomeItem = new HashSet<User_HomeItem>();
         }
     
-        public int Id { get; set; }
+        public int ID { get; set; }
         public string Title { get; set; }
+        public int Weight { get; set; }
+        public decimal Price { get; set; }
+        public string Description { get; set; }
+        public Nullable<int> HomeItemTypeID { get; set; }
+        public byte[] Photo { get; set; }
     
+        public virtual HomeItemType HomeItemType { get; set; }
         [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2227:CollectionPropertiesShouldBeReadOnly")]
-        public virtual ICollection<User> User { get; set; }
+        public virtual ICollection<User_HomeItem> User_HomeItem { get; set; }
     }
 }

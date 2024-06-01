@@ -5,7 +5,8 @@
         xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
         xmlns:local="clr-namespace:MemeWpfApp"
         mc:Ignorable="d"
-        Title="MainWindow" Height="450" Width="800">
+        xmlns:materialDesign="http://materialdesigninxaml.net/winfx/xaml/themes"
+        Title="Manage your home stuff!" Height="450" Width="800">
     <Grid>
         <Grid.RowDefinitions>
             <RowDefinition Height="auto"/>
@@ -13,21 +14,34 @@
             <RowDefinition Height="auto"/>
         </Grid.RowDefinitions>
 
-        <Grid Grid.Row="0">
-            <Grid.ColumnDefinitions>
-                <ColumnDefinition Width="auto"/>
-                <ColumnDefinition Width="auto"/>
-                <ColumnDefinition />
-                <ColumnDefinition/>
-                <ColumnDefinition/>
-            </Grid.ColumnDefinitions>
+        <ToolBarTray>
+            <ToolBar ClipToBounds="False" Style="{StaticResource MaterialDesignToolBar}">
+                <Menu>
+                    <MenuItem
+                        Header="Home Manager">
+                        <MenuItem
+                        Header="Main" Click="MainMenuItem_Click"/>
+                        <MenuItem
+                        Header="Profile" Click="ProfileMenuItem_Click"/>
+                    </MenuItem>
+                </Menu>
+                <Separator />
+                <TextBox
+                  Width="160"
+                  Margin="8,0"
+                  materialDesign:HintAssist.Hint="Search"
+                  Style="{StaticResource MaterialDesignFloatingHintTextBox}"/>
+                <ComboBox
+                  Width="80"
+                  Margin="8,0"
+                  materialDesign:HintAssist.Hint="Type"
+                  Style="{StaticResource MaterialDesignFloatingHintComboBox}">
+                </ComboBox>
 
-            <Button Content="Back" Grid.Column="0" Click="Button_Click_2"/>
-            <Button Content="Forward" Grid.Column="1" Click="Button_Click_3"/>
-            <Button Content="Memes" Grid.Column="2" Click="Button_Click"/>
-            <Button x:Name="TypeMemePageBtn" Content="Type of memes" Grid.Column="3" Click="TypeMemePageBtn_Click"/>
-            <Button Content="Profile" Grid.Column="4" Click="Button_Click_1"/>
-        </Grid>
+                <materialDesign:PackIcon MouseDown="SignOut_MouseDown" HorizontalAlignment="Right" VerticalAlignment="Center" Kind="AccountSyncOutline"/>
+            </ToolBar>
+            
+        </ToolBarTray>
 
         <Frame x:Name="MainFrame" Grid.Row="1" NavigationUIVisibility="Hidden" />
     </Grid>

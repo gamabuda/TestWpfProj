@@ -1,5 +1,6 @@
 ﻿using MemeWpfApp.Data;
 using MemeWpfApp.DbConnection;
+using MemeWpfApp.Pages;
 using Microsoft.Win32;
 using System;
 using System.Collections.Generic;
@@ -16,7 +17,6 @@ using System.Windows.Media;
 using System.Windows.Media.Imaging;
 using System.Windows.Navigation;
 using System.Windows.Shapes;
-using MemeWpfApp.MainPages;
 
 namespace MemeWpfApp
 {
@@ -25,48 +25,27 @@ namespace MemeWpfApp
     /// </summary>
     public partial class MainWindow : Window
     {
-        private List<Meme> _memes;
+        private Page[] page = new Page[] { new HomeItemPage(), new UserPage() };
         public MainWindow()
         {
             InitializeComponent();
 
-            _memes = DataBaseManager.GetMemes();
-
-            // проверка по роли
-            if(UserContext.AuthUser.RoleId == 1)
-                TypeMemePageBtn.Visibility = Visibility.Visible; 
-            else
-                TypeMemePageBtn.Visibility = Visibility.Collapsed;
-
-            MainFrame.NavigationService.Navigate(new MainPage());
+            MainFrame.NavigationService.Navigate(page[0]);
         }
 
-        // навигация
-        private void Button_Click(object sender, RoutedEventArgs e)
+        private void SignOut_MouseDown(object sender, MouseButtonEventArgs e)
         {
-            MainFrame.NavigationService.Navigate(new MainPage());
+
         }
 
-        private void TypeMemePageBtn_Click(object sender, RoutedEventArgs e)
+        private void MainMenuItem_Click(object sender, RoutedEventArgs e)
         {
-            MainFrame.NavigationService.Navigate(new MemeTypePage());
+            MainFrame.NavigationService.Navigate(page[0]);
         }
 
-        private void Button_Click_1(object sender, RoutedEventArgs e)
+        private void ProfileMenuItem_Click(object sender, RoutedEventArgs e)
         {
-            MainFrame.NavigationService.Navigate(new Profile());
-        }
-
-        private void Button_Click_2(object sender, RoutedEventArgs e)
-        {
-            if(MainFrame.NavigationService.CanGoBack) 
-                MainFrame.NavigationService.GoBack();
-        }
-
-        private void Button_Click_3(object sender, RoutedEventArgs e)
-        {
-            if (MainFrame.NavigationService.CanGoForward)
-                MainFrame.NavigationService.GoForward();
+            MainFrame.NavigationService.Navigate(page[1]);
         }
     }
 }

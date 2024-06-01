@@ -4,14 +4,15 @@
   <edmx:Designer xmlns="http://schemas.microsoft.com/ado/2009/11/edmx">
     <!-- Diagram content (shape and connector positions) -->
     <edmx:Diagrams>
-      <Diagram DiagramId="18151a727e6a4b089f32977e082aef0f" Name="Diagram1">
-        <EntityTypeShape EntityType="Memesdb1Model.Meme" Width="1.5" PointX="5.25" PointY="1" IsExpanded="true" />
-        <EntityTypeShape EntityType="Memesdb1Model.MemeType" Width="1.5" PointX="3" PointY="5.5" IsExpanded="true" />
-        <EntityTypeShape EntityType="Memesdb1Model.Role" Width="1.5" PointX="0.75" PointY="1.5" IsExpanded="true" />
-        <EntityTypeShape EntityType="Memesdb1Model.User" Width="1.5" PointX="3" PointY="1" IsExpanded="true" />
-        <AssociationConnector Association="Memesdb1Model.FK_Meme_MemeType" ManuallyRouted="false" />
-        <AssociationConnector Association="Memesdb1Model.FK_Meme_User" ManuallyRouted="false" />
-        <AssociationConnector Association="Memesdb1Model.FK_User_Role" ManuallyRouted="false" />
+      <Diagram DiagramId="0b7f687a208346fa865637b1786d3282" Name="Diagram1">
+        <EntityTypeShape EntityType="HomeManagerModel.HomeItem" Width="1.5" PointX="3" PointY="1" IsExpanded="true" />
+        <EntityTypeShape EntityType="HomeManagerModel.HomeItemType" Width="1.5" PointX="0.75" PointY="1.5" IsExpanded="true" />
+        <EntityTypeShape EntityType="HomeManagerModel.sysdiagrams" Width="1.5" PointX="5.75" PointY="4.75" IsExpanded="true" />
+        <EntityTypeShape EntityType="HomeManagerModel.User" Width="1.5" PointX="3" PointY="5.375" IsExpanded="true" />
+        <EntityTypeShape EntityType="HomeManagerModel.User_HomeItem" Width="1.5" PointX="5.25" PointY="1.375" IsExpanded="true" />
+        <AssociationConnector Association="HomeManagerModel.FK_HomeItem_HomeItemType" ManuallyRouted="false" />
+        <AssociationConnector Association="HomeManagerModel.FK_User_HomeItem_HomeItem" ManuallyRouted="false" />
+        <AssociationConnector Association="HomeManagerModel.FK_User_HomeItem_User" ManuallyRouted="false" />
       </Diagram>
     </edmx:Diagrams>
   </edmx:Designer>

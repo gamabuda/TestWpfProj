@@ -13,10 +13,10 @@ namespace MemeWpfApp.DbConnection
     using System.Data.Entity;
     using System.Data.Entity.Infrastructure;
     
-    public partial class Memesdb1Entities : DbContext
+    public partial class HomeManagerEntities : DbContext
     {
-        public Memesdb1Entities()
-            : base("name=Memesdb1Entities")
+        public HomeManagerEntities()
+            : base("name=HomeManagerEntities")
         {
         }
     
@@ -25,9 +25,10 @@ namespace MemeWpfApp.DbConnection
             throw new UnintentionalCodeFirstException();
         }
     
-        public virtual DbSet<Meme> Meme { get; set; }
-        public virtual DbSet<MemeType> MemeType { get; set; }
-        public virtual DbSet<Role> Role { get; set; }
+        public virtual DbSet<HomeItem> HomeItem { get; set; }
+        public virtual DbSet<HomeItemType> HomeItemType { get; set; }
+        public virtual DbSet<sysdiagrams> sysdiagrams { get; set; }
         public virtual DbSet<User> User { get; set; }
+        public virtual DbSet<User_HomeItem> User_HomeItem { get; set; }
     }
 }

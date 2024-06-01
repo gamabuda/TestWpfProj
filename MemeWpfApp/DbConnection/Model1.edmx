@@ -4,198 +4,218 @@
   <edmx:Runtime>
     <!-- SSDL content -->
     <edmx:StorageModels>
-      <Schema Namespace="Хранилище Memesdb1Model" Provider="System.Data.SqlClient" ProviderManifestToken="2012" Alias="Self" xmlns:store="http://schemas.microsoft.com/ado/2007/12/edm/EntityStoreSchemaGenerator" xmlns:customannotation="http://schemas.microsoft.com/ado/2013/11/edm/customannotation" xmlns="http://schemas.microsoft.com/ado/2009/11/edm/ssdl">
-        <EntityType Name="Meme">
+      <Schema Namespace="Хранилище HomeManagerModel" Provider="System.Data.SqlClient" ProviderManifestToken="2012" Alias="Self" xmlns:store="http://schemas.microsoft.com/ado/2007/12/edm/EntityStoreSchemaGenerator" xmlns:customannotation="http://schemas.microsoft.com/ado/2013/11/edm/customannotation" xmlns="http://schemas.microsoft.com/ado/2009/11/edm/ssdl">
+        <EntityType Name="HomeItem">
           <Key>
-            <PropertyRef Name="Id" />
+            <PropertyRef Name="ID" />
           </Key>
-          <Property Name="Id" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+          <Property Name="ID" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
           <Property Name="Title" Type="nvarchar" MaxLength="50" Nullable="false" />
-          <Property Name="DatePublishing" Type="date" Nullable="false" />
-          <Property Name="Image" Type="image" />
-          <Property Name="MemeTypeId" Type="int" Nullable="false" />
-          <Property Name="Description" Type="nvarchar" MaxLength="150" Nullable="false" />
-          <Property Name="OwnerId" Type="int" />
+          <Property Name="Weight" Type="int" Nullable="false" />
+          <Property Name="Price" Type="decimal" Precision="18" Scale="2" Nullable="false" />
+          <Property Name="Description" Type="nvarchar" MaxLength="50" />
+          <Property Name="HomeItemTypeID" Type="int" />
+          <Property Name="Photo" Type="image" />
         </EntityType>
-        <EntityType Name="MemeType">
+        <EntityType Name="HomeItemType">
           <Key>
-            <PropertyRef Name="Id" />
+            <PropertyRef Name="ID" />
           </Key>
-          <Property Name="Id" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
-          <Property Name="Title" Type="nvarchar" MaxLength="50" Nullable="false" />
+          <Property Name="ID" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+          <Property Name="Titlte" Type="nvarchar" MaxLength="50" Nullable="false" />
         </EntityType>
-        <EntityType Name="Role">
+        <EntityType Name="sysdiagrams">
           <Key>
-            <PropertyRef Name="Id" />
+            <PropertyRef Name="diagram_id" />
           </Key>
-          <Property Name="Id" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
-          <Property Name="Title" Type="nvarchar" MaxLength="50" Nullable="false" />
+          <Property Name="name" Type="nvarchar" MaxLength="128" Nullable="false" />
+          <Property Name="principal_id" Type="int" Nullable="false" />
+          <Property Name="diagram_id" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+          <Property Name="version" Type="int" />
+          <Property Name="definition" Type="varbinary(max)" />
         </EntityType>
         <EntityType Name="User">
           <Key>
-            <PropertyRef Name="Id" />
+            <PropertyRef Name="ID" />
           </Key>
-          <Property Name="Id" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
-          <Property Name="Name" Type="nvarchar" MaxLength="50" Nullable="false" />
-          <Property Name="Surname" Type="nvarchar" MaxLength="50" Nullable="false" />
+          <Property Name="ID" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
           <Property Name="Login" Type="nvarchar" MaxLength="50" Nullable="false" />
           <Property Name="Password" Type="nvarchar" MaxLength="50" Nullable="false" />
-          <Property Name="RoleId" Type="int" Nullable="false" />
+          <Property Name="Role" Type="bit" Nullable="false" />
         </EntityType>
-        <Association Name="FK_Meme_MemeType">
-          <End Role="MemeType" Type="Self.MemeType" Multiplicity="1" />
-          <End Role="Meme" Type="Self.Meme" Multiplicity="*" />
+        <EntityType Name="User_HomeItem">
+          <Key>
+            <PropertyRef Name="ID" />
+          </Key>
+          <Property Name="ID" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+          <Property Name="UserID" Type="int" Nullable="false" />
+          <Property Name="HomeItemID" Type="int" Nullable="false" />
+        </EntityType>
+        <Association Name="FK_HomeItem_HomeItemType">
+          <End Role="HomeItemType" Type="Self.HomeItemType" Multiplicity="0..1" />
+          <End Role="HomeItem" Type="Self.HomeItem" Multiplicity="*" />
           <ReferentialConstraint>
-            <Principal Role="MemeType">
-              <PropertyRef Name="Id" />
+            <Principal Role="HomeItemType">
+              <PropertyRef Name="ID" />
             </Principal>
-            <Dependent Role="Meme">
-              <PropertyRef Name="MemeTypeId" />
+            <Dependent Role="HomeItem">
+              <PropertyRef Name="HomeItemTypeID" />
             </Dependent>
           </ReferentialConstraint>
         </Association>
-        <Association Name="FK_Meme_User">
-          <End Role="User" Type="Self.User" Multiplicity="0..1" />
-          <End Role="Meme" Type="Self.Meme" Multiplicity="*" />
+        <Association Name="FK_User_HomeItem_HomeItem">
+          <End Role="HomeItem" Type="Self.HomeItem" Multiplicity="1" />
+          <End Role="User_HomeItem" Type="Self.User_HomeItem" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="HomeItem">
+              <PropertyRef Name="ID" />
+            </Principal>
+            <Dependent Role="User_HomeItem">
+              <PropertyRef Name="HomeItemID" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_User_HomeItem_User">
+          <End Role="User" Type="Self.User" Multiplicity="1" />
+          <End Role="User_HomeItem" Type="Self.User_HomeItem" Multiplicity="*" />
           <ReferentialConstraint>
             <Principal Role="User">
-              <PropertyRef Name="Id" />
+              <PropertyRef Name="ID" />
             </Principal>
-            <Dependent Role="Meme">
-              <PropertyRef Name="OwnerId" />
+            <Dependent Role="User_HomeItem">
+              <PropertyRef Name="UserID" />
             </Dependent>
           </ReferentialConstraint>
         </Association>
-        <Association Name="FK_User_Role">
-          <End Role="Role" Type="Self.Role" Multiplicity="1" />
-          <End Role="User" Type="Self.User" Multiplicity="*" />
-          <ReferentialConstraint>
-            <Principal Role="Role">
-              <PropertyRef Name="Id" />
-            </Principal>
-            <Dependent Role="User">
-              <PropertyRef Name="RoleId" />
-            </Dependent>
-          </ReferentialConstraint>
-        </Association>
-        <EntityContainer Name="Хранилище Memesdb1ModelContainer">
-          <EntitySet Name="Meme" EntityType="Self.Meme" Schema="dbo" store:Type="Tables" />
-          <EntitySet Name="MemeType" EntityType="Self.MemeType" Schema="dbo" store:Type="Tables" />
-          <EntitySet Name="Role" EntityType="Self.Role" Schema="dbo" store:Type="Tables" />
+        <EntityContainer Name="Хранилище HomeManagerModelContainer">
+          <EntitySet Name="HomeItem" EntityType="Self.HomeItem" Schema="dbo" store:Type="Tables" />
+          <EntitySet Name="HomeItemType" EntityType="Self.HomeItemType" Schema="dbo" store:Type="Tables" />
+          <EntitySet Name="sysdiagrams" EntityType="Self.sysdiagrams" Schema="dbo" store:Type="Tables" />
           <EntitySet Name="User" EntityType="Self.User" Schema="dbo" store:Type="Tables" />
-          <AssociationSet Name="FK_Meme_MemeType" Association="Self.FK_Meme_MemeType">
-            <End Role="MemeType" EntitySet="MemeType" />
-            <End Role="Meme" EntitySet="Meme" />
+          <EntitySet Name="User_HomeItem" EntityType="Self.User_HomeItem" Schema="dbo" store:Type="Tables" />
+          <AssociationSet Name="FK_HomeItem_HomeItemType" Association="Self.FK_HomeItem_HomeItemType">
+            <End Role="HomeItemType" EntitySet="HomeItemType" />
+            <End Role="HomeItem" EntitySet="HomeItem" />
           </AssociationSet>
-          <AssociationSet Name="FK_Meme_User" Association="Self.FK_Meme_User">
-            <End Role="User" EntitySet="User" />
-            <End Role="Meme" EntitySet="Meme" />
+          <AssociationSet Name="FK_User_HomeItem_HomeItem" Association="Self.FK_User_HomeItem_HomeItem">
+            <End Role="HomeItem" EntitySet="HomeItem" />
+            <End Role="User_HomeItem" EntitySet="User_HomeItem" />
           </AssociationSet>
-          <AssociationSet Name="FK_User_Role" Association="Self.FK_User_Role">
-            <End Role="Role" EntitySet="Role" />
+          <AssociationSet Name="FK_User_HomeItem_User" Association="Self.FK_User_HomeItem_User">
             <End Role="User" EntitySet="User" />
+            <End Role="User_HomeItem" EntitySet="User_HomeItem" />
           </AssociationSet>
         </EntityContainer>
       </Schema>
     </edmx:StorageModels>
     <!-- CSDL content -->
     <edmx:ConceptualModels>
-      <Schema Namespace="Memesdb1Model" Alias="Self" annotation:UseStrongSpatialTypes="false" xmlns:annotation="http://schemas.microsoft.com/ado/2009/02/edm/annotation" xmlns:customannotation="http://schemas.microsoft.com/ado/2013/11/edm/customannotation" xmlns="http://schemas.microsoft.com/ado/2009/11/edm">
-        <EntityType Name="Meme">
+      <Schema Namespace="HomeManagerModel" Alias="Self" annotation:UseStrongSpatialTypes="false" xmlns:annotation="http://schemas.microsoft.com/ado/2009/02/edm/annotation" xmlns:customannotation="http://schemas.microsoft.com/ado/2013/11/edm/customannotation" xmlns="http://schemas.microsoft.com/ado/2009/11/edm">
+        <EntityType Name="HomeItem">
           <Key>
-            <PropertyRef Name="Id" />
+            <PropertyRef Name="ID" />
           </Key>
-          <Property Name="Id" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+          <Property Name="ID" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
           <Property Name="Title" Type="String" MaxLength="50" FixedLength="false" Unicode="true" Nullable="false" />
-          <Property Name="DatePublishing" Type="DateTime" Nullable="false" Precision="0" />
-          <Property Name="Image" Type="Binary" MaxLength="Max" FixedLength="false" />
-          <Property Name="MemeTypeId" Type="Int32" Nullable="false" />
-          <Property Name="Description" Type="String" MaxLength="150" FixedLength="false" Unicode="true" Nullable="false" />
-          <Property Name="OwnerId" Type="Int32" />
-          <NavigationProperty Name="MemeType" Relationship="Self.FK_Meme_MemeType" FromRole="Meme" ToRole="MemeType" />
-          <NavigationProperty Name="User" Relationship="Self.FK_Meme_User" FromRole="Meme" ToRole="User" />
+          <Property Name="Weight" Type="Int32" Nullable="false" />
+          <Property Name="Price" Type="Decimal" Precision="18" Scale="2" Nullable="false" />
+          <Property Name="Description" Type="String" MaxLength="50" FixedLength="false" Unicode="true" />
+          <Property Name="HomeItemTypeID" Type="Int32" />
+          <Property Name="Photo" Type="Binary" MaxLength="Max" FixedLength="false" />
+          <NavigationProperty Name="HomeItemType" Relationship="Self.FK_HomeItem_HomeItemType" FromRole="HomeItem" ToRole="HomeItemType" />
+          <NavigationProperty Name="User_HomeItem" Relationship="Self.FK_User_HomeItem_HomeItem" FromRole="HomeItem" ToRole="User_HomeItem" />
         </EntityType>
-        <EntityType Name="MemeType">
+        <EntityType Name="HomeItemType">
           <Key>
-            <PropertyRef Name="Id" />
+            <PropertyRef Name="ID" />
           </Key>
-          <Property Name="Id" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
-          <Property Name="Title" Type="String" MaxLength="50" FixedLength="false" Unicode="true" Nullable="false" />
-          <NavigationProperty Name="Meme" Relationship="Self.FK_Meme_MemeType" FromRole="MemeType" ToRole="Meme" />
+          <Property Name="ID" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+          <Property Name="Titlte" Type="String" MaxLength="50" FixedLength="false" Unicode="true" Nullable="false" />
+          <NavigationProperty Name="HomeItem" Relationship="Self.FK_HomeItem_HomeItemType" FromRole="HomeItemType" ToRole="HomeItem" />
         </EntityType>
-        <EntityType Name="Role">
+        <EntityType Name="sysdiagrams">
           <Key>
-            <PropertyRef Name="Id" />
+            <PropertyRef Name="diagram_id" />
           </Key>
-          <Property Name="Id" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
-          <Property Name="Title" Type="String" MaxLength="50" FixedLength="false" Unicode="true" Nullable="false" />
-          <NavigationProperty Name="User" Relationship="Self.FK_User_Role" FromRole="Role" ToRole="User" />
+          <Property Name="name" Type="String" MaxLength="128" FixedLength="false" Unicode="true" Nullable="false" />
+          <Property Name="principal_id" Type="Int32" Nullable="false" />
+          <Property Name="diagram_id" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+          <Property Name="version" Type="Int32" />
+          <Property Name="definition" Type="Binary" MaxLength="Max" FixedLength="false" />
         </EntityType>
         <EntityType Name="User">
           <Key>
-            <PropertyRef Name="Id" />
+            <PropertyRef Name="ID" />
           </Key>
-          <Property Name="Id" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
-          <Property Name="Name" Type="String" MaxLength="50" FixedLength="false" Unicode="true" Nullable="false" />
-          <Property Name="Surname" Type="String" MaxLength="50" FixedLength="false" Unicode="true" Nullable="false" />
+          <Property Name="ID" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
           <Property Name="Login" Type="String" MaxLength="50" FixedLength="false" Unicode="true" Nullable="false" />
           <Property Name="Password" Type="String" MaxLength="50" FixedLength="false" Unicode="true" Nullable="false" />
-          <Property Name="RoleId" Type="Int32" Nullable="false" />
-          <NavigationProperty Name="Meme" Relationship="Self.FK_Meme_User" FromRole="User" ToRole="Meme" />
-          <NavigationProperty Name="Role" Relationship="Self.FK_User_Role" FromRole="User" ToRole="Role" />
+          <Property Name="Role" Type="Boolean" Nullable="false" />
+          <NavigationProperty Name="User_HomeItem" Relationship="Self.FK_User_HomeItem_User" FromRole="User" ToRole="User_HomeItem" />
         </EntityType>
-        <Association Name="FK_Meme_MemeType">
-          <End Role="MemeType" Type="Self.MemeType" Multiplicity="1" />
-          <End Role="Meme" Type="Self.Meme" Multiplicity="*" />
+        <EntityType Name="User_HomeItem">
+          <Key>
+            <PropertyRef Name="ID" />
+          </Key>
+          <Property Name="ID" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+          <Property Name="UserID" Type="Int32" Nullable="false" />
+          <Property Name="HomeItemID" Type="Int32" Nullable="false" />
+          <NavigationProperty Name="HomeItem" Relationship="Self.FK_User_HomeItem_HomeItem" FromRole="User_HomeItem" ToRole="HomeItem" />
+          <NavigationProperty Name="User" Relationship="Self.FK_User_HomeItem_User" FromRole="User_HomeItem" ToRole="User" />
+        </EntityType>
+        <Association Name="FK_HomeItem_HomeItemType">
+          <End Role="HomeItemType" Type="Self.HomeItemType" Multiplicity="0..1" />
+          <End Role="HomeItem" Type="Self.HomeItem" Multiplicity="*" />
           <ReferentialConstraint>
-            <Principal Role="MemeType">
-              <PropertyRef Name="Id" />
+            <Principal Role="HomeItemType">
+              <PropertyRef Name="ID" />
             </Principal>
-            <Dependent Role="Meme">
-              <PropertyRef Name="MemeTypeId" />
+            <Dependent Role="HomeItem">
+              <PropertyRef Name="HomeItemTypeID" />
             </Dependent>
           </ReferentialConstraint>
         </Association>
-        <Association Name="FK_Meme_User">
-          <End Role="User" Type="Self.User" Multiplicity="0..1" />
-          <End Role="Meme" Type="Self.Meme" Multiplicity="*" />
+        <Association Name="FK_User_HomeItem_HomeItem">
+          <End Role="HomeItem" Type="Self.HomeItem" Multiplicity="1" />
+          <End Role="User_HomeItem" Type="Self.User_HomeItem" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="HomeItem">
+              <PropertyRef Name="ID" />
+            </Principal>
+            <Dependent Role="User_HomeItem">
+              <PropertyRef Name="HomeItemID" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_User_HomeItem_User">
+          <End Role="User" Type="Self.User" Multiplicity="1" />
+          <End Role="User_HomeItem" Type="Self.User_HomeItem" Multiplicity="*" />
           <ReferentialConstraint>
             <Principal Role="User">
-              <PropertyRef Name="Id" />
+              <PropertyRef Name="ID" />
             </Principal>
-            <Dependent Role="Meme">
-              <PropertyRef Name="OwnerId" />
+            <Dependent Role="User_HomeItem">
+              <PropertyRef Name="UserID" />
             </Dependent>
           </ReferentialConstraint>
         </Association>
-        <Association Name="FK_User_Role">
-          <End Role="Role" Type="Self.Role" Multiplicity="1" />
-          <End Role="User" Type="Self.User" Multiplicity="*" />
-          <ReferentialConstraint>
-            <Principal Role="Role">
-              <PropertyRef Name="Id" />
-            </Principal>
-            <Dependent Role="User">
-              <PropertyRef Name="RoleId" />
-            </Dependent>
-          </ReferentialConstraint>
-        </Association>
-        <EntityContainer Name="Memesdb1Entities" annotation:LazyLoadingEnabled="true">
-          <EntitySet Name="Meme" EntityType="Self.Meme" />
-          <EntitySet Name="MemeType" EntityType="Self.MemeType" />
-          <EntitySet Name="Role" EntityType="Self.Role" />
+        <EntityContainer Name="HomeManagerEntities" annotation:LazyLoadingEnabled="true">
+          <EntitySet Name="HomeItem" EntityType="Self.HomeItem" />
+          <EntitySet Name="HomeItemType" EntityType="Self.HomeItemType" />
+          <EntitySet Name="sysdiagrams" EntityType="Self.sysdiagrams" />
           <EntitySet Name="User" EntityType="Self.User" />
-          <AssociationSet Name="FK_Meme_MemeType" Association="Self.FK_Meme_MemeType">
-            <End Role="MemeType" EntitySet="MemeType" />
-            <End Role="Meme" EntitySet="Meme" />
+          <EntitySet Name="User_HomeItem" EntityType="Self.User_HomeItem" />
+          <AssociationSet Name="FK_HomeItem_HomeItemType" Association="Self.FK_HomeItem_HomeItemType">
+            <End Role="HomeItemType" EntitySet="HomeItemType" />
+            <End Role="HomeItem" EntitySet="HomeItem" />
           </AssociationSet>
-          <AssociationSet Name="FK_Meme_User" Association="Self.FK_Meme_User">
-            <End Role="User" EntitySet="User" />
-            <End Role="Meme" EntitySet="Meme" />
+          <AssociationSet Name="FK_User_HomeItem_HomeItem" Association="Self.FK_User_HomeItem_HomeItem">
+            <End Role="HomeItem" EntitySet="HomeItem" />
+            <End Role="User_HomeItem" EntitySet="User_HomeItem" />
           </AssociationSet>
-          <AssociationSet Name="FK_User_Role" Association="Self.FK_User_Role">
-            <End Role="Role" EntitySet="Role" />
+          <AssociationSet Name="FK_User_HomeItem_User" Association="Self.FK_User_HomeItem_User">
             <End Role="User" EntitySet="User" />
+            <End Role="User_HomeItem" EntitySet="User_HomeItem" />
           </AssociationSet>
         </EntityContainer>
       </Schema>
@@ -203,45 +223,55 @@
     <!-- C-S mapping content -->
     <edmx:Mappings>
       <Mapping Space="C-S" xmlns="http://schemas.microsoft.com/ado/2009/11/mapping/cs">
-        <EntityContainerMapping StorageEntityContainer="Хранилище Memesdb1ModelContainer" CdmEntityContainer="Memesdb1Entities">
-          <EntitySetMapping Name="Meme">
-            <EntityTypeMapping TypeName="Memesdb1Model.Meme">
-              <MappingFragment StoreEntitySet="Meme">
-                <ScalarProperty Name="Id" ColumnName="Id" />
+        <EntityContainerMapping StorageEntityContainer="Хранилище HomeManagerModelContainer" CdmEntityContainer="HomeManagerEntities">
+          <EntitySetMapping Name="HomeItem">
+            <EntityTypeMapping TypeName="HomeManagerModel.HomeItem">
+              <MappingFragment StoreEntitySet="HomeItem">
+                <ScalarProperty Name="ID" ColumnName="ID" />
                 <ScalarProperty Name="Title" ColumnName="Title" />
-                <ScalarProperty Name="DatePublishing" ColumnName="DatePublishing" />
-                <ScalarProperty Name="Image" ColumnName="Image" />
-                <ScalarProperty Name="MemeTypeId" ColumnName="MemeTypeId" />
+                <ScalarProperty Name="Weight" ColumnName="Weight" />
+                <ScalarProperty Name="Price" ColumnName="Price" />
                 <ScalarProperty Name="Description" ColumnName="Description" />
-                <ScalarProperty Name="OwnerId" ColumnName="OwnerId" />
+                <ScalarProperty Name="HomeItemTypeID" ColumnName="HomeItemTypeID" />
+                <ScalarProperty Name="Photo" ColumnName="Photo" />
               </MappingFragment>
             </EntityTypeMapping>
           </EntitySetMapping>
-          <EntitySetMapping Name="MemeType">
-            <EntityTypeMapping TypeName="Memesdb1Model.MemeType">
-              <MappingFragment StoreEntitySet="MemeType">
-                <ScalarProperty Name="Id" ColumnName="Id" />
-                <ScalarProperty Name="Title" ColumnName="Title" />
+          <EntitySetMapping Name="HomeItemType">
+            <EntityTypeMapping TypeName="HomeManagerModel.HomeItemType">
+              <MappingFragment StoreEntitySet="HomeItemType">
+                <ScalarProperty Name="ID" ColumnName="ID" />
+                <ScalarProperty Name="Titlte" ColumnName="Titlte" />
               </MappingFragment>
             </EntityTypeMapping>
           </EntitySetMapping>
-          <EntitySetMapping Name="Role">
-            <EntityTypeMapping TypeName="Memesdb1Model.Role">
-              <MappingFragment StoreEntitySet="Role">
-                <ScalarProperty Name="Id" ColumnName="Id" />
-                <ScalarProperty Name="Title" ColumnName="Title" />
+          <EntitySetMapping Name="sysdiagrams">
+            <EntityTypeMapping TypeName="HomeManagerModel.sysdiagrams">
+              <MappingFragment StoreEntitySet="sysdiagrams">
+                <ScalarProperty Name="name" ColumnName="name" />
+                <ScalarProperty Name="principal_id" ColumnName="principal_id" />
+                <ScalarProperty Name="diagram_id" ColumnName="diagram_id" />
+                <ScalarProperty Name="version" ColumnName="version" />
+                <ScalarProperty Name="definition" ColumnName="definition" />
               </MappingFragment>
             </EntityTypeMapping>
           </EntitySetMapping>
           <EntitySetMapping Name="User">
-            <EntityTypeMapping TypeName="Memesdb1Model.User">
+            <EntityTypeMapping TypeName="HomeManagerModel.User">
               <MappingFragment StoreEntitySet="User">
-                <ScalarProperty Name="Id" ColumnName="Id" />
-                <ScalarProperty Name="Name" ColumnName="Name" />
-                <ScalarProperty Name="Surname" ColumnName="Surname" />
+                <ScalarProperty Name="ID" ColumnName="ID" />
                 <ScalarProperty Name="Login" ColumnName="Login" />
                 <ScalarProperty Name="Password" ColumnName="Password" />
-                <ScalarProperty Name="RoleId" ColumnName="RoleId" />
+                <ScalarProperty Name="Role" ColumnName="Role" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="User_HomeItem">
+            <EntityTypeMapping TypeName="HomeManagerModel.User_HomeItem">
+              <MappingFragment StoreEntitySet="User_HomeItem">
+                <ScalarProperty Name="ID" ColumnName="ID" />
+                <ScalarProperty Name="UserID" ColumnName="UserID" />
+                <ScalarProperty Name="HomeItemID" ColumnName="HomeItemID" />
               </MappingFragment>
             </EntityTypeMapping>
           </EntitySetMapping>

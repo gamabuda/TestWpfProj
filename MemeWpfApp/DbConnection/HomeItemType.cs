@@ -12,17 +12,18 @@ namespace MemeWpfApp.DbConnection
     using System;
     using System.Collections.Generic;
     
-    public partial class Meme
+    public partial class HomeItemType
     {
-        public int Id { get; set; }
-        public string Title { get; set; }
-        public System.DateTime DatePublishing { get; set; }
-        public byte[] Image { get; set; }
-        public int MemeTypeId { get; set; }
-        public string Description { get; set; }
-        public Nullable<int> OwnerId { get; set; }
+        [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2214:DoNotCallOverridableMethodsInConstructors")]
+        public HomeItemType()
+        {
+            this.HomeItem = new HashSet<HomeItem>();
+        }
     
-        public virtual MemeType MemeType { get; set; }
-        public virtual User User { get; set; }
+        public int ID { get; set; }
+        public string Titlte { get; set; }
+    
+        [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2227:CollectionPropertiesShouldBeReadOnly")]
+        public virtual ICollection<HomeItem> HomeItem { get; set; }
     }
 }

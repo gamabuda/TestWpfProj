@@ -5,12 +5,75 @@
         xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
         xmlns:local="clr-namespace:MemeWpfApp.Windows"
         mc:Ignorable="d"
-        Title="AuthWindow" Height="400" Width="450">
+        xmlns:materialDesign="http://materialdesigninxaml.net/winfx/xaml/themes"
+        Title="AuthWindow" Height="450" Width="450">
     <Grid>
-        <StackPanel Orientation="Vertical" VerticalAlignment="Center">
-            <TextBox Margin="12" Background="LightGray" x:Name="LoginTb"/>
-            <PasswordBox Margin="12" Background="LightGray" x:Name="PasswordPb"/>
-            <Button x:Name="AuthBtn" Margin="12" Content="Sign in" Click="AuthBtn_Click"/>
-        </StackPanel>
+        <TabControl>
+            <TabItem
+                Header="Sign In">
+
+                <Grid>
+                    <StackPanel HorizontalAlignment="Center" VerticalAlignment="Center">
+                        <WrapPanel >
+                            <materialDesign:PackIcon Kind="Account" VerticalAlignment="Center"/>
+                            <TextBox
+            x:Name="NameTextBox"
+             Width="280"
+            materialDesign:HintAssist.Hint="Login">
+                            </TextBox>
+                        </WrapPanel>
+                        <WrapPanel Margin="0, 20">
+                            <materialDesign:PackIcon Kind="Lock" VerticalAlignment="Center"/>
+                            <PasswordBox
+           x:Name="PasswordBox"
+              Width="280"
+           materialDesign:HintAssist.HelperText="At least 8 characters"
+           materialDesign:HintAssist.Hint="Password"
+           materialDesign:TextFieldAssist.HasClearButton="True" />
+                        </WrapPanel>
+                    </StackPanel>
+
+                    <Button
+                        VerticalAlignment="Bottom"
+                        Margin="100, 50"
+  Content="Sign In"
+  IsEnabled="{Binding DataContext.ControlsEnabled, RelativeSource={RelativeSource FindAncestor, AncestorType=Window}}"
+  Style="{StaticResource MaterialDesignPaperSecondaryButton}"
+  ToolTip="Resource name: MaterialDesignPaperSecondaryButton" Click="Button_Click" />
+                </Grid>
+            </TabItem>
+            <TabItem
+                Header="Create new...">
+                <Grid>
+                    <StackPanel HorizontalAlignment="Center" VerticalAlignment="Center">
+                        <WrapPanel >
+                            <materialDesign:PackIcon Kind="Account" VerticalAlignment="Center"/>
+                            <TextBox
+          x:Name="NameTextRegBox"
+           Width="280"
+          materialDesign:HintAssist.Hint="Login">
+                            </TextBox>
+                        </WrapPanel>
+                        <WrapPanel Margin="0, 20">
+                            <materialDesign:PackIcon Kind="Lock" VerticalAlignment="Center"/>
+                            <PasswordBox
+         x:Name="PasswordRegBox"
+            Width="280"
+         materialDesign:HintAssist.HelperText="At least 8 characters"
+         materialDesign:HintAssist.Hint="Password"
+         materialDesign:TextFieldAssist.HasClearButton="True" />
+                        </WrapPanel>
+                    </StackPanel>
+
+                    <Button
+                      VerticalAlignment="Bottom"
+                      Margin="100, 50"
+Content="Create new account"
+IsEnabled="{Binding DataContext.ControlsEnabled, RelativeSource={RelativeSource FindAncestor, AncestorType=Window}}"
+Style="{StaticResource MaterialDesignPaperSecondaryButton}"
+ToolTip="Resource name: MaterialDesignPaperSecondaryButton" Click="Button_Click_1" />
+                </Grid>
+            </TabItem>
+        </TabControl>
     </Grid>
 </Window>

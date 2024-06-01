@@ -9,7 +9,7 @@ namespace MemeWpfApp.Data
 {
     internal static class DataBaseManager
     {
-        private static Memesdb1Entities _dbConnection = new Memesdb1Entities();
+        private static HomeManagerEntities _dbConnection = new HomeManagerEntities();
 
         public static bool UpdateDatabase()
         {
@@ -24,16 +24,17 @@ namespace MemeWpfApp.Data
             }
         }
 
-        public static List<Meme> GetMemes()
+        public static List<HomeItem> GetHomeItems()
         {
-            return _dbConnection.Meme.ToList();
+            return _dbConnection.HomeItem.ToList();
         }
 
-        public static bool AddMeme(Meme m)
+        public static bool AddHomeItem(HomeItem m)
         {
             try
             {
-                _dbConnection.Meme.Add(m);
+                _dbConnection.HomeItem.Add(m);
+                UpdateDatabase();
                 return true;
             }
             catch {
@@ -41,11 +42,12 @@ namespace MemeWpfApp.Data
             }
         }
 
-        public static bool RemoveMeme(Meme m)
+        public static bool RemoveHomeItem(HomeItem m)
         {
             try
             {
-                _dbConnection.Meme.Remove(m);
+                _dbConnection.HomeItem.Remove(m);
+                UpdateDatabase();
                 return true;
             }
             catch
@@ -54,9 +56,9 @@ namespace MemeWpfApp.Data
             }
         }
 
-        public static List<MemeType> GetMemeTypes()
+        public static List<HomeItemType> GetHomeItemTypes()
         {
-            return _dbConnection.MemeType.ToList();
+            return _dbConnection.HomeItemType.ToList();
         }
 
         public static List<User> GetUsers()
@@ -69,17 +71,13 @@ namespace MemeWpfApp.Data
             try
             {
                 _dbConnection.User.Add(u);
+                UpdateDatabase();
                 return true;
             }
             catch
             {
                 return false;
             }
-        }
-
-        public static List<Role> GetRoles()
-        {
-            return _dbConnection.Role.ToList();
         }
     }
 }

@@ -1,4 +1,6 @@
-﻿using System;
+﻿using MemeWpfApp.Data;
+using MemeWpfApp.DbConnection;
+using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Text;
@@ -13,16 +15,20 @@ using System.Windows.Media.Imaging;
 using System.Windows.Navigation;
 using System.Windows.Shapes;
 
-namespace MemeWpfApp.MainPages
+namespace MemeWpfApp.Pages
 {
     /// <summary>
-    /// Логика взаимодействия для Profile.xaml
+    /// Логика взаимодействия для UserPage.xaml
     /// </summary>
-    public partial class Profile : Page
+    public partial class UserPage : Page
     {
-        public Profile()
+        private User user;
+        public UserPage()
         {
             InitializeComponent();
+
+            user = UserContext.AuthUser;
+            DataContext = user;
         }
     }
 }
