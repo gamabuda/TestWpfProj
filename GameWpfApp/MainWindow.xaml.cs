@@ -32,16 +32,38 @@ namespace GameWpfApp
             _games = DataBaseManager.GetGames();
             _users = DataBaseManager.GetUsers();
 
-            // проверка по роли
             if (UserContext.AuthUser.RoleId == 1)
                 TypeGamePageBtn.Visibility = Visibility.Visible;
             else
                 TypeGamePageBtn.Visibility = Visibility.Collapsed;
 
             MainFrame.NavigationService.Navigate(new MainPage());
+            try
+            {
+                SetCustomCursor(this);
+            }
+            catch (Exception ex)
+            {
+                MessageBox.Show($"{ex.Message}");
+            }
         }
 
-        // навигация
+        private void SetCustomCursor(FrameworkElement element)
+        {
+            try
+            {
+                string cursorFile = "Resources/Cake.cur";
+                var cursorStream = Application.GetResourceStream(new Uri(cursorFile, UriKind.Relative)).Stream;
+                var customCursor = new Cursor(cursorStream);
+                element.Cursor = customCursor;
+            }
+            catch (Exception ex)
+            {
+                MessageBox.Show($"{ex.Message}");
+                throw;
+            }
+        }
+
         private void Button_Click(object sender, RoutedEventArgs e)
         {
             MainFrame.NavigationService.Navigate(new MainPage());

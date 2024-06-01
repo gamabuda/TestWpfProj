@@ -9,11 +9,12 @@
       Title="RegisterPage">
 
     <Grid>
+        <TextBlock Text="Registration" TextAlignment="Center" Margin="0,30,0,0" FontSize="36"/>
         <StackPanel Orientation="Vertical" VerticalAlignment="Center">
             <TextBox Margin="12" Background="LightGray" x:Name="NameTb" Text="Name"/>
             <TextBox Margin="12" Background="LightGray" x:Name="SurnameTb" Text="Surname"/>
             <TextBox Margin="12" Background="LightGray" x:Name="LoginTb" Text="Login"/>
-            <PasswordBox Margin="12" Background="LightGray" x:Name="PasswordPb" />
+            <PasswordBox Margin="12" Background="LightGray" x:Name="PasswordPb" Password="Password" />
             <Button x:Name="RegisterBtn" Margin="12" Content="Register" Click="RegisterBtn_Click"/>
             <Button x:Name="BackBtn" Margin="12" Content="Back to Sign In" Click="BackBtn_Click"/>
         </StackPanel>

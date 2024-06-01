@@ -9,6 +9,7 @@
       Title="Profile">
 
     <Grid>
+        <TextBlock Text="Profile" Margin="0,30,0,20" FontSize="24" TextAlignment="Center"></TextBlock>
         <StackPanel VerticalAlignment="Center" HorizontalAlignment="Center">
             <Label Content="Name:"/>
             <TextBox Name="NameTextBox" Width="200" Margin="5"/>

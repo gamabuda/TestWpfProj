@@ -8,6 +8,7 @@
         Title="EditGameTypeWindow" Height="450" Width="800">
     <Grid>
         <StackPanel Margin="20">
+            <TextBlock Text="Game Type" TextAlignment="Center" FontSize="24" Margin="0,5,0,10"></TextBlock>
             <TextBox x:Name="TitleTb" Margin="10" />
             <Button x:Name="SaveBtn" Content="Save" Margin="10" Click="SaveBtn_Click"/>
         </StackPanel>

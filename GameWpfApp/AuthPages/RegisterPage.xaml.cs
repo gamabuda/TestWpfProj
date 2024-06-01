@@ -30,11 +30,41 @@ namespace GameWpfApp.AuthPages
 
         private void RegisterBtn_Click(object sender, RoutedEventArgs e)
         {
-            if (string.IsNullOrEmpty(NameTb.Text) || string.IsNullOrEmpty(SurnameTb.Text) || string.IsNullOrEmpty(LoginTb.Text) || string.IsNullOrEmpty(PasswordPb.Password))
+            if (string.IsNullOrEmpty(NameTb.Text) ||
+       string.IsNullOrEmpty(SurnameTb.Text) ||
+       string.IsNullOrEmpty(LoginTb.Text) ||
+       string.IsNullOrEmpty(PasswordPb.Password))
             {
                 MessageBox.Show("Please fill all fields!");
                 return;
             }
+
+            if (LoginTb.Text.Length <= 6)
+            {
+                MessageBox.Show("Login must be at least 6 characters long.");
+                return;
+            }
+
+            if (DataBaseManager.GetUsers().Any(u => u.Login == LoginTb.Text))
+            {
+                MessageBox.Show("This login is already taken. Please choose another one.");
+                return;
+            }
+
+            if (PasswordPb.Password.Length <= 6)
+            {
+                MessageBox.Show("Password must be at least 6 characters long.");
+                return;
+            }
+
+            if (!PasswordPb.Password.Any(char.IsUpper) ||
+                !PasswordPb.Password.Any(char.IsDigit) ||
+                PasswordPb.Password.All(char.IsLetterOrDigit))
+            {
+                MessageBox.Show("Password must contain at least one uppercase letter, one digit, and one special character.");
+                return;
+            }
+
 
             var newUser = new User
             {
@@ -42,7 +72,7 @@ namespace GameWpfApp.AuthPages
                 Surname = SurnameTb.Text,
                 Login = LoginTb.Text,
                 Password = PasswordPb.Password,
-                RoleId = 2 // Default role for new users
+                RoleId = 2
             };
 
             try
@@ -50,7 +80,6 @@ namespace GameWpfApp.AuthPages
                 DataBaseManager.AddUser(newUser);
                 DataBaseManager.UpdateDatabase();
                 MessageBox.Show("Registration successful!");
-                // Optionally, redirect to login page
                 NavigationService.Navigate(new AuthPage());
             }
             catch (Exception ex)
@@ -64,4 +93,6 @@ namespace GameWpfApp.AuthPages
             NavigationService.Navigate(new AuthPage());
         }
     }
+
+
 }

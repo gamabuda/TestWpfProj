@@ -207,6 +207,12 @@
       <DependentUpon>Model.edmx</DependentUpon>
       <LastGenOutput>Model.cs</LastGenOutput>
     </Content>
+    <Resource Include="Resources\fon2.gif" />
+    <Resource Include="Resources\Cookie.cur" />
+    <Resource Include="Resources\Golden Apple.cur" />
+    <Resource Include="Resources\Baked Potato.cur" />
+    <Resource Include="Resources\Apple.cur" />
+    <Resource Include="Resources\Cake.cur" />
   </ItemGroup>
   <ItemGroup>
     <Service Include="{508349B6-6B84-4DF5-91F0-309BEEBAD82D}" />

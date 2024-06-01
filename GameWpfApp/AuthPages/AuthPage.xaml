@@ -9,9 +9,10 @@
       Title="AuthPage">
 
     <Grid>
+        <TextBlock Text="Authorisation" TextAlignment="Center" Margin="0,35,0,0" FontSize="36"></TextBlock>
         <StackPanel Orientation="Vertical" VerticalAlignment="Center">
             <TextBox Margin="12" Background="LightGray" x:Name="LoginTb" Text="Login"/>
-            <PasswordBox Margin="12" Background="LightGray" x:Name="PasswordPb" />
+            <PasswordBox Margin="12" Background="LightGray" x:Name="PasswordPb" Password="Password" />
             <Button x:Name="AuthBtn" Margin="12" Content="Sign in" Click="AuthBtn_Click"/>
             <Button x:Name="RegisterBtn" Margin="12" Content="Register" Click="RegisterBtn_Click"/>
         </StackPanel>

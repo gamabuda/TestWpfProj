@@ -6,7 +6,9 @@
         xmlns:local="clr-namespace:GameWpfApp.Windows"
         mc:Ignorable="d"
         Title="AuthWindow" Height="450" Width="800">
+        
     <Grid>
+        <Image Source="pack://application:,,,/Resources/fon2.gif" Stretch="UniformToFill" Opacity="0.5"/>
         <Frame x:Name="AuthFrame" NavigationUIVisibility="Hidden" />
     </Grid>
 </Window>
