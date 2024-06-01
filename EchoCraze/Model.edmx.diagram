@@ -4,12 +4,11 @@
   <edmx:Designer xmlns="http://schemas.microsoft.com/ado/2009/11/edmx">
     <!-- Diagram content (shape and connector positions) -->
     <edmx:Diagrams>
-      <Diagram DiagramId="4284a5d94a6f4ebdbed01d2719f3bc67" Name="Diagram1">
+      <Diagram DiagramId="26aa8c1c4d1e4ebdb04340032ea15cb3" Name="Diagram1">
         <EntityTypeShape EntityType="MusicdbModel.Genre" Width="1.5" PointX="3" PointY="4.75" IsExpanded="true" />
         <EntityTypeShape EntityType="MusicdbModel.Melody" Width="1.5" PointX="5.25" PointY="1" IsExpanded="true" />
         <EntityTypeShape EntityType="MusicdbModel.Role" Width="1.5" PointX="0.75" PointY="2" IsExpanded="true" />
         <EntityTypeShape EntityType="MusicdbModel.SortType" Width="1.5" PointX="3" PointY="8.125" IsExpanded="true" />
-        <EntityTypeShape EntityType="MusicdbModel.sysdiagrams" Width="1.5" PointX="5.75" PointY="5.75" IsExpanded="true" />
         <EntityTypeShape EntityType="MusicdbModel.User" Width="1.5" PointX="3" PointY="1.625" IsExpanded="true" />
         <AssociationConnector Association="MusicdbModel.FK_Melody_Genre" ManuallyRouted="false" />
         <AssociationConnector Association="MusicdbModel.FK_Melody_SortType" ManuallyRouted="false" />

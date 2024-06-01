@@ -1,20 +1,19 @@
-﻿<Window x:Class="EchoCraze.Pages.Auth"
+﻿<Window x:Class="EchoCraze.Windows.Reg"
         xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
         xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
         xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
         xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
-        xmlns:local="clr-namespace:EchoCraze.Pages"
+        xmlns:local="clr-namespace:EchoCraze.Windows"
         mc:Ignorable="d"
-        Title="Auth" Height="400" Width="450">
-    <Grid>
+        Title="Reg" Height="450" Width="800">
+    <Grid x:Name="Registration">
         <StackPanel Orientation="Vertical" VerticalAlignment="Center">
-            <Label Content="Welcome to the AuthPage!"/>
+            <Label Content="Welcome to the RegPage!"/>
             <Label Content="Login:"></Label>
             <TextBox x:Name="LoginTB"></TextBox>
             <Label Content="Password:"></Label>
-            <TextBox x:Name="PasswordTB"></TextBox>
-            <Button x:Name="LoginBtn" Content="Sign In" Click="LoginBtn_Click"/>
-            <Button Content="Dont have an account?" Click="Button_Click"></Button>
+            <PasswordBox x:Name="PasswordTB"></PasswordBox>
+            <Button x:Name="RegBtn" Content="Reg" Click="RegBtn_Click" />
         </StackPanel>
     </Grid>
 </Window>

@@ -17,6 +17,7 @@ using System.Windows.Navigation;
 using System.Windows.Shapes;
 using EchoCraze.Base;
 using EchoCraze.MainPages;
+using EchoCraze.Windows;
 
 namespace EchoCraze
 {
@@ -39,6 +40,25 @@ namespace EchoCraze
             _melodies = Base.Basedb.GetMelodyes();
             _sortTypes = Base.Basedb.GetSortTypes();
             _genres = Base.Basedb.GetGenres();
+            
+            if (UserContext.AuthUser.Id_Role == 1)
+            {
+                MelodyLv.Visibility = Visibility.Visible;
+                MelodyTitleTb.Visibility = Visibility.Visible;
+                AuthorTb.Visibility = Visibility.Visible;
+                AlbumTb.Visibility = Visibility.Visible;
+                MostTB.Visibility = Visibility.Visible;
+            }
+
+            else
+            {
+                MelodyLv.Visibility = Visibility.Collapsed;
+                MelodyTitleTb.Visibility = Visibility.Collapsed;
+                AuthorTb.Visibility = Visibility.Collapsed;
+                AlbumTb.Visibility = Visibility.Collapsed;
+                
+            }
+              
 
 
             MelodyLv.DataContext = this;
@@ -79,8 +99,8 @@ namespace EchoCraze
         }
         private void EditMI_Click(object sender, RoutedEventArgs e)
         {
-            //Meme selectedMeme = (Meme)MemeLV.SelectedItem;
-            //new EditWindow(selectedMeme).ShowDialog();
+            Melody selectedMeme = (Melody)MelodyLv.SelectedItem;
+            new Edit(selectedMeme).ShowDialog();
         }
 
 
