@@ -8,7 +8,17 @@
       d:DesignHeight="450" d:DesignWidth="800"
       Title="GameTypePage">
 
-    <Grid>
-        <Label Content="Страница с типами игр видна только админу!"/>
-    </Grid>
+    <DataGrid Name="GameTypeDataGrid" AutoGenerateColumns="False" HorizontalAlignment="Stretch" VerticalAlignment="Stretch">
+        <DataGrid.Columns>
+            <DataGridTextColumn Header="ID" Binding="{Binding Id}" Width="50"/>
+            <DataGridTextColumn Header="Title" Binding="{Binding Title}" Width="700"/>
+        </DataGrid.Columns>
+        <DataGrid.ContextMenu>
+            <ContextMenu>
+                <MenuItem Header="Edit" Click="EditMenuItem_Click"/>
+                <MenuItem Header="Add" Click="AddMenuItem_Click"/>
+                <MenuItem Header="Delete" Click="DeleteMenuItem_Click"/>
+            </ContextMenu>
+        </DataGrid.ContextMenu>
+    </DataGrid>
 </Page>

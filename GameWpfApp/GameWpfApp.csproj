@@ -64,9 +64,29 @@
       <Generator>MSBuild:Compile</Generator>
       <SubType>Designer</SubType>
     </ApplicationDefinition>
+    <Compile Include="AuthPages\AuthPage.xaml.cs">
+      <DependentUpon>AuthPage.xaml</DependentUpon>
+    </Compile>
+    <Compile Include="AuthPages\RegisterPage.xaml.cs">
+      <DependentUpon>RegisterPage.xaml</DependentUpon>
+    </Compile>
     <Compile Include="Windows\AuthWindow.xaml.cs">
       <DependentUpon>AuthWindow.xaml</DependentUpon>
     </Compile>
+    <Compile Include="Windows\EditGameTypeWindow.xaml.cs">
+      <DependentUpon>EditGameTypeWindow.xaml</DependentUpon>
+    </Compile>
+    <Compile Include="Windows\EditGameWindow.xaml.cs">
+      <DependentUpon>EditGameWindow.xaml</DependentUpon>
+    </Compile>
+    <Page Include="AuthPages\AuthPage.xaml">
+      <SubType>Designer</SubType>
+      <Generator>MSBuild:Compile</Generator>
+    </Page>
+    <Page Include="AuthPages\RegisterPage.xaml">
+      <SubType>Designer</SubType>
+      <Generator>MSBuild:Compile</Generator>
+    </Page>
     <Page Include="MainPages\GameTypePage.xaml">
       <SubType>Designer</SubType>
       <Generator>MSBuild:Compile</Generator>
@@ -130,6 +150,14 @@
       <SubType>Code</SubType>
     </Compile>
     <Page Include="Windows\AuthWindow.xaml">
+      <SubType>Designer</SubType>
+      <Generator>MSBuild:Compile</Generator>
+    </Page>
+    <Page Include="Windows\EditGameTypeWindow.xaml">
+      <SubType>Designer</SubType>
+      <Generator>MSBuild:Compile</Generator>
+    </Page>
+    <Page Include="Windows\EditGameWindow.xaml">
       <SubType>Designer</SubType>
       <Generator>MSBuild:Compile</Generator>
     </Page>

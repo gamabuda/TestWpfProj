@@ -1,4 +1,6 @@
-﻿using System;
+﻿using GameWpfApp.Windows;
+using Microsoft.Win32;
+using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Text;
@@ -12,6 +14,8 @@ using System.Windows.Media;
 using System.Windows.Media.Imaging;
 using System.Windows.Navigation;
 using System.Windows.Shapes;
+using GameWpfApp.DbConnection;
+using GameWpfApp.Data;
 
 namespace GameWpfApp.MainPages
 {
@@ -20,9 +24,56 @@ namespace GameWpfApp.MainPages
     /// </summary>
     public partial class Profile : Page
     {
+        private User _currentUser;
+
         public Profile()
         {
             InitializeComponent();
+            LoadUserData();
+        }
+
+        private void LoadUserData()
+        {
+            var currentUser = UserContext.AuthUser;
+
+            if (currentUser != null)
+            {
+                NameTextBox.Text = currentUser.Name;
+                SurnameTextBox.Text = currentUser.Surname;
+                LoginTextBox.Text = currentUser.Login;
+                PasswordBox.Password = currentUser.Password;
+            }
+        }
+
+        private void SaveButton_Click(object sender, RoutedEventArgs e)
+        {
+            var currentUser = UserContext.AuthUser;
+
+            if (currentUser != null)
+            {
+                currentUser.Name = NameTextBox.Text;
+                currentUser.Surname = SurnameTextBox.Text;
+                currentUser.Login = LoginTextBox.Text;
+                currentUser.Password = PasswordBox.Password;
+
+                try
+                {
+                    DataBaseManager.SaveChanges();
+                    MessageBox.Show("Changes saved successfully.");
+                }
+                catch (Exception ex)
+                {
+                    MessageBox.Show($"Error saving changes: {ex.Message}");
+                }
+            }
+        }
+
+        private void LogoutButton_Click(object sender, RoutedEventArgs e)
+        {
+            UserContext.AuthUser = null;
+            var authWindow = new AuthWindow();
+            authWindow.Show();
+            Window.GetWindow(this)?.Close();
         }
     }
 }

@@ -24,11 +24,13 @@ namespace GameWpfApp
     public partial class MainWindow : Window
     {
         private List<Game> _games;
+        private List<User> _users;
         public MainWindow()
         {
             InitializeComponent();
 
             _games = DataBaseManager.GetGames();
+            _users = DataBaseManager.GetUsers();
 
             // проверка по роли
             if (UserContext.AuthUser.RoleId == 1)

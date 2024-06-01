@@ -13,6 +13,7 @@ using System.Windows.Media.Imaging;
 using System.Windows.Shapes;
 using GameWpfApp.DbConnection;
 using GameWpfApp.Data;
+using GameWpfApp.AuthPages;
 
 namespace GameWpfApp.Windows
 {
@@ -24,53 +25,7 @@ namespace GameWpfApp.Windows
         public AuthWindow()
         {
             InitializeComponent();
-        }
-
-        private void AuthBtn_Click(object sender, RoutedEventArgs e)
-        {
-            if (String.IsNullOrEmpty(LoginTb.Text) || String.IsNullOrEmpty(PasswordPb.Password))
-            {
-                MessageBox.Show("Please fill all fields!");
-                return;
-            }
-
-            // reg or auth choose what u want
-            //if (Reg(LoginTb.Text, PasswordPb.Password))
-            if (Auth(LoginTb.Text, PasswordPb.Password))
-            {
-                new MainWindow().Show();
-                this.Close();
-            }
-            else
-                MessageBox.Show("This data is not correct!");
-        }
-
-        private bool Auth(string login, string password)
-        {
-            var user = DataBaseManager.GetUsers().
-                FirstOrDefault(x => x.Login == login && x.Password == password);
-
-            if (user != null)
-            {
-                UserContext.AuthUser = user;
-                return true;
-            }
-            else
-                return false;
-        }
-
-        private bool Reg(string login, string password)
-        {
-            var newUser = new User();
-            newUser.Login = LoginTb.Text;
-            newUser.Password = PasswordPb.Password;
-            newUser.RoleId = 2;
-            newUser.Name = "Unkown";
-            newUser.Surname = "Unkown";
-
-            DataBaseManager.AddUser(newUser);
-            DataBaseManager.UpdateDatabase();
-            return true;
+            AuthFrame.Navigate(new AuthPage());
         }
     }
 }

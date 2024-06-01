@@ -29,12 +29,17 @@ namespace GameWpfApp.Data
             return _dbConnection.Game.ToList();
         }
 
-        public static bool AddGame(Game m)
+        public static bool UpdateGame(Game m)
         {
             try
             {
-                _dbConnection.Game.Add(m);
-                return true;
+                var game = _dbConnection.Game.FirstOrDefault(g => g.Id == m.Id);
+                if (game != null)
+                {
+                    _dbConnection.Entry(game).CurrentValues.SetValues(m);
+                    return true;
+                }
+                return false;
             }
             catch
             {
@@ -42,15 +47,37 @@ namespace GameWpfApp.Data
             }
         }
 
-        public static bool RemoveGame(Game m)
+        public static bool AddGame(Game game)
         {
             try
             {
-                _dbConnection.Game.Remove(m);
+                _dbConnection.Game.Add(game);
+                _dbConnection.SaveChanges();
                 return true;
             }
-            catch
+            catch (Exception ex)
             {
+                Console.WriteLine(ex.Message);
+                return false;
+            }
+        }
+
+        public static bool RemoveGame(Game game)
+        {
+            try
+            {
+                var gameToRemove = _dbConnection.Game.FirstOrDefault(g => g.Id == game.Id);
+                if (gameToRemove != null)
+                {
+                    _dbConnection.Game.Remove(gameToRemove);
+                    _dbConnection.SaveChanges();
+                    return true;
+                }
+                return false;
+            }
+            catch (Exception ex)
+            {
+                Console.WriteLine(ex.Message);
                 return false;
             }
         }
@@ -60,9 +87,69 @@ namespace GameWpfApp.Data
             return _dbConnection.GameType.ToList();
         }
 
+        public static bool AddGameType(GameType gameType)
+        {
+            try
+            {
+                _dbConnection.GameType.Add(gameType);
+                _dbConnection.SaveChanges();
+                return true;
+            }
+            catch (Exception ex)
+            {
+                Console.WriteLine(ex.Message);
+                return false;
+            }
+        }
+
+        public static bool UpdateGameType(GameType gameType)
+        {
+            try
+            {
+                var existingGameType = _dbConnection.GameType.FirstOrDefault(gt => gt.Id == gameType.Id);
+                if (existingGameType != null)
+                {
+                    _dbConnection.Entry(existingGameType).CurrentValues.SetValues(gameType);
+                    _dbConnection.SaveChanges();
+                    return true;
+                }
+                return false;
+            }
+            catch (Exception ex)
+            {
+                Console.WriteLine(ex.Message);
+                return false;
+            }
+        }
+
+        public static bool RemoveGameType(GameType gameType)
+        {
+            try
+            {
+                var gameTypeToRemove = _dbConnection.GameType.FirstOrDefault(gt => gt.Id == gameType.Id);
+                if (gameTypeToRemove != null)
+                {
+                    _dbConnection.GameType.Remove(gameTypeToRemove);
+                    _dbConnection.SaveChanges();
+                    return true;
+                }
+                return false;
+            }
+            catch (Exception ex)
+            {
+                Console.WriteLine(ex.Message);
+                return false;
+            }
+        }
+
         public static List<User> GetUsers()
         {
             return _dbConnection.User.ToList();
+        }
+
+        public static void SaveChanges()
+        {
+            _dbConnection.SaveChanges();
         }
 
         public static bool AddUser(User u)

@@ -1,0 +1,43 @@
+﻿<Window x:Class="GameWpfApp.Windows.EditGameWindow"
+        xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+        xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+        xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
+        xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
+        xmlns:local="clr-namespace:GameWpfApp.Windows"
+        mc:Ignorable="d"
+        Title="EditGameWindow" Height="450" Width="800">
+    <Grid Margin="10">
+        <Grid.RowDefinitions>
+            <RowDefinition Height="Auto"/>
+            <RowDefinition Height="Auto"/>
+            <RowDefinition Height="Auto"/>
+            <RowDefinition Height="Auto"/>
+            <RowDefinition Height="Auto"/>
+            <RowDefinition Height="*"/>
+            <RowDefinition Height="Auto"/>
+        </Grid.RowDefinitions>
+
+        <Label Content="Title" Grid.Row="0"/>
+        <TextBox x:Name="TitleTextBox" Grid.Row="0" Margin="100,0,0,0"/>
+
+        <Label Content="Publishing Date" Grid.Row="1"/>
+        <DatePicker x:Name="DatePublishingPicker" Grid.Row="1" Margin="100,0,0,0"/>
+
+        <Label Content="Game Type" Grid.Row="2"/>
+        <ComboBox x:Name="GameTypeComboBox" Grid.Row="2" Margin="100,0,0,0"/>
+
+        <Label Content="Description" Grid.Row="3"/>
+        <TextBox x:Name="DescriptionTextBox" Grid.Row="3" Margin="100,0,0,0"/>
+
+        <Label Content="Owner" Grid.Row="4"/>
+        <ComboBox x:Name="OwnerComboBox" Grid.Row="4" Margin="100,0,0,0"/>
+
+        <Label Content="Image" Grid.Row="5"/>
+        <TextBox x:Name="ImageTextBox" Grid.Row="5" Margin="100,0,0,0"/>
+
+        <StackPanel Grid.Row="6" Orientation="Horizontal" HorizontalAlignment="Right">
+            <Button Content="Save" Click="SaveButton_Click" Margin="0,10,10,10"/>
+            <Button Content="Cancel" Click="CancelButton_Click" Margin="0,10,0,10"/>
+        </StackPanel>
+    </Grid>
+</Window>

@@ -9,6 +9,17 @@
       Title="Profile">
 
     <Grid>
-        <Label Content="Страница с профилем видна всем!"/>
+        <StackPanel VerticalAlignment="Center" HorizontalAlignment="Center">
+            <Label Content="Name:"/>
+            <TextBox Name="NameTextBox" Width="200" Margin="5"/>
+            <Label Content="Surname:"/>
+            <TextBox Name="SurnameTextBox" Width="200" Margin="5"/>
+            <Label Content="Login:"/>
+            <TextBox Name="LoginTextBox" Width="200" Margin="5"/>
+            <Label Content="Password:"/>
+            <PasswordBox Name="PasswordBox" Width="200" Margin="5"/>
+            <Button Content="Save" Click="SaveButton_Click" Width="100" Margin="5"/>
+            <Button Content="Logout" Click="LogoutButton_Click" Width="100" Margin="5"/>
+        </StackPanel>
     </Grid>
 </Page>
