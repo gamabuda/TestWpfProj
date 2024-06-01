@@ -12,6 +12,22 @@ namespace WPFProjectDB.Data
         {
             return _dataBase.Users.ToList();
         }
+        public static List<UserRole> GetUserRole()
+        {
+            return _dataBase.UserRole.ToList();
+        }
+
+        public static bool AddRole(UserRole role)
+        {
+            try
+            {
+                _dataBase.UserRole.Add(role);
+                _dataBase.SaveChanges();
+                return true;
+            }
+            catch { return false; }
+        }
+
         public static bool AddUser(Users user)
         {
             try
@@ -25,11 +41,39 @@ namespace WPFProjectDB.Data
                 return false;
             }
         }
+
+        public static bool RemoveRole(UserRole role)
+        {
+            try
+            {
+                _dataBase.UserRole.Remove(role);
+                _dataBase.SaveChanges();
+                return true;
+            }
+            catch
+            {
+                return false;
+            }
+
+        }
         public static bool RemoveUser(Users user)
         {
             try
             {
                 _dataBase.Users.Remove(user);
+                _dataBase.SaveChanges();
+                return true;
+            }
+            catch
+            {
+                return false;
+            }
+        }
+        public static bool UpdateRoles(UserRole role)
+        {
+            try
+            {
+                _dataBase.Entry(role).State = System.Data.Entity.EntityState.Modified;
                 _dataBase.SaveChanges();
                 return true;
             }

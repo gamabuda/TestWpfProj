@@ -12,15 +12,18 @@ namespace WPFProjectDB.DataBaseConnection
     using System;
     using System.Collections.Generic;
     
-    public partial class Users
+    public partial class UserRole
     {
-        public int User_id { get; set; }
-        public string Login { get; set; }
-        public string Password { get; set; }
-        public string Username { get; set; }
-        public byte[] UserImage { get; set; }
-        public Nullable<int> Role_id { get; set; }
+        [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2214:DoNotCallOverridableMethodsInConstructors")]
+        public UserRole()
+        {
+            this.Users = new HashSet<Users>();
+        }
     
-        public virtual UserRole UserRole { get; set; }
+        public int Role_id { get; set; }
+        public string Title { get; set; }
+    
+        [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2227:CollectionPropertiesShouldBeReadOnly")]
+        public virtual ICollection<Users> Users { get; set; }
     }
 }

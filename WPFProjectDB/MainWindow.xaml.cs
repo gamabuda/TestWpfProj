@@ -9,6 +9,7 @@ using TestWpfProj.Windows;
 using WPFProjectDB.Data;
 using WPFProjectDB.DataBaseConnection;
 using System.IO;
+using WPFProjectDB.Windows;
 
 namespace WPFProjectDB
 {
@@ -118,7 +119,8 @@ namespace WPFProjectDB
 
             if (!string.IsNullOrEmpty(SerchTB.Text))
             {
-                tempLst = tempLst.Where(x => x.Title.Contains(SerchTB.Text));
+                string searchText = SerchTB.Text.ToLower();
+                tempLst = tempLst.Where(x => x.Title.ToLower().Contains(searchText));
             }
 
             var type = (LanguageType)FilterCB.SelectedItem;
@@ -153,6 +155,7 @@ namespace WPFProjectDB
             LstView.Items.Refresh();
         }
 
+
         private void ExportToCSV_Click(object sender, RoutedEventArgs e)
         {
             SaveFileDialog saveFileDialog = new SaveFileDialog();
@@ -178,6 +181,16 @@ namespace WPFProjectDB
             }
 
             File.WriteAllText(filePath, csv.ToString());
+        }
+
+        private void Button_Click_2(object sender, RoutedEventArgs e)
+        {
+            new LangTypeWindow().Show();
+        }
+
+        private void Button_Click_3(object sender, RoutedEventArgs e)
+        {
+            new UserRoleWindow().Show();
         }
     }
 }

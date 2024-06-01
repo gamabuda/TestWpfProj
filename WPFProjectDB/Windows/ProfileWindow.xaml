@@ -37,7 +37,9 @@
                 </WrapPanel>
                 <WrapPanel>
                     <Label Content="Пароль:"/>
-                    <TextBlock Text="{Binding Password}"/>
+                    <TextBlock
+                        
+                        Text="{Binding Password}"/>
                 </WrapPanel>
             </StackPanel>
 
