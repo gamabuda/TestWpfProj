@@ -6,33 +6,41 @@ using System.Threading.Tasks;
 
 namespace TestWpfProj.Data
 {
-    public class Meme
+    public class Genre
     {
-        public Meme(string title)
-        {
-            Id = Guid.NewGuid().ToString();
-            Title = title;
-        }
+        public string Name { get; set; }
 
-        public Meme(string title, MemeType type)
+        public Genre(string name)
         {
-            Id = Guid.NewGuid().ToString();
-            Title = title;
-            MemeType = type;
+            Name = name;
         }
+    }
 
-        public Meme(string title, MemeType type, decimal price)
-        {
-            Id = Guid.NewGuid().ToString();
-            Title = title;
-            MemeType = type;
-            Price = price;
-        }
-
+    public class Media
+    {
         public string Id { get; set; }
         public string Title { get; set; }
-        public MemeType? MemeType { get; set; }
+        public Genre Genre { get; set; }
 
-        public decimal Price { get; set; } = 0;
+        public Media(string title, Genre genre)
+        {
+            Id = Guid.NewGuid().ToString();
+            Title = title;
+            Genre = genre;
+        }
+    }
+
+    public class Movie : Media
+    {
+        public Movie(string title, Genre genre) : base(title, genre)
+        {
+        }
+    }
+
+    public class Series : Media
+    {
+        public Series(string title, Genre genre) : base(title, genre)
+        {
+        }
     }
 }
