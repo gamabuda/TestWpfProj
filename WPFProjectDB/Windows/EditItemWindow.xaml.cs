@@ -11,11 +11,13 @@ namespace TestWpfProj.Windows
     {
         private Languages _language;
         private byte[] _img = new byte[0];
+        private Users _currentUser;
 
-        public EditItemWindow(Languages lang)
+        public EditItemWindow(Languages lang, Users user)
         {
             InitializeComponent();
             _language = lang;
+            _currentUser = user;
             this.DataContext = _language;
 
             if (_language.Image != null && _language.Image.Length > 0)
@@ -41,9 +43,16 @@ namespace TestWpfProj.Windows
 
         private void SaveBtn_Click(object sender, RoutedEventArgs e)
         {
-            _language.Image = _img;
-            this.DialogResult = true;
-            this.Close();
+            if (_currentUser.Role_id == 1)
+            {
+                _language.Image = _img;
+                this.DialogResult = true;
+                this.Close();
+            }
+            else
+            {
+                MessageBox.Show("У вас нет прав для сохранения изменений.", "Ошибка доступа", MessageBoxButton.OK, MessageBoxImage.Warning);
+            }
         }
 
         private void CloseBtn_Click(object sender, RoutedEventArgs e)

@@ -5,6 +5,7 @@ using System.Windows.Controls;
 using WPFProjectDB;
 using WPFProjectDB.Data;
 using WPFProjectDB.DataBaseConnection;
+using WPFProjectDB.Windows;
 
 namespace TestWpfProj.Windows
 {
@@ -66,6 +67,11 @@ namespace TestWpfProj.Windows
             }
             else
                 MessageBox.Show("The occured exeption with auth with Guest account");
+        }
+
+        private void Registration_Click(object sender, RoutedEventArgs e)
+        {
+            new SignIn().Show();
         }
     }
 }

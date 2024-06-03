@@ -74,11 +74,27 @@ namespace WPFProjectDB
         private void EditMI_Click(object sender, RoutedEventArgs e)
         {
             Languages selectedLang = (Languages)LstView.SelectedItem;
-            if (new EditItemWindow(selectedLang).ShowDialog() == true)
+
+            if (selectedLang != null)
             {
-                UpdateListView();
+                if (CurrentUser.Role_id == 1)
+                {
+                    if (new EditItemWindow(selectedLang, CurrentUser).ShowDialog() == true)
+                    {
+                        UpdateListView();
+                    }
+                }
+                else
+                {
+                    MessageBox.Show("У вас нет прав для редактирования этого элемента.", "Ошибка доступа", MessageBoxButton.OK, MessageBoxImage.Warning);
+                }
+            }
+            else
+            {
+                MessageBox.Show("Пожалуйста, выберите элемент для редактирования.", "Ошибка", MessageBoxButton.OK, MessageBoxImage.Error);
             }
         }
+
 
         private void RefreshBtn_Click(object sender, RoutedEventArgs e)
         {
@@ -154,7 +170,6 @@ namespace WPFProjectDB
             LstView.ItemsSource = tempLst.ToList();
             LstView.Items.Refresh();
         }
-
 
         private void ExportToCSV_Click(object sender, RoutedEventArgs e)
         {

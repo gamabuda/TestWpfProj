@@ -107,6 +107,9 @@
     <Compile Include="Windows\EditItemWindow.xaml.cs">
       <DependentUpon>EditItemWindow.xaml</DependentUpon>
     </Compile>
+    <Compile Include="Windows\SignIn.xaml.cs">
+      <DependentUpon>SignIn.xaml</DependentUpon>
+    </Compile>
     <Compile Include="Windows\UserRoleWindow.xaml.cs">
       <DependentUpon>UserRoleWindow.xaml</DependentUpon>
     </Compile>
@@ -140,6 +143,10 @@
     <Page Include="Windows\EditItemWindow.xaml">
       <Generator>MSBuild:Compile</Generator>
       <SubType>Designer</SubType>
+    </Page>
+    <Page Include="Windows\SignIn.xaml">
+      <SubType>Designer</SubType>
+      <Generator>MSBuild:Compile</Generator>
     </Page>
     <Page Include="Windows\UserRoleWindow.xaml">
       <SubType>Designer</SubType>

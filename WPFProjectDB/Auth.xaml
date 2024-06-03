@@ -31,6 +31,7 @@
             <Button Name="LoginButton" Content="Login" Width="75" Margin="5" IsDefault="True" Click="LoginButton_Click"/>
             <Button Name="ContinueAsAGuest" Content="Guest" Width="75" Margin="5" IsDefault="True" Click="ContinueAsAGuest_Click"/>
             <Button Name="CancelButton" Content="Cancel" Width="75" Margin="5" IsCancel="True" Click="CancelButton_Click"/>
+            <Button Name="Registration" Content="Sign In" Width="75" Margin="5" Click="Registration_Click"></Button>
         </StackPanel>
     </Grid>
 </Window>
